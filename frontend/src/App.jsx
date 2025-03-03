@@ -1,11 +1,13 @@
 // import { useState } from 'react'
-import './App.css'
+
 
 function App() {
 
   return (
     <>
-      <h1>Roomies U</h1>
+    <div className="bg-lime-600 flex justify-center items-center h-16">
+      <h1 className="font-bold text-center">Roomies U</h1>
+    </div>
     </>
   )
 }
