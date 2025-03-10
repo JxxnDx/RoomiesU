@@ -1,15 +1,21 @@
 import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
 import AuthLayout from "./layouts/AuthLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 
-import Home from "./pages/home";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import StudentHome from "./pages/StudentHome";
+// Lazy loading para las páginas principales
+const Home = lazy(() => import("./pages/home"));
+const Login = lazy(() => import("./pages/login"));
+const Register = lazy(() => import("./pages/register"));
+const StudentHome = lazy(() => import("./pages/StudentHome"));
 
+// Componente de carga mientras se renderizan las rutas
+const Loading = () => <div>Cargando...</div>;
 function App() {
   return (
+    <Suspense fallback={<Loading />}>
     <Routes>
       {/*  Páginas públicas */}
       <Route element={<PublicLayout />}>
@@ -27,6 +33,7 @@ function App() {
       <Route path="/studenthome" element={<StudentHome />} />
       </Route>
     </Routes>
+    </Suspense>
   );
 }
 
