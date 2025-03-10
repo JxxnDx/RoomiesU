@@ -6,6 +6,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import StudentHome from "./pages/StudentHome";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
 
       {/* Páginas privadas después de iniciar sesión */}
       <Route element={<StudentLayout />}>
-        
+      <Route path="/studenthome" element={<StudentHome />} />
       </Route>
     </Routes>
   );
