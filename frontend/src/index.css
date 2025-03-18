@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@layer components {
+    .links-header{
+        @apply px-5 py-2 hover:text-white hover:bg-gray-600
+        rounded-xl hover:rounded-3xl
+        transition-all duration-500;
+    }
+
+    .links-auth{
+        @apply px-2 py-2 hover:text-white
+        transition-all;
+    }
+}

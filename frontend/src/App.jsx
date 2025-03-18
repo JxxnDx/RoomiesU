@@ -6,8 +6,8 @@ import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 
 // Lazy loading para las páginas principales
-const Home = lazy(() => import("./pages/home"));
-const Login = lazy(() => import("./pages/login"));
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/register"));
 const StudentHome = lazy(() => import("./pages/StudentHome"));
 
