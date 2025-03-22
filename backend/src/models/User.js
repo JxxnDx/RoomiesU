@@ -10,3 +10,27 @@ export const getAllUsers = async () => {
         throw error;
     }
 };
+
+export const findUserByEmail = async (email) => {
+    try {
+        const [rows] = await pool.query(
+            `SELECT correo FROM estudiante WHERE correo = ? 
+             UNION 
+             SELECT correo FROM administrador WHERE correo = ?`,
+            [email, email]
+        );
+
+        console.log("📝 Resultado de la consulta:", rows); // 👀 Ver qué devuelve la BD
+
+        return rows.length > 0 ? rows[0] : null;
+    } catch (error) {
+        console.error("❌ Error en findUserByEmail:", error);
+        throw error;
+    }
+};
+
+// Actualizar contraseña del usuario
+export const updatePassword = async (email, hashedPassword) => {
+    await pool.query("UPDATE estudiante SET password = ? WHERE correo = ?", [hashedPassword, email]);
+    await pool.query("UPDATE administrador SET password = ? WHERE correo = ?", [hashedPassword, email]);
+};

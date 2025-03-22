@@ -98,6 +98,12 @@ const Login = () => {
         >
         Regístrate aquí
         </span>
+        <span
+        className="text-green-400 hover:underline cursor-pointer"
+        onClick={() => navigate("/register")}
+        >
+        Recuperar contraseña
+        </span>
         </p>
       </form>
     </div>
