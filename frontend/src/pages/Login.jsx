@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md w-full max-w-md">
+    <div className="bg-gray-900 text-white p-6 rounded-lg  w-full max-w-md">
       <h2 className="text-2xl font-bold text-center">Iniciar Sesión</h2>
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="mt-4">
@@ -98,9 +98,11 @@ const Login = () => {
         >
         Regístrate aquí
         </span>
+        </p>
+        <p className="text-sm text-center mt-2">
         <span
         className="text-green-400 hover:underline cursor-pointer"
-        onClick={() => navigate("/register")}
+        onClick={() => navigate("/forgot-password")}
         >
         Recuperar contraseña
         </span>

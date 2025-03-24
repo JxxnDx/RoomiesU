@@ -29,8 +29,23 @@ export const findUserByEmail = async (email) => {
     }
 };
 
-// Actualizar contraseña del usuario
-export const updatePassword = async (email, hashedPassword) => {
-    await pool.query("UPDATE estudiante SET password = ? WHERE correo = ?", [hashedPassword, email]);
-    await pool.query("UPDATE administrador SET password = ? WHERE correo = ?", [hashedPassword, email]);
+export const updatePassword = async (email, newHash, newSalt) => {
+    try {
+        // Verificar en qué tabla está el usuario
+        const [estudiante] = await pool.query("SELECT Correo FROM estudiante WHERE Correo = ?", [email]);
+        const [administrador] = await pool.query("SELECT Correo FROM administrador WHERE Correo = ?", [email]);
+
+        if (estudiante.length > 0) {
+            await pool.query("UPDATE estudiante SET Hash = ?, Salt = ? WHERE Correo = ?", [newHash, newSalt, email]);
+            console.log(`✅ Contraseña actualizada para ${email} en la tabla estudiante.`);
+        } else if (administrador.length > 0) {
+            await pool.query("UPDATE administrador SET Hash = ?, Salt = ? WHERE Correo = ?", [newHash, newSalt, email]);
+            console.log(`✅ Contraseña actualizada para ${email} en la tabla administrador.`);
+        } else {
+            console.warn(`⚠ No se encontró el usuario ${email} en ninguna tabla.`);
+        }
+    } catch (error) {
+        console.error("❌ Error en updatePassword:", error);
+        throw error;
+    }
 };
