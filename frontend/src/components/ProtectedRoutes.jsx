@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
+//Se maneja el bloqueo de rutas de acuerdo al rol que se manejen
 const ProtectedRoute = ({ allowedRoles }) => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
