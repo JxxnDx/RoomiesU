@@ -1,10 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 
 import AuthLayout from "./layouts/AuthLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import Admindashboard from "./pages/admindashboard";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -38,10 +41,20 @@ function App() {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Route>
 
-      {/* Páginas privadas después de iniciar sesión */}
-      <Route element={<StudentLayout />}>
-      <Route path="/studenthome" element={<StudentHome />} />
-      </Route>
+      {/* Rutas protegidas para estudiantes */}
+      <Route element={<ProtectedRoutes allowedRoles={["student"]} />}>
+          <Route element={<StudentLayout />}>
+            <Route path="/studenthome" element={<StudentHome />} />
+          </Route>
+        </Route>
+
+        {/* Rutas protegidas para administradores */}
+        <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+          <Route element={<AdminLayout />}>
+            <Route path="/admindashboard" element={<Admindashboard />} />
+          </Route>
+        </Route>
+
     </Routes>
     </Suspense>
   );

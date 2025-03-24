@@ -33,7 +33,7 @@ const Login = () => {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", role);
-      navigate(role === "admin" ? "/admin/dashboard" : "/studenthome");
+      navigate(role === "admin" ? "/admindashboard" : "/studenthome");
     } catch (err) {
       setError("Credenciales incorrectas o usuario no encontrado.");
     }
