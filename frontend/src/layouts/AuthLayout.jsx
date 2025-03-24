@@ -6,23 +6,29 @@ const AuthLayout = () => {
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/layout_auth_roomiesu.jpg";
-    img.onload = () => setImageLoaded(true); // Cambia el estado cuando se carga la imagen
+    img.src = "/layout_auth_roomiesu.webp";
+    img.onload = () => setImageLoaded(true); // Se actualiza el estado cuando la imagen se carga
   }, []);
+
+  if (!imageLoaded) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-gray-900">
+        <p className="text-white text-lg">Cargando...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen items-center justify-center relative">
-      {/* Imagen de fondo con visibilidad controlada */}
+      {/* Imagen de fondo */}
       <div
-        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${
-          imageLoaded ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ backgroundImage: "url('/layout_auth_roomiesu.jpg')" }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/layout_auth_roomiesu.webp')" }}
       ></div>
 
-      {/* Contenedor del formulario */}
+      {/* Contenedor del formulario (se renderiza solo si la imagen ya cargó) */}
       <div className="relative bg-gray-900 p-8 rounded-xl shadow-lg w-full max-w-md">
-        <Outlet /> {/* Aquí se renderiza Login o Register */}
+        <Outlet />
       </div>
     </div>
   );

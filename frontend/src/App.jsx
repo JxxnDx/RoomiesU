@@ -1,20 +1,23 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
+
 import AuthLayout from "./layouts/AuthLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("./pages/Login"));
+const Login = lazy(() => import("./pages/login"));
 const Register = lazy(() => import("./pages/register"));
 const StudentHome = lazy(() => import("./pages/StudentHome"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 
-// Componente de carga mientras se renderizan las rutas
-const Loading = () => <div>Cargando...</div>;
+const Loading = () => (
+  <div>Loading...</div>
+);
+
 function App() {
   return (
     <Suspense fallback={<Loading />}>
