@@ -4,7 +4,7 @@ const PublicLayout = () => {
   return (
     <div className="public-layout">
       <div className="public-container">
-        <Outlet /> {/* Aquí renderizamos el login o el register*/}
+        <Outlet />
       </div>
     </div>
   );
