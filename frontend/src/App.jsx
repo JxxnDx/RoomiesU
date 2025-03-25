@@ -50,10 +50,11 @@ function App() {
 
         {/* Rutas protegidas para administradores */}
         <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
-          <Route element={<AdminLayout />}>
-            <Route path="/admindashboard" element={<Admindashboard />} />
-          </Route>
-        </Route>
+  <Route element={<AdminLayout />}>
+    <Route path="/admindashboard" element={<Admindashboard />} />
+  </Route>
+</Route>
+
 
     </Routes>
     </Suspense>

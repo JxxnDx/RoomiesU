@@ -1,21 +1,30 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-//Se maneja el bloqueo de rutas de acuerdo al rol que se manejen
 const ProtectedRoute = ({ allowedRoles }) => {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+  const location = useLocation();
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
-  // Si no hay token, redirigir a login
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
 
-  // Si el rol del usuario no está en la lista de roles permitidos, redirigir
-  if (allowedRoles && !allowedRoles.includes(role)) {
-    return <Navigate to="/" replace />;
-  }
+    console.log("Token en localStorage:", token);
+    console.log("Role en localStorage:", role);
+    console.log("Roles permitidos:", allowedRoles);
 
-  return <Outlet />;
+    if (!token) {
+      setIsAuthenticated(false);
+    } else if (allowedRoles && !allowedRoles.includes(role)) {
+      setIsAuthenticated(false);
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [location.pathname]);
+
+  if (isAuthenticated === null) return null;
+
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;
