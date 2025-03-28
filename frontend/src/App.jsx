@@ -42,14 +42,14 @@ function App() {
       </Route>
 
       {/* Rutas protegidas para estudiantes */}
-      <Route element={<ProtectedRoutes allowedRoles={["student"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["estudiante"]} />}>
           <Route element={<StudentLayout />}>
             <Route path="/studenthome" element={<StudentHome />} />
           </Route>
       </Route>
 
       {/* Rutas protegidas para administradores */}
-      <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/admindashboard" element={<Admindashboard />} />
         </Route>
