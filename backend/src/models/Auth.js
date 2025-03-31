@@ -10,7 +10,7 @@ export class Auth {
     // Registrar un nuevo usuario
     static async create(data, tableName) {
         const { nombre, apellido, identificacion, correo, salt, hash, telefono, edad, descripcion } = data;
-        const query = `INSERT INTO ?? (Nombre, Apellido, Identificacion, Correo, Salt, Hash, Telefono, Edad, Descripcion, IsAvailable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO ?? (Nombre, Apellido, Identificacion, Correo, Salt, Hash, Telefono, Edad, Descripcion, IsAvaible) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const [result] = await pool.query(query, [tableName, nombre, apellido, identificacion, correo, salt, hash, telefono, edad, descripcion, 1]);
         return result.insertId;
     }
