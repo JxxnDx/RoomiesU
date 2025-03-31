@@ -18,7 +18,7 @@ export default function Home() {
   const nextSlide = () => setIndex((index + 1) % images.length);
 
   return (
-    <div className="font-montserrat text-gray-900 m-0 p-0">
+    <div className="bg-[url('../public/layout_auth_roomiesu.webp')] bg-cover bg-center font-montserrat text-gray-900 m-0 p-0">
       <header className="flex flex-row justify-between bg-gray-900 text-white top-0 left-0 text-justify items-center p-4 w-full">
         <h1 className="text-4xl font-bold">RoomiesU</h1>
         <nav>
@@ -38,7 +38,7 @@ export default function Home() {
       </header>
 
       {/* Bienvenida y carrusel */}
-      <section className="flex flex-row w-[80%] mx-auto m-20 bg-gray-900 p-8 rounded-2xl shadow-2xl">
+      <section className="flex flex-row w-[80%] mx-auto m-20 bg-gray-900/80 backdrop-blur-md p-8 rounded-2xl shadow-2xl">
         <article className="text-5xl text-center w-full">
           <h1 className="text-7xl text-green-500 font-bold">Bienvenido/a!</h1>
           <p className="text-white my-8">
@@ -64,11 +64,11 @@ export default function Home() {
       </section>
 
       {/* Ventajas */}
-      <section className='p-10 border-2 border-green-500 rounded-2xl w-[60%] mx-auto my-30'> 
-        <h2 className="text-4xl font-bold text-center pb-8">¿Por qué RoomiesU?</h2>
+      <section className='text-white p-10 bg-gray-900/80 backdrop-blur-md border-2 border-green-500 rounded-2xl w-[60%] mx-auto my-30'> 
+        <h2 className="text-4xl font-bold text-center pb-8 text-green-500">¿Por qué RoomiesU?</h2>
         <div className="grid grid-cols-2 grid-rows-2 gap-8">
           <Ventaja titulo="Seguridad" img="../seguridad.png">
-            Encuentra la habitación perfecta para ti. <br /> Todas nuestras habitaciones están amuebladas.
+            Encuentra lugares confiables. <br /> Asegura conexión directa con tu administrador.
           </Ventaja>
           <Ventaja titulo="Comodidad" img="../comodidad.png">
             Encuentra la habitación perfecta para ti. <br /> Busca una habitación según tus necesidades.
@@ -82,7 +82,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className='text-center p-4 text-gray-400'>
+      <footer className='text-center p-4 text-gray-900'>
       <p>&copy; 2025 RoomiesU</p>
       <p>Bucaramanga, Santander - Colombia</p>
       </footer>

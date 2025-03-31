@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-900/75 text-white p-6 rounded-lg w-full max-w-md">
+    <div className="bg-gray-900/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md">
       <h2 className="text-2xl font-bold text-center">Iniciar Sesión</h2>
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="mt-4">

@@ -76,7 +76,7 @@ export default function Register() {
   };
 
   return (
-    <div className="bg-gray-900/75 text-white p-6 rounded-lg w-full max-w-md">
+    <div className="bg-gray-900/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md">
       <h2 className="text-2xl font-bold text-center">Regístrate</h2>
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-4">
