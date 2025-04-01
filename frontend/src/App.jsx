@@ -7,7 +7,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import Admindashboard from "./pages/admindashboard";
+import Admindashboard from "./pages/Admindashboard";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
