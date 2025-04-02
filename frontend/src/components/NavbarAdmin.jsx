@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { COLORS } from '../constants/styles'
 import { FaBars, FaBell, FaUserCircle } from 'react-icons/fa'
 
-export default function NavbarAdmin() {
+export default function NavbarAdmin({sidebarToggle, setSidebarToggle}) {
   return (
-   <nav className={`flex justify-between py-3 px-4  ${COLORS["primary"]} ml-64`}>
+   <nav className={`flex justify-between py-3 px-4  ${COLORS["primary"]}`}>
      <div className={`flex items-center text-xl`}>
-       <FaBars className='text-white cursor-pointer me-4'/>
+       <FaBars className='text-white cursor-pointer me-4' onClick={()=> setSidebarToggle(!sidebarToggle)}/>
        <span className='text-white font-semibold'>Roomies U</span>
      </div>
      <div className='flex items-center gap-x-5'>

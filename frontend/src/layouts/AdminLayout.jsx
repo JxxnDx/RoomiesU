@@ -1,15 +1,18 @@
 import { Outlet } from "react-router-dom";
-import NavbarAdmin from "../components/NavbarAdmin";
 import SideBar from "../components/SideBar";
+import { useState } from "react";
+import NavbarAdmin from "../components/NavbarAdmin";
 
 const AdminLayout = () => {
+  const [sidebarToggle, setSidebarToggle] = useState(false);
+
   return (
     <div className="public-layout">
-      <div className="public-container">
-       <SideBar/>
-       <NavbarAdmin/>
-        
-        <Outlet /> {/* Aquí renderizamos el login o el register*/}
+      <SideBar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
+      {/* El div principal ahora tiene margen izquierdo dinámico */}
+      <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} w-full`}>
+        <NavbarAdmin sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
+        <Outlet />
       </div>
     </div>
   );
