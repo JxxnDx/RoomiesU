@@ -10,7 +10,7 @@ const AdminLayout = () => {
     <div className="public-layout">
       <SideBar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
       {/* El div principal ahora tiene margen izquierdo dinámico */}
-      <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} w-full`}>
+      <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} `}>
         <NavbarAdmin sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
         <Outlet />
       </div>
