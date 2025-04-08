@@ -8,6 +8,8 @@ import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
 import Admindashboard from "./pages/Admindashboard";
+import UnidadVivienda from "./pages/UnidadVivienda";
+import CreationUnidad from "./pages/CreationUnidad";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -52,6 +54,8 @@ function App() {
       <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/admindashboard" element={<Admindashboard />} />
+          <Route path="/unidadvivienda" element={<UnidadVivienda />} />
+          <Route path="/creacionunidad" element={<CreationUnidad />} />
         </Route>
       </Route>
 
