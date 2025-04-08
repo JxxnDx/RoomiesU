@@ -11,7 +11,7 @@ import Admindashboard from "./pages/Admindashboard";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("./pages/login"));
+const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/register"));
 const StudentHome = lazy(() => import("./pages/StudentHome"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
