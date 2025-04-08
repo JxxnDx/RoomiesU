@@ -7,11 +7,13 @@ import AuthLayout from "./layouts/AuthLayout";
 import StudentLayout from "./layouts/StudentLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import Admindashboard from "./pages/admindashboard";
+import Admindashboard from "./pages/Admindashboard";
+import UnidadVivienda from "./pages/UnidadVivienda";
+import CreationUnidad from "./pages/CreationUnidad";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("./pages/login"));
+const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/register"));
 const StudentHome = lazy(() => import("./pages/StudentHome"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
@@ -42,16 +44,18 @@ function App() {
       </Route>
 
       {/* Rutas protegidas para estudiantes */}
-      <Route element={<ProtectedRoutes allowedRoles={["student"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["estudiante"]} />}>
           <Route element={<StudentLayout />}>
             <Route path="/studenthome" element={<StudentHome />} />
           </Route>
       </Route>
 
       {/* Rutas protegidas para administradores */}
-      <Route element={<ProtectedRoutes allowedRoles={["admin"]} />}>
+      <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/admindashboard" element={<Admindashboard />} />
+          <Route path="/unidadvivienda" element={<UnidadVivienda />} />
+          <Route path="/creacionunidad" element={<CreationUnidad />} />
         </Route>
       </Route>
 

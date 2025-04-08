@@ -1,6 +1,6 @@
 export const COLORS = {
     primary: "bg-gray-800",   // Fondo azul oscuro con texto blanco
-    secondary: "bg-purple-600 text-white",
+    hover: "hover:bg-green-500 ",
     accent: "bg-yellow-500 text-black",
     
   };

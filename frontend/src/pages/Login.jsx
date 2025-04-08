@@ -28,11 +28,11 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true, // Asegura que las cookies se envíen y reciban
         }
       );
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", role);
+      // Eliminamos localStorage porque estamos usando cookies
       navigate(role === "admin" ? "/admindashboard" : "/studenthome");
     } catch (err) {
       setError("Credenciales incorrectas o usuario no encontrado.");
@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-900/75 text-white p-6 rounded-lg  w-full max-w-md">
+    <div className="bg-gray-900/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md">
       <h2 className="text-2xl font-bold text-center">Iniciar Sesión</h2>
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="mt-4">
@@ -62,7 +62,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* Botón para mostrar/ocultar contraseña */}
           <button
             type="button"
             className="absolute right-2 top-11 transform -translate-y-1/2 text-gray-400 hover:text-white"
