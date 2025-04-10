@@ -10,3 +10,33 @@ export const getAllSectors = async () => {
         throw error;
     }
 };
+
+
+export const createUnidad = async (data) => {
+    const {
+      nombre,
+      direccion,
+      tipo,
+      id_sector,
+      id_admin,
+      estado  
+    } = data;
+  
+    const query = `
+      INSERT INTO unidad_vivienda (Nombre, Direccion, Tipo, Id_Sector, Id_Admin, estado)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+  
+    const [result] = await pool.query(query, [
+      nombre,
+      direccion,
+      tipo,
+      id_sector,
+      id_admin,
+      estado
+    ]);
+  
+    return result.insertId;
+  };
+  
+
