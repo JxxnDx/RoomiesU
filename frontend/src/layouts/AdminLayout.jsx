@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../components/SideBar";
 import { useState } from "react";
-import NavbarAdmin from "../components/NavbarAdmin";
+import NavbarAdmin from "../components/Navbar";
 
 const AdminLayout = () => {
   const [sidebarToggle, setSidebarToggle] = useState(false);

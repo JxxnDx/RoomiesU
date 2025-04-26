@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import SideBarStudent from "../components/SidebarStudent";
-import NavbarAdmin from "../components/NavbarAdmin";
+import Navbar from "../components/Navbar";
 
 const StudentLayout = () => {
    const [sidebarToggle, setSidebarToggle] = useState(false);
@@ -10,7 +10,7 @@ const StudentLayout = () => {
           <SideBarStudent sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
           {/* El div principal ahora tiene margen izquierdo dinámico */}
           <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} `}>
-            <NavbarAdmin sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
+            <Navbar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
             <Outlet />
           </div>
         </div>

@@ -7,7 +7,11 @@ export default {
     ],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ['Montserrat', 'sans-serif'],
+              },
+        },
     },
     variants: {
         extend: {
