@@ -1,6 +1,7 @@
 import React from "react";
 import { COLORS } from '../constants/styles';
 import habitacion1 from "../../public/habitacion1.jpg"; 
+import { NavLink } from "react-router-dom";
 
 // Nota pa Alejo
 // La función recibirá como parametro la información de la habitación
@@ -15,7 +16,7 @@ export default function HabitacionCard() {
         <p>Servicios.</p>
         <div className="flex justify-between items-center mt-4">
             <span className="text-lg font-semibold">$precio</span>
-            <button className={`bg-white text-black rounded-lg px-4 py-2 ${COLORS["hoverdark"]}`}>Ver más</button>
+            <NavLink to="#" className={`bg-white text-black rounded-lg px-4 py-2 ${COLORS["hoverdark"]}`}>Ver más</NavLink>
         </div>
     </article>
   );
