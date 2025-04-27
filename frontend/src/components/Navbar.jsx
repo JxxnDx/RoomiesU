@@ -12,11 +12,11 @@ export default function Navbar({sidebarToggle, setSidebarToggle}) {
      </div>
      <div className='flex items-center gap-x-5'>
         <div className='text-white'>
-          <FaBell className='h-6 w-6'/>
+          <FaBell className='h-6 w-6 cursor-pointer'/>
         </div>
         <div className='relative'>
           <button className='text-white group'>
-            <FaUserCircle className='h-6 w-6 mt-1'/>
+            <FaUserCircle className='h-6 w-6 mt-1 cursor-pointer'/>
             <div className='z-10 bg-white hidden absolute rounded-lg shadow w-32 group-focus:block top-full right-0'>
               <ul className='py-2 text-sm text-gray-950'>
                 <li><a href="#">Perfil</a></li>
