@@ -9,7 +9,7 @@ export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
     <div
       className={`fixed top-0 left-0 h-full w-64 ${COLORS["primary"]} text-white transform ${
         sidebarToggle ? "translate-x-0" : "-translate-x-64"
-      } transition-transform duration-300 ease-in-out shadow-lg z-50`}
+      } transition-transform duration-300 ease-in-out shadow-2xl z-50`}
     >
       {/* Botón de cerrar */}
       <div className="flex justify-between items-center p-4">

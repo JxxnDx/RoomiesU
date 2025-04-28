@@ -46,7 +46,7 @@ export default function Home() {
             Un segundo hogar para tu vida universitaria.
           </p>
         </article>
-
+        
         <div className="relative w-full max-w-lg overflow-hidden rounded-2xl">
           <div className="flex transition-transform duration-500 ease-in-out hover:scale-110" style={{ transform: `translateX(-${index * 100}%)` }}>
             {images.map((img, i) => (
