@@ -1,8 +1,8 @@
 import { pool } from '../config/db.js';
-import { getAllSectors, createUnidad, getAllUnidades } from '../models/UnidadVivienda.js';
+import { getAllSectors, createUnidad, getAllUnidades, getUnidadById, editarUnidad} from '../models/UnidadVivienda.js';
 import { getAllUsers } from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+
 
 export const getUsersController = async (req, res) => {
     try {
@@ -23,6 +23,23 @@ export const getSectorController = async (req, res) => {
         console.error("❌ Error en la consulta SQL:", error);
         res.status(500).json({ error: error.message });
     }
+};
+
+export const getUnidadByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const unidad = await getUnidadById(id);
+
+    if (!unidad) {
+      return res.status(404).json({ message: "Unidad no encontrada" });
+    }
+
+    res.json(unidad);
+  } catch (error) {
+    console.error("❌ Error en getUnidadByIdController:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
 };
 
 export const getUnidadController = async (req, res) => {
@@ -93,3 +110,40 @@ export const registrarUnidadController = async (req, res) => {
       });
     }
   };
+
+
+export const actualizarUnidad = async (req, res) => {
+  try {
+    const { id } = req.params; // Obtenemos el ID de la URL (ej: /unidades/:id)
+    const datosActualizados = req.body; // Obtenemos los datos del body (JSON)
+
+    // Validación básica: asegurarse de que el ID y los datos necesarios estén presentes
+    if (!id || isNaN(id)) {
+      return res.status(400).json({ error: "ID de unidad no válido" });
+    }
+
+    if (
+      !datosActualizados.Nombre ||
+      !datosActualizados.Direccion ||
+      !datosActualizados.Tipo ||
+      !datosActualizados.estado ||
+      !datosActualizados.Id_sector
+    ) {
+      return res.status(400).json({ error: "Faltan campos obligatorios" });
+    }
+
+    // Llamamos al modelo para actualizar la unidad
+    const resultado = await editarUnidad(id, datosActualizados);
+
+    // Verificamos si se actualizó correctamente
+    if (resultado.affectedRows === 0) {
+      return res.status(404).json({ error: "Unidad no encontrada o sin cambios" });
+    }
+
+    // Respuesta exitosa
+    res.status(200).json( datosActualizados );
+  } catch (error) {
+    console.error("❌ Error en el controlador (actualizarUnidad):", error);
+    res.status(500).json({ error: "Error interno del servidor al actualizar la unidad" });
+  }
+};
