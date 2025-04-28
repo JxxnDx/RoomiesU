@@ -68,7 +68,7 @@ export default function FormUnidad() {
       return;
     }
 
-    // 👉 Aquí imprimimos los datos exactos que se van a enviar
+    //  Aquí imprimimos los datos exactos que se van a enviar
   console.log('Datos que se enviarán al backend:', formData);
     
     // Enviar los datos al backend
