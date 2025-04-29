@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
 
 
@@ -15,7 +15,7 @@ export default function FormUnidad() {
     id_admin: '',
     estado: 'habilitado' 
   });
-
+    const navigate = useNavigate();
   const [sectores, setSectores] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -101,16 +101,14 @@ export default function FormUnidad() {
 
   return (
     <>
- <div className="w-full flex justify-center mt-6">
- <Link to="/unidadvivienda">
-   <button
-    type="button"
-    className="w-64 bg-red-400 hover:bg-red-500 text-white font-bold py-3 px-4 rounded-xl text-lg transition flex items-center justify-center gap-2"
-   >
-     <IoArrowBack className="text-2xl" />
-     Volver a Unidad
-     </button>
-   </Link>
+ <div className="w-full flex justify-start mt-6 ml-16">
+
+   <button 
+             onClick={() => navigate('/unidadvivienda')}
+             className="flex items-center text-white mb-6 hover:text-yellow-300 transition"
+           >
+             <IoArrowBack className="mr-2" /> Volver a Unidades
+           </button>
   </div>
     <div className="bg-gray-700/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md mx-auto mt-10">
       

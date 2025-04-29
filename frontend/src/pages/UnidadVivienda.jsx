@@ -53,7 +53,7 @@ export default function UnidadVivienda() {
 
   return (
     <div className='antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 min-h-screen'>
-      <h1 className='text-center text-yellow-300 font-bold text-6xl pt-4'>Unidad de vivienda</h1>
+      <h1 className='text-center text-green-600 font-bold text-6xl pt-4'>Unidad de vivienda</h1>
       <div className='justify-center text-white text-lg p-8 ml-12'>
         <p>
           Como administrador deberá crear una unidad de vivienda que se refiere al tipo de edificación donde
@@ -122,9 +122,6 @@ export default function UnidadVivienda() {
                     Editar
                   </button>
                   </Link>
-                  <button className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition">
-                    Detalles
-                  </button>
                   
                 </div>
               </div>
