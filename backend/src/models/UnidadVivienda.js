@@ -77,14 +77,14 @@ export const createUnidad = async (data) => {
         Direccion,
         Tipo,
         estado, // Asegúrate de que esto viene en data
-        Id_sector
+        Id_Sector
       } = data;
      
       const [result] = await pool.query(
         `UPDATE unidad_vivienda 
          SET Nombre = ?, Direccion = ?, Tipo = ?, estado = ?, Id_Sector = ?
          WHERE id_unidad = ?`,
-        [Nombre, Direccion, Tipo, estado, Id_sector, id] // Orden debe coincidir con los placeholders
+        [Nombre, Direccion, Tipo, estado, Id_Sector, id] // Orden debe coincidir con los placeholders
       );
       
       return result;

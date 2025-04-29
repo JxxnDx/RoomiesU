@@ -130,7 +130,7 @@ export const actualizarUnidad = async (req, res) => {
       !datosActualizados.Direccion ||
       !datosActualizados.Tipo ||
       !datosActualizados.estado ||
-      !datosActualizados.Id_sector
+      !datosActualizados.Id_Sector
     ) {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
     }

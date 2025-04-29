@@ -10,6 +10,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Admindashboard from "./pages/Admindashboard";
 import UnidadVivienda from "./pages/UnidadVivienda";
 import CreationUnidad from "./pages/CreationUnidad";
+import EditarUnidad from "./pages/EditarUnidad";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -56,6 +57,7 @@ function App() {
           <Route path="/admindashboard" element={<Admindashboard />} />
           <Route path="/unidadvivienda" element={<UnidadVivienda />} />
           <Route path="/creacionunidad" element={<CreationUnidad />} />
+          <Route path="/editar-unidad/:id" element={<EditarUnidad />} />
         </Route>
       </Route>
 

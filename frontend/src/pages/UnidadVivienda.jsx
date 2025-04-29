@@ -117,12 +117,15 @@ export default function UnidadVivienda() {
                 </div>
 
                 <div className="mt-6 flex justify-between">
+                <Link to={`/editar-unidad/${unidad.Id_Unidad}`}>
                   <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
                     Editar
                   </button>
+                  </Link>
                   <button className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition">
                     Detalles
                   </button>
+                  
                 </div>
               </div>
             </div>
