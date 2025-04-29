@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import { useState } from 'react'
-import Ventaja from '../components/ventajas'
+import Ventaja from '../components/Ventajas'
 
 export default function Home() {
 
