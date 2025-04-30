@@ -107,7 +107,7 @@ export default function EditarUnidad() {
     <div className='antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 min-h-screen p-8'>
       <div className="max-w-4xl mx-auto">
         <button 
-          onClick={() => navigate('/unidad-vivienda')}
+          onClick={() => navigate('/unidadvivienda')}
           className="flex items-center text-white mb-6 hover:text-yellow-300 transition"
         >
           <IoArrowBack className="mr-2" /> Volver a Unidades

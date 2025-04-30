@@ -64,8 +64,8 @@ export default function Register() {
       setMessage(response.data.message);
 
       
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", formData.role);
+      // localStorage.setItem("token", response.data.token);
+      // localStorage.setItem("role", formData.role);
 
       //Antes de rediriguirse al login espera para ver la respuesta del backend
       setTimeout(() => navigate("/login"), 2000);
