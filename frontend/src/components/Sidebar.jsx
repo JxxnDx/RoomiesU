@@ -39,9 +39,9 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+          <Link to="/habitacion" className="px-3">
             <MdOutlineBedroomChild className="h-6 w-6 inline-block mr-2 -mt-2" /> Habitaciones
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <a href="#" className="px-3">
