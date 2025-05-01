@@ -1,189 +1,72 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { IoCloudUpload, IoInformationCircle, IoAlertCircle } from "react-icons/io5";
+import { useHabitacionForm } from '../hooks/useHabitacionForm';
+import { useFileUpload } from '../hooks/useFileUpload';
+import { useUnits } from '../hooks/useUnits';
+import { useAdmin } from '../hooks/useAdmin';
 
 const CreacionHabitacion = () => {
- // Estado inicial sin adminId en los props
- const [formData, setFormData] = useState({
-    Precio: '',
-    Descripcion: '',
-    Requisitos: '',
-    Id_Admin: '', // Ahora se obtendrá del endpoint
-    Id_Unidad: ''
-  });
+//   console.log("[DEBUG] Renderizando componente CreacionHabitacion");
   
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingUnits, setIsLoadingUnits] = useState(true);
-  const [isLoadingAdmin, setIsLoadingAdmin] = useState(true);
+  const { adminId, isLoading: isLoadingAdmin, error: adminError } = useAdmin();
+  const { units, isLoading: isLoadingUnits, error: unitsError } = useUnits(adminId);
+  const { file, preview, error: fileError, handleFileChange, resetFile } = useFileUpload();
+  const { 
+    formData, 
+    errors, 
+    handleChange, 
+    validateForm, 
+    resetForm,
+    setErrors 
+  } = useHabitacionForm(adminId);
+
+//   console.log("[DEBUG] Estado actual:", {
+//     adminId,
+//     formData,
+//     file,
+//     errors,
+//     units: units.length > 0 ? `${units.length} unidades cargadas` : 'No hay unidades'
+//   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
-  const [units, setUnits] = useState([]);
-  const [errors, setErrors] = useState({
-    Precio: '',
-    Descripcion: '',
-    Requisitos: '',
-    Id_Unidad: '',
-    image: '',
-    Id_Admin: ''
-  });
-
-  // Cargar ID de administrador desde el token
-  useEffect(() => {
-    const fetchAdminId = async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/auth/me", { 
-          withCredentials: true 
-        });
-        
-        const userId = response.data.user.id || response.data.user._id || response.data.user.userId;
-        
-        if (userId) {
-          setFormData(prev => ({ ...prev, Id_Admin: userId }));
-        } else {
-          console.warn('No se pudo identificar el ID del usuario en:', response.data.user);
-          setMessage({
-            text: 'No se pudo identificar al administrador',
-            type: 'error'
-          });
-        }
-      } catch (err) {
-        console.error('Error al obtener datos del usuario:', err);
-        setMessage({
-          text: 'Error de autenticación. Por favor, inicia sesión nuevamente.',
-          type: 'error'
-        });
-        setErrors(prev => ({ ...prev, Id_Admin: 'Error al obtener ID de administrador' }));
-      } finally {
-        setIsLoadingAdmin(false);
-      }
-    };
-    
-    fetchAdminId();
-  }, []);
-
-  // Cargar unidades disponibles (solo cuando ya tenemos el adminId)
-  useEffect(() => {
-    if (!formData.Id_Admin) return; // Esperar hasta tener el adminId
-    
-    const fetchUnits = async () => {
-      setIsLoadingUnits(true);
-      try {
-        const response = await axios.get('http://localhost:4000/api/unidades', {
-          params: { adminId: formData.Id_Admin },
-          withCredentials: true
-        });
-        setUnits(response.data);
-      } catch (error) {
-        setMessage({
-          text: 'Error al cargar las unidades: ' + (error.response?.data?.message || error.message),
-          type: 'error'
-        });
-      } finally {
-        setIsLoadingUnits(false);
-      }
-    };
-    
-    fetchUnits();
-  }, [formData.Id_Admin]);
-
-  // Previsualización de imagen
-  useEffect(() => {
-    if (!file) {
-      setPreview(null);
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(file);
-    setPreview(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [file]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    
-    // Limpiar error al modificar
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: '' });
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    
-    if (!selectedFile) return;
-    
-    // Validar tipo de archivo
-    if (!selectedFile.type.match('image.*')) {
-      setErrors({ ...errors, image: 'Por favor, sube solo archivos de imagen' });
-      return;
-    }
-    
-    // Validar tamaño (max 5MB)
-    if (selectedFile.size > 5 * 1024 * 1024) {
-      setErrors({ ...errors, image: 'La imagen no debe exceder los 5MB' });
-      return;
-    }
-    
-    setFile(selectedFile);
-    setErrors({ ...errors, image: '' });
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    let isValid = true;
-
-    if (!formData.Precio || formData.Precio <= 0) {
-      newErrors.Precio = 'El precio debe ser mayor a 0';
-      isValid = false;
-    }
-
-    if (!formData.Descripcion || formData.Descripcion.length < 20) {
-      newErrors.Descripcion = 'La descripción debe tener al menos 20 caracteres';
-      isValid = false;
-    }
-
-    if (!formData.Requisitos || formData.Requisitos.length < 10) {
-      newErrors.Requisitos = 'Los requisitos deben tener al menos 10 caracteres';
-      isValid = false;
-    }
-
-    if (!formData.Id_Unidad) {
-      newErrors.Id_Unidad = 'Debes seleccionar una unidad';
-      isValid = false;
-    }
-
-    if (!formData.Id_Admin) {
-      newErrors.Id_Admin = 'No se pudo identificar al administrador';
-      isValid = false;
-    }
-
-    if (!file) {
-      newErrors.image = 'Debes subir una imagen';
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log("[DEBUG] handleSubmit iniciado");
     
-    if (!validateForm()) return;
+    // Validación detallada
+    const isValid = validateForm();
+    // console.log("[DEBUG] Resultado de validación:", isValid, "Errores:", errors);
     
-    setIsLoading(true);
+    if (!isValid) {
+    //   console.log("[DEBUG] Validación fallida, no se envía el formulario");
+      return;
+    }
+    
+    setIsSubmitting(true);
     setMessage({ text: '', type: '' });
     
+    // Construcción del FormData con verificación
     const formDataToSend = new FormData();
+    // console.log("[DEBUG] Construyendo FormData con los siguientes valores:");
+    
     Object.keys(formData).forEach(key => {
       formDataToSend.append(key, formData[key]);
+      console.log(`- ${key}:`, formData[key]);
     });
-    formDataToSend.append('image', file);
+    
+    if (file) {
+      formDataToSend.append('image', file);
+    //   console.log("[DEBUG] Archivo adjuntado:", file.name, "Tamaño:", file.size, "bytes");
+    } else {
+      console.warn("[DEBUG] No se adjuntó ningún archivo");
+    }
 
     try {
+    //   console.log("[DEBUG] Enviando petición a /api/createhabitacion");
+      
       const response = await axios.post('http://localhost:4000/api/createhabitacion', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -191,44 +74,56 @@ const CreacionHabitacion = () => {
         withCredentials: true
       });
       
+    //   console.log("[DEBUG] Respuesta del servidor:", response.data);
+      
       setMessage({
         text: `Habitación creada con éxito! ID: ${response.data.roomId}`,
         type: 'success'
       });
       
-      // Resetear formulario (excepto Id_Admin)
-      setFormData(prev => ({
-        Precio: '',
-        Descripcion: '',
-        Requisitos: '',
-        Id_Admin: prev.Id_Admin, // Mantenemos el mismo admin
-        Id_Unidad: ''
-      }));
-      setFile(null);
+      resetForm();
+      resetFile();
+    //   console.log("[DEBUG] Formulario reseteado después de envío exitoso");
     } catch (error) {
+      console.error("[DEBUG] Error en la petición:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        config: error.config
+      });
+      
       setMessage({
         text: 'Error: ' + (error.response?.data?.error || error.message),
         type: 'error'
       });
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
+    //   console.log("[DEBUG] Estado isSubmitting cambiado a false");
     }
   };
 
-   // Mostrar error si no se pudo obtener el adminId
-   if (errors.Id_Admin) {
+  if (adminError) {
+    // console.error("[DEBUG] Error de administrador:", adminError);
     return (
       <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
           <div className="flex items-center">
             <IoAlertCircle className="mr-2" size={20} />
-            <p>{errors.Id_Admin}</p>
+            <p>{adminError}</p>
           </div>
         </div>
       </div>
     );
   }
 
+//   // Agrega este debug:
+// console.log("[DEBUG] Comparación IDs:", {
+//     adminId,
+//     formDataIdAdmin: formData.Id_Admin,
+//     iguales: adminId === formData.Id_Admin
+//   });
+
+//   console.log("[DEBUG] Renderizando formulario");
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Crear Nueva Habitación</h2>
@@ -247,6 +142,7 @@ const CreacionHabitacion = () => {
           <span>{message.text}</span>
         </div>
       )}
+      
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -411,25 +307,25 @@ const CreacionHabitacion = () => {
         </div>
 
         <div className="pt-4">
-          <button
-            type="submit"
-            disabled={isLoading || isLoadingUnits}
-            className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-              isLoading ? 'opacity-75 cursor-not-allowed' : ''
-            }`}
-          >
-            {isLoading ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Procesando...
-              </>
-            ) : (
-              'Crear Habitación'
-            )}
-          </button>
+        <button
+  type="submit"
+  disabled={isSubmitting || isLoadingUnits || isLoadingAdmin}
+  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+    isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+  }`}
+>
+  {isSubmitting ? (
+    <>
+      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Procesando...
+    </>
+  ) : (
+    'Crear Habitación'
+  )}
+</button>
         </div>
       </form>
     </div>
