@@ -4,7 +4,7 @@ import HabitacionCard from '../components/HabitacionCard';
 
 export default function StudentHome() {
   return (
-    <div className={`${COLORS["primary"]} text-white h-full flex flex-col p-8`}>
+    <div className={`${COLORS["primary"]} text-black h-full flex flex-col p-8`}>
       <header className='flex flex-col md:flex-row gap-4'>
         <div className='flex flex-col flex-1 p-4'>
           <label className='font-bold pb-4'>Bucar habitación</label>
