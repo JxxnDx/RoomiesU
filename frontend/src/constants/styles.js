@@ -10,7 +10,8 @@ export const COLORS = {
   };
   
   export const TEXT = {
-    title: "text-2xl font-bold text-gray-900",
+    title: "text-2xl font-bold text-[#01b09e]",
     subtitle: "text-xl font-semibold text-gray-700",
-    paragraph: "text-base text-gray-600",
+    hover: "hover:text-[#01b09e]",
+    paragraph: "text-base text-[#01b09e]",
   };

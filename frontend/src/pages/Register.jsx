@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { COLORS, TEXT } from '../constants/styles';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -76,14 +77,14 @@ export default function Register() {
   };
 
   return (
-    <div className="bg-gray-900/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md">
+    <div className={`${COLORS["light_primary"]} backdrop-blur-md text-gray-800 p-6 rounded-lg w-full max-w-md`}>
       <h2 className="text-2xl font-bold text-center">Regístrate</h2>
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-4">
-          <label className="block text-gray-300 text-sm">Selecciona tu rol</label>
+          <label className="block text-gray-800 text-sm">Selecciona tu rol</label>
           <select
             name="role"
-            className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500"
+            className={`w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border border-gray-600 focus:outline-none focus:border-[#01b09e]`}
             value={formData.role}
             onChange={handleChange}
           >
@@ -93,11 +94,11 @@ export default function Register() {
         </div>
         {["nombre", "apellido", "identificacion", "correo", "telefono", "edad", "password", "descripcion"].map((field) => (
   <div className="mb-4 relative" key={field}>
-    <label className="block text-gray-300 text-sm capitalize">{field}</label>
+    <label className="block text-gray-800 text-sm capitalize">{field}</label>
     {field === "descripcion" ? (
       <textarea
         name={field}
-        className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500 resize-none h-32"
+        className={`w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border border-gray-600 focus:outline-none focus:border-[#01b09e] resize-none h-32`}
         value={formData[field]}
         onChange={handleChange}
       />
@@ -106,7 +107,7 @@ export default function Register() {
         <input
           type={field === "password" && showPassword ? "text" : field === "password" ? "password" : field === "correo" ? "email" : "text"}
           name={field}
-          className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500 pr-10"
+          className={`w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border border-gray-600 focus:outline-none focus:border-[#01b09e] pr-10`}
           value={formData[field]}
           onChange={handleChange}
         />
@@ -125,13 +126,13 @@ export default function Register() {
 ))}
 
 
-        <button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition">
+        <button type="submit" className={`w-full ${COLORS["light_secundary"]} hover:bg-[#018ab0] text-white font-bold py-2 px-4 rounded transition`}>
           Registrarse
         </button>
 
         <p className="text-sm text-center mt-4">
           ¿Ya tienes una cuenta?{" "}
-          <span className="text-green-400 hover:underline cursor-pointer" onClick={() => navigate("/login")}>
+          <span className="text-[#01b09e] hover:underline cursor-pointer" onClick={() => navigate("/login")}>
             Ingresa aquí
           </span>
         </p>
