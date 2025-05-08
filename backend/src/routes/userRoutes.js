@@ -3,6 +3,7 @@ import { actualizarUnidad, getSectorController, getUnidadByIdController, getUnid
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
 import { createHabitacionController, getHabitacionesAdminByIdController, getUnidadAdminByIdController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
+import { getHabitacionesForStudentsController } from '../controllers/studentController.js';
 
 
 
@@ -17,6 +18,8 @@ router.put('/editarunidad/:id', verifyToken, actualizarUnidad);
 router.get('/unidadesbyadmin', verifyToken, getUnidadAdminByIdController );
 router.post('/createhabitacion', uploadSingleImage, createHabitacionController);
 router.get('/habitacionesbyadmin', verifyToken, getHabitacionesAdminByIdController );
+router.get('/habitacionesforstudents', verifyToken, getHabitacionesForStudentsController );
+
 
 
 export default router;

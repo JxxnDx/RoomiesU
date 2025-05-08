@@ -46,6 +46,17 @@ export const getUnidadAdminById = async (id) => {
    }
   };
 
+  export const getHabitacionesforStudents = async () => {
+    try{const [rows] = await pool.query(
+      "SELECT h.Id_Habitacion, h.Precio, h.Descripcion, h.Requisitos, h.Img_url, h.estado, u.Direccion FROM habitacion h JOIN unidad_vivienda u ON h.Id_Unidad = u.Id_Unidad WHERE h.estado='habilitado';"
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las habitaciones", error);
+    throw error;
+   }
+  };
+
 
   
   

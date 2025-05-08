@@ -50,7 +50,7 @@ console.log(Habitaciones);
         )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Ejemplo de habitación (esto sería reemplazado por el mapeo de tus datos) */}
+          {/* Mapeo de las habitaciones */}
           {Habitaciones.map((habitacion) => (
            <HabitacionCard
            key={habitacion.Id_Habitacion}
