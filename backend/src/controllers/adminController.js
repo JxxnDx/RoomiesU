@@ -1,4 +1,4 @@
-import { getUnidadAdminById, createHabitacion } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 
@@ -49,6 +49,63 @@ export const getUnidadAdminByIdController = async (req, res) => {
       
   } catch (error) {
       console.error("Error en getUnidadAdminByIdController:", error);
+      res.status(500).json({ 
+          success: false,
+          message: "Error al procesar la solicitud",
+          ...(process.env.NODE_ENV === 'development' && {
+              error: error.message,
+              stack: error.stack
+          })
+      });
+  }
+};
+
+export const getHabitacionesAdminByIdController = async (req, res) => {
+  try {
+      let id_admin = null;
+      
+      // 1. Obtención flexible del token
+      const token = req.cookies?.token || 
+                   req.headers?.authorization?.split(' ')[1] || 
+                   req.headers?.Authorization?.split(' ')[1];
+      
+      // 2. Extracción del ID del token
+      if (token) {
+          try {
+            //Aquí lo que se hace es extraer el id del token(Se va a usar en otros controladores)
+              // Decodifica sin verificar (para evitar errores por firma/expiración)
+              const decoded = jwt.decode(token);
+              
+              // Versión flexible para obtener el ID
+              id_admin = decoded?.userId || decoded?.id || decoded?.user?.id || decoded?.user_id;
+              
+              if (!id_admin && decoded) {
+                  console.warn("Token no contiene ID reconocible. Contenido:", decoded);
+              }
+          } catch (error) {
+              console.log("Error al decodificar token:", error.message);
+          }
+      }
+
+      // 3. Obtención de datos
+      const Id_habitaciones_Admin = await getHabitaciones(id_admin);
+
+      if (!Id_habitaciones_Admin) {
+        return res.status(404).json({ message: "Habitaciones no encontradas" });
+      }
+      
+      // 4. Respuesta
+      res.json(
+           Id_habitaciones_Admin
+          // debugInfo: {
+          //     usedAdminId: id_admin,
+          //     tokenReceived: !!token,
+          //     tokenContents: token ? jwt.decode(token) : null
+          // }
+      );
+      
+  } catch (error) {
+      console.error("Error en getHabitacionesAdminByIdController:", error);
       res.status(500).json({ 
           success: false,
           message: "Error al procesar la solicitud",

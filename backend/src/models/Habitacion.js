@@ -34,9 +34,10 @@ export const getUnidadAdminById = async (id) => {
     return result.insertId;
   };
 
-  export const getHabitaciones = async () => {
+  export const getHabitaciones = async (id) => {
     try{const [rows] = await pool.query(
-      "SELECT * FROM habitacion WHERE estado = 'habilitado'"
+      "SELECT * FROM habitacion WHERE Id_Admin = ?",
+      [id]
     );
     return rows;
    } catch(error){
