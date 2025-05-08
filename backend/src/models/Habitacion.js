@@ -20,16 +20,31 @@ export const getUnidadAdminById = async (id) => {
       Requisitos,
       Id_Admin,
       Id_Unidad,
-      Img_url
+      Img_url,
+      estado
     } = roomData;
   
     const [result] = await pool.query(
       `INSERT INTO habitacion 
-       (Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad, Img_url) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad, Img_url]
+       (Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad, Img_url, estado) 
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad, Img_url, estado]
     );
   
     return result.insertId;
   };
+
+  export const getHabitaciones = async () => {
+    try{const [rows] = await pool.query(
+      "SELECT * FROM habitacion WHERE estado = 'habilitado'"
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las habitaciones", error);
+    throw error;
+   }
+  };
+
+
+  
   
