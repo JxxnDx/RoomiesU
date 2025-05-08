@@ -5,6 +5,8 @@ import { useHabitacionForm } from '../hooks/useHabitacionForm';
 import { useFileUpload } from '../hooks/useFileUpload';
 import { useUnits } from '../hooks/useUnits';
 import { useAdmin } from '../hooks/useAdmin';
+import { COLORS } from '../constants/styles';
+import { Link } from 'react-router-dom';
 
 const CreacionHabitacion = () => {
 //   console.log("[DEBUG] Renderizando componente CreacionHabitacion");
@@ -125,8 +127,13 @@ const CreacionHabitacion = () => {
 
 //   console.log("[DEBUG] Renderizando formulario");
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Crear Nueva Habitación</h2>
+    <>
+    <h3 className=' flex ml-32 mt-4 text-black'> 
+      <Link to="/habitacion"> <span className='hover:font-bold transition-all'>Habitaciones</span>
+      </Link> - 
+      <span>Crear Habitación</span></h3>
+    <div className={`max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md  ${COLORS["light_secundary"]} mt-16 `}>
+      <h2 className="text-2xl font-bold mb-4 text-black ">Crear Nueva Habitación</h2>
       
       {message.text && (
         <div className={`mb-6 p-4 rounded-md flex items-start ${
@@ -147,7 +154,7 @@ const CreacionHabitacion = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-black dark:text-black mb-1">
               Precio (mensual)
               <span className="text-red-500">*</span>
             </label>
@@ -175,7 +182,7 @@ const CreacionHabitacion = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-black dark:text-black mb-1">
               Unidad de Vivienda
               <span className="text-red-500">*</span>
             </label>
@@ -203,10 +210,28 @@ const CreacionHabitacion = () => {
               <p className="mt-1 text-sm text-gray-500">Cargando unidades...</p>
             )}
           </div>
+          <div >
+            <label className="block text-sm font-medium text-black dark:text-black mb-1">
+              Estado
+              <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="estado"
+              className={`w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border  focus:outline-none focus:border-black`}
+              value={formData.estado}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Seleccione uno</option>
+              <option value="habilitado">Habilitado</option>
+              <option value="deshabilitado">Deshabilitado</option>
+              <option value="ocupado">Ocupado</option>
+            </select>
+          </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-black dark:text-black mb-1">
             Descripción
             <span className="text-red-500">*</span>
           </label>
@@ -230,7 +255,7 @@ const CreacionHabitacion = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-black dark:text-black mb-1">
             Requisitos para alquilar
             <span className="text-red-500">*</span>
           </label>
@@ -254,7 +279,7 @@ const CreacionHabitacion = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-black dark:text-black mb-1">
             Imagen Principal
             <span className="text-red-500">*</span>
           </label>
@@ -329,6 +354,7 @@ const CreacionHabitacion = () => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 

@@ -6,7 +6,8 @@ export const useHabitacionForm = (adminId) => {
     Descripcion: '',
     Requisitos: '',
     Id_Admin: '', // Inicializado vacío, se actualizará con el efecto
-    Id_Unidad: ''
+    Id_Unidad: '',
+    estado:''
   });
 
   const [errors, setErrors] = useState({
@@ -15,7 +16,8 @@ export const useHabitacionForm = (adminId) => {
     Requisitos: '',
     Id_Unidad: '',
     image: '',
-    Id_Admin: ''
+    Id_Admin: '',
+    estado: ''
   });
 
   // Efecto para sincronizar adminId con formData
@@ -85,7 +87,8 @@ export const useHabitacionForm = (adminId) => {
       Descripcion: '',
       Requisitos: '',
       Id_Admin: prev.Id_Admin, // Mantiene el adminId al resetear
-      Id_Unidad: ''
+      Id_Unidad: '',
+      estado:''
     }));
   };
 

@@ -66,7 +66,7 @@ export const getUnidadAdminByIdController = async (req, res) => {
 export const createHabitacionController = async (req, res) => {
   try {
     // Aseguramos que se haya subido una imagen mediante multer (validado en el middleware)
-    const { Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad } = req.body;
+    const { Precio, Descripcion, Requisitos, Id_Admin, Id_Unidad, estado } = req.body;
 
     // Validación de campos obligatorios
     if (!Precio || !Descripcion || !Requisitos || !Id_Unidad || !req.file) {
@@ -86,7 +86,8 @@ export const createHabitacionController = async (req, res) => {
       Requisitos,
       Id_Admin,
       Id_Unidad,
-      Img_url: uploadResult.secure_url
+      Img_url: uploadResult.secure_url,
+      estado
     });
 
     // Responder con éxito
