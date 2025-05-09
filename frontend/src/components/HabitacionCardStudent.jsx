@@ -1,7 +1,9 @@
 import React from "react";
 import { COLORS } from '../constants/styles';
 import { NavLink } from "react-router-dom";
-import { FaBed, FaMapMarkerAlt, FaFileAlt, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
+import { FaBed, FaFileAlt, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
+import { SlDirection } from "react-icons/sl";
+import { CiSquareQuestion } from "react-icons/ci";
 
 export default function HabitacionCardStudent({ habitacion }) {
   const { Descripcion, Precio, Id_Habitacion, Img_url, Direccion, Requisitos } = habitacion;
@@ -25,12 +27,24 @@ export default function HabitacionCardStudent({ habitacion }) {
       <div className="space-y-3 flex-grow">
         {/* Descripción con límite de líneas */}
         <div className="flex items-start gap-2">
-          <FaFileAlt className="mt-1 flex-shrink-0" />
+          <CiSquareQuestion className="mt-1 flex-shrink-0" />
           <div>
             <p className="font-semibold">Descripción:</p>
             <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
           </div>
         </div>
+
+        {/* Descripción con límite de líneas */}
+        <div className="flex items-start gap-2">
+          <SlDirection className="mt-1 flex-shrink-0" />
+          <div>
+            <p className="font-semibold">Dirección:</p>
+            <p className="text-gray-700 line-clamp-3">{Direccion}</p>
+          </div>
+        </div>
+
+
+        
         
         {/* Requisitos con scroll si excede el espacio */}
         <div className="flex items-start gap-2">
@@ -41,6 +55,8 @@ export default function HabitacionCardStudent({ habitacion }) {
               {Requisitos}
             </div>
           </div>
+
+          
         </div>
       </div>
       
