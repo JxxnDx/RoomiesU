@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { COLORS } from '../constants/styles';
+import { COLORS, TEXT } from '../constants/styles';
 import { Link } from 'react-router-dom';
 import { IoBed, IoPeople, IoSquare, IoPricetag, IoCheckmarkCircle } from "react-icons/io5";
 import { useAdmin } from '../hooks/useAdmin';
@@ -17,12 +17,12 @@ export default function Habitaciones() {
   
 console.log(Habitaciones);
   return (
-    <div className='antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 min-h-screen'>
+    <div className='antialiased bg-white min-h-screen'>
       {/* Header con título y descripción */}
-      <div className='text-center pt-8 pb-6'>
-        <h1 className='text-blue-500 font-bold text-5xl mb-4'>Gestión de Habitaciones</h1>
-        <div className='max-w-3xl mx-auto px-4'>
-          <p className='text-gray-300 text-lg'>
+      <div className='p-8'>
+        <h1 className={`${TEXT["title"]} mb-4`}>Gestión de Habitaciones</h1>
+        <div className=''>
+          <p className='text-lg'>
             Administra las habitaciones disponibles en tus unidades de vivienda. 
             Cada habitación puede ser configurada con diferentes características, 
             precios y disponibilidad para los estudiantes.
@@ -31,9 +31,9 @@ console.log(Habitaciones);
       </div>
       
       {/* Botón de creación */}
-      <div className='flex justify-center mb-12'>
+      <div className='mx-8'>
         <Link to="/creacionhabitacion" className="px-3">
-          <button className={`bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl shadow-lg text-lg transition duration-300 ${COLORS["hover"]}`}>
+          <button className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-3 px-8 rounded-xl shadow-lg text-lg transition duration-300 ${COLORS["hover"]}`}>
             Crear Nueva Habitación
           </button>
         </Link>

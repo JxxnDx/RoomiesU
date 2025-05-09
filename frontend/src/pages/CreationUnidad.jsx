@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
 import { IoArrowBack } from "react-icons/io5";
-
-
+import { COLORS, TEXT } from '../constants/styles';
 
 export default function FormUnidad() {
   const [formData, setFormData] = useState({
@@ -101,18 +99,11 @@ export default function FormUnidad() {
 
   return (
     <>
- <div className="w-full flex justify-start mt-6 ml-16">
-
-   <button 
-             onClick={() => navigate('/unidadvivienda')}
-             className="flex items-center text-white mb-6 hover:text-yellow-300 transition"
-           >
-             <IoArrowBack className="mr-2" /> Volver a Unidades
-           </button>
+ <div className="w-full">
   </div>
-    <div className="bg-gray-700/80 backdrop-blur-md text-white p-6 rounded-lg w-full max-w-md mx-auto mt-10">
+    <div className={`${COLORS["light_primary"]} border border-gray-200 p-6 rounded-lg shadow-lg w-[80%]`}>
       
-      <h2 className="text-2xl font-bold text-center">Crear Unidad de Vivienda</h2>
+      <h2 className="text-2xl font-bold">Crear Unidad de Vivienda</h2>
       
       {/* Mostrar información del ID de administrador (solo para depuración)
       {process.env.NODE_ENV === 'development' && (
@@ -123,83 +114,94 @@ export default function FormUnidad() {
 
        
       
-      <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-        {["nombre", "direccion"].map((field) => (
+<form onSubmit={handleSubmit} className="mt-4 space-y-4 w-full">
+  <div className="grid grid-cols-2 gap-4">
+    <div>
+      <label className="block text-sm">Nombre</label>
+      <input
+        type="text"
+        name="nombre"
+        className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
+        value={formData.nombre}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-          <div key={field}>
-            <label className="block text-gray-300 text-sm capitalize">{field}</label>
-            <input
-              type="text"
-              name={field}
-              className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500"
-              value={formData[field]}
-              onChange={handleChange}
-              required
+    <div>
+      <label className="block text-sm">Dirección</label>
+      <input
+        type="text"
+        name="direccion"
+        className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
+        value={formData.direccion}
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-            />
-          </div>
+    <div>
+      <label className="block text-sm">Tipo</label>
+      <select
+        name="tipo"
+        className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
+        value={formData.tipo}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Selecciona un tipo</option>
+        <option value="residencia">Residencia Universitaria</option>
+        <option value="apartamento">Apartamento</option>
+        <option value="casa">Casa Urbana</option>
+        <option value="habitacion">Habitación</option>
+      </select>
+    </div>
+
+    <div>
+      <label className="block text-sm">Sector</label>
+      <select
+        name="id_sector"
+        className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
+        value={formData.id_sector}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Selecciona un sector</option>
+        {sectores.map((sector) => (
+          <option key={sector.Id_Sector} value={sector.Id_Sector}>
+            {sector.Nombre}
+          </option>
         ))}
+      </select>
+    </div>
+  </div>
 
-        <div>
+  {/* Campo "Estado" a lo ancho */}
+  <div>
+    <label className="block text-sm">Estado</label>
+    <select
+      name="estado"
+      className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
+      value={formData.estado}
+      onChange={handleChange}
+    >
+      <option value="habilitado">Habilitado</option>
+      <option value="deshabilitado">Deshabilitado</option>
+    </select>
+  </div>
 
-          <label className="block text-gray-300 text-sm">Tipo</label>
-          <select
-            name="tipo"
-            className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500"
-            value={formData.tipo}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecciona un tipo</option>
-            <option value="residencia">Residencia Universitaria</option>
-            <option value="apartamento">Apartamento</option>
-            <option value="casa">Casa Urbana</option>
-            <option value="habitacion">Habitación</option>
-          </select>
-        </div>
+  <button
+    type="submit"
+    className={`w-full ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-bold py-3 px-4 rounded-xl text-lg transition`}
+  >
+    Crear Unidad
+  </button>
 
-        <div>
-          <label className="block text-gray-300 text-sm">Sector</label>
-          <select
-            name="id_sector"
-            className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500"
-            value={formData.id_sector}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecciona un sector</option>
-            {sectores.map((sector) => (
-              <option key={sector.Id_Sector} value={sector.Id_Sector}>
-                {sector.Nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="block text-gray-300 text-sm">Estado</label>
-          <select
-            name="estado"
-            className="w-full p-2 mt-1 rounded bg-gray-800 border border-gray-600 focus:outline-none focus:border-green-500"
-            value={formData.estado}
-            onChange={handleChange}
-          >
-            <option value="habilitado">Habilitado</option>
-            <option value="deshabilitado">Deshabilitado</option>
-          </select>
-        </div>
+  {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+  {message && <p className="text-green-400 text-sm text-center">{message}</p>}
+</form>
 
 
-        <button
-          type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl text-lg transition"
-        >
-          Crear Unidad
-        </button>
-
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-        {message && <p className="text-green-400 text-sm text-center">{message}</p>}
-      </form>
     </div>
 
     </>

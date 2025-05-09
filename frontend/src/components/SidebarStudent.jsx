@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5"; // Icono de cerrar
 export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
   return (
     <div
-      className={`fixed top-0 left-0 h-full w-64 ${COLORS["primary"]} text-black transform ${
+      className={`fixed top-0 left-0 h-full w-64 text-black transform ${
         sidebarToggle ? "translate-x-0" : "-translate-x-64"
       } transition-transform duration-300 ease-in-out shadow-2xl z-50`}
     >

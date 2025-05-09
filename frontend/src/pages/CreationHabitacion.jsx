@@ -7,6 +7,7 @@ import { useUnits } from '../hooks/useUnits';
 import { useAdmin } from '../hooks/useAdmin';
 import { COLORS } from '../constants/styles';
 import { Link } from 'react-router-dom';
+import { IoArrowBack } from "react-icons/io5";
 
 const CreacionHabitacion = () => {
 //   console.log("[DEBUG] Renderizando componente CreacionHabitacion");
@@ -128,11 +129,12 @@ const CreacionHabitacion = () => {
 //   console.log("[DEBUG] Renderizando formulario");
   return (
     <>
-    <h3 className=' flex ml-32 mt-4 text-black'> 
-      <Link to="/habitacion"> <span className='hover:font-bold transition-all'>Habitaciones</span>
+    <h3 className='flex ml-32 m-4 text-black'> 
+      <Link to="/habitacion" className='flex items-center hover:text-[#01b09e] transition-all'> 
+      <IoArrowBack className="mr-2" /> <span>Habitaciones </span>
       </Link> - 
-      <span>Crear Habitación</span></h3>
-    <div className={`max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md  ${COLORS["light_secundary"]} mt-16 `}>
+      <span> Crear Habitación</span></h3>
+    <div className={`max-w-2xl mx-auto p-6 rounded-lg shadow-md  ${COLORS["light_primary"]} border border-gray-200 mb-10`}>
       <h2 className="text-2xl font-bold mb-4 text-black ">Crear Nueva Habitación</h2>
       
       {message.text && (
@@ -154,7 +156,7 @@ const CreacionHabitacion = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-black dark:text-black mb-1">
+            <label className="block text-sm font-medium text-black">
               Precio (mensual)
               <span className="text-red-500">*</span>
             </label>
@@ -167,8 +169,8 @@ const CreacionHabitacion = () => {
                 name="Precio"
                 value={formData.Precio}
                 onChange={handleChange}
-                className={`mt-1 block w-full pl-7 rounded-md shadow-sm p-2 border ${
-                  errors.Precio ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+                className={`bg-white mt-1 block w-full pl-7 rounded-md shadow-sm p-2 border ${
+                  errors.Precio ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]'
                 }`}
                 placeholder="300"
                 min="1"
@@ -190,8 +192,8 @@ const CreacionHabitacion = () => {
               name="Id_Unidad"
               value={formData.Id_Unidad}
               onChange={handleChange}
-              className={`mt-1 block w-full rounded-md shadow-sm p-2 border ${
-                errors.Id_Unidad ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+              className={`bg-white mt-1 block w-full rounded-md shadow-sm p-2 border ${
+                errors.Id_Unidad ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]'
               }`}
               disabled={isLoadingUnits}
               required
@@ -217,7 +219,7 @@ const CreacionHabitacion = () => {
             </label>
             <select
               name="estado"
-              className={`w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border  focus:outline-none focus:border-black`}
+              className={`bg-white w-full p-2 mt-1 rounded ${COLORS["light_primary"]} border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]`}
               value={formData.estado}
               onChange={handleChange}
               required
@@ -240,8 +242,8 @@ const CreacionHabitacion = () => {
             value={formData.Descripcion}
             onChange={handleChange}
             rows={4}
-            className={`mt-1 block w-full rounded-md shadow-sm p-2 border ${
-              errors.Descripcion ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+            className={`bg-white mt-1 block w-full rounded-md shadow-sm p-2 border ${
+              errors.Descripcion ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]'
             }`}
             placeholder="Describe la habitación, incluyendo mobiliario, comodidades, etc."
             required
@@ -264,8 +266,8 @@ const CreacionHabitacion = () => {
             value={formData.Requisitos}
             onChange={handleChange}
             rows={4}
-            className={`mt-1 block w-full rounded-md shadow-sm p-2 border ${
-              errors.Requisitos ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+            className={`bg-white mt-1 block w-full rounded-md shadow-sm p-2 border ${
+              errors.Requisitos ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]'
             }`}
             placeholder="Indica los requisitos para los interesados (ej: contrato, garantía, etc.)"
             required
@@ -284,7 +286,7 @@ const CreacionHabitacion = () => {
             <span className="text-red-500">*</span>
           </label>
           
-          <div className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md ${
+          <div className={`bg-white mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md ${
             errors.image ? 'border-red-300' : 'border-gray-300'
           }`}>
             <div className="space-y-1 text-center">
@@ -307,7 +309,7 @@ const CreacionHabitacion = () => {
                     <IoCloudUpload className="mx-auto h-12 w-12 text-gray-400" />
                   </div>
                   <div className="flex text-sm text-gray-600 dark:text-gray-400">
-                    <label className="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                    <label className="relative cursor-pointer bg-white rounded-md font-medium text-[#01b09e] hover:text-[#018ab0] focus-within:outline-none">
                       <span>Sube una imagen</span>
                       <input
                         type="file"
@@ -335,7 +337,7 @@ const CreacionHabitacion = () => {
         <button
   type="submit"
   disabled={isSubmitting || isLoadingUnits || isLoadingAdmin}
-  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg font-semibold text-white ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-300 ${
     isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
   }`}
 >

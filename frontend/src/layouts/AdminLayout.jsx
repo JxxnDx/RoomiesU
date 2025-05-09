@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SideBar from "../components/Sidebar";
+import SideBar from "../components/SideBar";
 import { useState } from "react";
 import NavbarAdmin from "../components/Navbar";
 
@@ -8,13 +8,13 @@ const AdminLayout = () => {
 
   return (
     <div className="public-layout">
-              <SideBar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
-              {/* El div principal ahora tiene margen izquierdo dinámico */}
-              <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} `}>
-                <NavbarAdmin sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
-                <Outlet />
-              </div>
-            </div>
+      <SideBar sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
+      {/* El div principal ahora tiene margen izquierdo dinámico */}
+      <div className={`transition-all duration-300 ${sidebarToggle ? "ml-64" : "ml-0"} `}>
+        <NavbarAdmin sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
