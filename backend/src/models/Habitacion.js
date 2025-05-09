@@ -83,5 +83,61 @@ export const getUnidadAdminById = async (id) => {
   };
 
 
+  export const getHabitacionById = async (id) => {
+    try{const [rows] = await pool.query(
+       "SELECT * FROM habitacion WHERE Id_Habitacion = ?",
+     [id]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener la habitación", error);
+    throw error;
+   }
+  };
+
+  export const editarHabitacion = async ({
+    Id_Habitacion,
+    Precio,
+    Descripcion,
+    Requisitos,
+    Id_Unidad,
+    estado,
+    Img_url
+  }) => {
+    try {
+      // 1. Primero verifica si existe la habitación
+      const [checkResult] = await pool.query(
+        'SELECT Id_Habitacion FROM habitacion WHERE Id_Habitacion = ?', 
+        [Id_Habitacion]
+      );
   
+      if (checkResult.length === 0) {
+        throw new Error(`Habitación con ID ${Id_Habitacion} no existe`);
+      }
   
+      // 2. Si existe, procede con la actualización
+      const query = `
+        UPDATE habitacion 
+        SET Precio = ?, Descripcion = ?, Requisitos = ?, 
+            Id_Unidad = ?, estado = ?, Img_url = ?
+        WHERE Id_Habitacion = ?`;
+      
+      const values = [Precio, Descripcion, Requisitos, Id_Unidad, estado, Img_url, Id_Habitacion];
+      
+      const [result] = await pool.query(query, values);
+      
+      if (result.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar la habitación');
+      }
+      
+      return {
+        success: true,
+        message: `Habitación ${Id_Habitacion} actualizada correctamente`,
+        changes: result.affectedRows
+      };
+      
+    } catch (error) {
+      console.error('Error en modelo editarHabitacion:', error);
+      throw error;
+    }
+  };

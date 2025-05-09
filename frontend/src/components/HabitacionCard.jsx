@@ -2,6 +2,7 @@ import React from "react";
 import { COLORS } from '../constants/styles';
 import { NavLink } from "react-router-dom";
 import { FaBed, FaMapMarkerAlt, FaFileAlt, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
+import { CiSquareQuestion } from "react-icons/ci";
 
 export default function HabitacionCard({ habitacion }) {
   const { Descripcion, Precio, Id_Habitacion, Img_url, Direccion, Requisitos } = habitacion;
@@ -25,7 +26,7 @@ export default function HabitacionCard({ habitacion }) {
       <div className="space-y-3 flex-grow">
         {/* Descripción con límite de líneas */}
         <div className="flex items-start gap-2">
-          <FaFileAlt className="mt-1 flex-shrink-0" />
+          <CiSquareQuestion className="mt-1 flex-shrink-0" />
           <div>
             <p className="font-semibold">Descripción:</p>
             <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
@@ -52,10 +53,10 @@ export default function HabitacionCard({ habitacion }) {
         </div>
         
         <NavLink 
-          to={`/habitaciones/${Id_Habitacion}`} 
+          to={`/editarhabitacion/${Id_Habitacion}`} 
           className={`flex items-center gap-1 ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white rounded-lg px-4 py-2 transition-colors`}
         >
-          Ver más <FaArrowRight className="text-sm" />
+          Editar <FaArrowRight className="text-sm" />
         </NavLink>
       </div>
     </article>
