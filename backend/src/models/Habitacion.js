@@ -46,11 +46,36 @@ export const getUnidadAdminById = async (id) => {
    }
   };
 
-  export const getHabitacionesforStudents = async () => {
-    try{const [rows] = await pool.query(
-      "SELECT h.Id_Habitacion, h.Precio, h.Descripcion, h.Requisitos, h.Img_url, h.estado, u.Direccion FROM habitacion h JOIN unidad_vivienda u ON h.Id_Unidad = u.Id_Unidad WHERE h.estado='habilitado';"
-    );
-    return rows;
+  export const getHabitacionesforStudents = async ({ sector, ordenPrecio }) => {
+    try{
+      let query = `
+      SELECT h.Id_Habitacion, h.Precio, h.Descripcion, h.Requisitos, h.Img_url, h.estado, u.Direccion, s.Nombre as Nombre_Sector 
+      FROM habitacion h JOIN unidad_vivienda u ON h.Id_Unidad = u.Id_Unidad 
+      JOIN sector s ON u.Id_Sector= s.Id_Sector WHERE h.estado='habilitado'`
+
+      const values = [];
+
+      if (sector) {
+        query += " AND s.Nombre LIKE ?";
+        values.push(`%${sector}%`);
+      }
+  
+      const ordenValido = ['asc', 'desc'];
+      if (ordenValido.includes(ordenPrecio)) {
+        const orden = ordenPrecio.toUpperCase();
+        query += ` ORDER BY h.Precio ${orden}, h.Id_Habitacion ${orden}`;
+      }
+
+      //Esto es para DEBUG
+      // let debugQuery = query;
+      // values.forEach(val => {
+      // debugQuery = debugQuery.replace('?', `'${val}'`);
+      // });
+      // console.log("🧪 Query completa:", debugQuery);
+      const [rows] = await pool.query(query, values);
+      return rows;
+      
+    
    } catch(error){
     console.error("❌ Error al obtener las habitaciones", error);
     throw error;
