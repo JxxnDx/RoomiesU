@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function SideBar({ sidebarToggle, setSidebarToggle }) {
   return (
     <div
-      className={`fixed top-0 left-0 h-full w-64 ${COLORS["light_primary"]} text-black transform ${
+      className={`fixed top-0 left-0 h-full w-64  text-black transform ${
         sidebarToggle ? "translate-x-0" : "-translate-x-64"
       } transition-transform duration-300 ease-in-out shadow-lg z-50`}
     >
@@ -24,9 +24,9 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
       
       <ul className="text-black font-bold mt-3">
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+          <Link to="/admindashboard" className="px-3">
             <FaHome className="h-6 w-6 inline-block mr-2 -mt-2" /> Inicio
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <a href="#" className="px-3">
