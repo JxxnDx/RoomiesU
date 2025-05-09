@@ -90,7 +90,7 @@ export default function UnidadVivienda() {
                   <h2 className="text-xl font-bold">{unidad.Nombre}</h2>
                   <span className={`px-2 py-1 text-xs rounded-full ${
                     unidad.estado === 'habilitado' 
-                      ? 'bg-green-500 text-white' 
+                      ? 'bg-[#01b09e] text-white' 
                       : 'bg-red-500 text-white'
                   }`}>
                     {unidad.estado}
@@ -99,22 +99,22 @@ export default function UnidadVivienda() {
 
                 <div className="space-y-3">
                   <div className="flex items-center">
-                    <IoLocation className="mr-2 text-green-400" />
+                    <IoLocation className="mr-2 text-[#01b09e]" />
                     <span>{unidad.Direccion}</span>
                   </div>
                   
                   <div className="flex items-center">
-                    <IoHome className="mr-2 text-green-400" />
+                    <IoHome className="mr-2 text-[#01b09e]" />
                     <span className="capitalize">{unidad.Tipo}</span>
                   </div>
                   
                   <div className="flex items-center">
-                    <IoList className="mr-2 text-green-400" />
+                    <IoList className="mr-2 text-[#01b09e]" />
                     <span>Sector: {unidad.Id_Sector}</span>
                   </div>
                   
                   <div className="flex items-center">
-                    <IoCheckmarkCircle className="mr-2 text-green-400" />
+                    <IoCheckmarkCircle className="mr-2 text-[#01b09e]" />
                     <span>Admin ID: {unidad.Id_Admin}</span>
                   </div>
                 </div>
