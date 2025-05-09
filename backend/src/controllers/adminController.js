@@ -1,6 +1,7 @@
-import { getUnidadAdminById, createHabitacion, getHabitaciones } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
+import { pool } from "../config/db.js";
 
 
 export const getUnidadAdminByIdController = async (req, res) => {
@@ -160,4 +161,79 @@ export const createHabitacionController = async (req, res) => {
   }
 };
 
+export const getHabitacionByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const habitacion = await getHabitacionById(id);
+
+    if (!habitacion) {
+      return res.status(404).json({ message: "Habitación no encontrada" });
+    }
+
+    res.json(habitacion);
+  } catch (error) {
+    console.error("❌ Error en getHabitaciónByIdController:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const editarHabitacionController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { Precio, Descripcion, Requisitos, Id_Unidad, estado, currentImageUrl } = req.body;
+
+    // Validación más detallada
+    if (!Precio || !Descripcion || !Requisitos || !Id_Unidad || !currentImageUrl) {
+      return res.status(400).json({ 
+        error: 'Faltan campos requeridos',
+        detalles: {
+          Precio: !Precio ? 'Falta el precio' : 'OK',
+          Descripcion: !Descripcion ? 'Falta la descripción' : 'OK',
+          Requisitos: !Requisitos ? 'Faltan los requisitos' : 'OK',
+          Id_Unidad: !Id_Unidad ? 'Falta la unidad' : 'OK',
+          currentImageUrl: !currentImageUrl ? 'Falta la URL de la imagen actual' : 'OK'
+        }
+      });
+    }
+
+    let imageUrl = currentImageUrl;
+
+    if (req.file) {
+      try {
+        const uploadResult = await cloudinary.uploader.upload(
+          `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`,
+          { folder: 'habitaciones' }
+        );
+        imageUrl = uploadResult.secure_url;
+      } catch (cloudinaryError) {
+        console.error('Error subiendo a Cloudinary:', cloudinaryError);
+        return res.status(500).json({ error: 'Error al subir la imagen' });
+      }
+    }
+
+    await editarHabitacion({
+      Id_Habitacion: id,
+      Precio,
+      Descripcion,
+      Requisitos,
+      Id_Unidad,
+      estado,
+      Img_url: imageUrl
+    });
+
+    res.status(200).json({ 
+      message: 'Habitación actualizada correctamente',
+      imageUrl: imageUrl 
+    });
+
+  } catch (error) {
+    console.error('❌ Error al actualizar habitación:', error);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      detalle: error.message 
+    });
+  }
+};
 
