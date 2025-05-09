@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { COLORS } from '../constants/styles';
 import { Link } from 'react-router-dom';
 import { IoBed, IoPeople, IoSquare, IoPricetag, IoCheckmarkCircle } from "react-icons/io5";
+import { useAdmin } from '../hooks/useAdmin';
+import { useHabitaciones } from '../hooks/useHabitaciones';
+import HabitacionCard from '../components/HabitacionCard';
 
 export default function Habitaciones() {
   const [message, setMessage] = useState('');
@@ -9,8 +12,10 @@ export default function Habitaciones() {
   const [habitaciones, setHabitaciones] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const { adminId, isLoading: isLoadingAdmin, error: adminError } = useAdmin();
+  const { Habitaciones, isLoading: isLoadingHabitaciones, error: habitacionesError } = useHabitaciones(adminId);
   
-
+console.log(Habitaciones);
   return (
     <div className='antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 min-h-screen'>
       {/* Header con título y descripción */}
@@ -45,108 +50,18 @@ export default function Habitaciones() {
         )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Ejemplo de habitación (esto sería reemplazado por el mapeo de tus datos) */}
-          <div className="bg-gray-700/80 backdrop-blur-md rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-white">Habitación Individual</h3>
-                <span className="px-2 py-1 text-xs rounded-full bg-green-500 text-white">
-                  Disponible
-                </span>
-              </div>
+          {/* Mapeo de las habitaciones */}
+          {Habitaciones.map((habitacion) => (
+           <HabitacionCard
+           key={habitacion.Id_Habitacion}
+           habitacion={habitacion}
+           />
+          ))
 
-              <div className="space-y-3 text-gray-300">
-                <div className="flex items-center">
-                  <IoBed className="mr-2 text-blue-400" />
-                  <span>Tipo: Individual</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoPeople className="mr-2 text-blue-400" />
-                  <span>Capacidad: 1 persona</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoSquare className="mr-2 text-blue-400" />
-                  <span>Área: 12 m²</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoPricetag className="mr-2 text-blue-400" />
-                  <span>Precio: $300/mes</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoCheckmarkCircle className="mr-2 text-blue-400" />
-                  <span>Unidad: Casa Principal</span>
-                </div>
-              </div>
-
-              <div className="mt-6 flex justify-between">
-                <Link to="/editar-habitacion/1">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
-                    Editar
-                  </button>
-                </Link>
-                <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition">
-                  Deshabilitar
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          {/* Segunda habitación de ejemplo */}
-          <div className="bg-gray-700/80 backdrop-blur-md rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="text-xl font-bold text-white">Habitación Doble</h3>
-                <span className="px-2 py-1 text-xs rounded-full bg-yellow-500 text-white">
-                  Ocupada
-                </span>
-              </div>
-
-              <div className="space-y-3 text-gray-300">
-                <div className="flex items-center">
-                  <IoBed className="mr-2 text-blue-400" />
-                  <span>Tipo: Compartida</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoPeople className="mr-2 text-blue-400" />
-                  <span>Capacidad: 2 personas</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoSquare className="mr-2 text-blue-400" />
-                  <span>Área: 18 m²</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoPricetag className="mr-2 text-blue-400" />
-                  <span>Precio: $200/mes</span>
-                </div>
-                
-                <div className="flex items-center">
-                  <IoCheckmarkCircle className="mr-2 text-blue-400" />
-                  <span>Unidad: Edificio A</span>
-                </div>
-              </div>
-
-              <div className="mt-6 flex justify-between">
-                <Link to="/editar-habitacion/2">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition">
-                    Editar
-                  </button>
-                </Link>
-                <button className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition">
-                  Habilitar
-                </button>
-              </div>
-            </div>
-          </div>
+          }
         </div>
 
-        {habitaciones.length === 0 && !error && (
+        {Habitaciones.length === 0 && !error && (
           <div className="text-center text-white py-10">
             <p className="text-xl">No hay habitaciones registradas</p>
             <Link to="/crear-habitacion">

@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { COLORS } from '../constants/styles';
-import HabitacionCard from '../components/HabitacionCard';
+import HabitacionCardStudent from '../components/HabitacionCardStudent';
+import { useHabitacionesStudent } from '../hooks/useHabitacionesStudent';
 
 export default function StudentHome() {
+
+  
+  const { Habitaciones, isLoading, error } = useHabitacionesStudent();
+  
+  console.log(Habitaciones)
   return (
-    <div className={`${COLORS["primary"]} text-white h-full flex flex-col p-8`}>
+    <div className={`text-black h-full flex flex-col p-8`}>
       <header className='flex flex-col md:flex-row gap-4'>
         <div className='flex flex-col flex-1 p-4'>
           <label className='font-bold pb-4'>Bucar habitación</label>
@@ -22,12 +28,17 @@ export default function StudentHome() {
       </header>
       <main className='flex flex-col p-4'>
         <h1 className='font-bold text-2xl'>Habitaciones disponibles</h1>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
-          <HabitacionCard/>
-          <HabitacionCard/>
-          <HabitacionCard/>
-          <HabitacionCard/>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Mapeo de las habitaciones */}
+                  {Habitaciones.map((habitacion) => (
+                   <HabitacionCardStudent
+                   key={habitacion.Id_Habitacion}
+                   habitacion={habitacion}
+                   />
+                  ))
+        
+                  }
+                </div>
       </main>
     </div>
   )
