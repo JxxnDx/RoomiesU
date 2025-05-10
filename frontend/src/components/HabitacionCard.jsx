@@ -53,7 +53,7 @@ export default function HabitacionCard({ habitacion }) {
         </div>
         
         <NavLink 
-          to={`/editarhabitacion/${Id_Habitacion}`} 
+          to={`/editar-habitacion/${Id_Habitacion}`} 
           className={`flex items-center gap-1 ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white rounded-lg px-4 py-2 transition-colors`}
         >
           Editar <FaArrowRight className="text-sm" />
