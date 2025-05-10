@@ -1,12 +1,37 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import { COLORS, TEXT } from '../constants/styles';
 import { MdBedroomParent } from "react-icons/md";
 import { CiCircleCheck } from "react-icons/ci";
 import { FaRegUserCircle } from "react-icons/fa";
 import { RiMegaphoneLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
+} from 'recharts';
 
+
+ 
 export default function Admindashboard() {
+   
+   const fakeData = [
+  { mes: 'Enero', ganancia: 5400 },
+  { mes: 'Febrero', ganancia: 4800 },
+  { mes: 'Marzo', ganancia: 6100 },
+  { mes: 'Abril', ganancia: 5300 },
+  { mes: 'Mayo', ganancia: 6700 },
+  { mes: 'Junio', ganancia: 7200 },
+];
+
+const [data, setData] = useState(fakeData);
+
+  // useEffect(() => {
+  //   // Reemplaza esta URL con la del backend Node.js
+  //   fetch('http://localhost:3000/api/ganancias-mensuales')
+  //     .then(res => res.json())
+  //     .then(json => setData(json))
+  //     .catch(err => console.error('Error cargando ganancias:', err));
+  // }, []);
+
   return (
     <>
     <div className={`text-black h-full flex flex-col p-8`}>
@@ -44,6 +69,20 @@ export default function Admindashboard() {
          <h2 className='font-semibold text-6xl'>30</h2>
          <p> En menos de 30 días</p>
         </div>
+    </div>
+
+    {/* Gráfico de ganancias */}
+    <div className={`${COLORS["light_primary"]} rounded-lg mx-8 p-6`}>
+      <h2 className='text-xl font-bold mb-4'>Ganancias Mensuales</h2>
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="mes" />
+          <YAxis />
+          <Tooltip />
+          <Bar dataKey="ganancia" fill="#4ade80" />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
     
     </>
