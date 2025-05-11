@@ -21,7 +21,7 @@ export default function EditarHabitacion() {
   const { habitacion, loading, error, handleChange } = useHabitacionData(id);
   const { sectores } = useSectoresData();
   const { file, preview: newImagePreview, error: fileError, handleFileChange, resetFile } = useFileUpload();
-  const { showUploadOption, handleRemoveImage } = useImageHandler(habitacion.Img_url);
+  const {  showUploadOption,  currentImage, handleRemoveImage, updateImage  } = useImageHandler(habitacion.Img_url);
   const { message,errors, handleSubmit } = useEditarHabitacionForm(habitacion, id, file, navigate);
 
   if (loading) {
@@ -153,7 +153,7 @@ export default function EditarHabitacion() {
                     />
                     <button
                       type="button"
-                      onClick={handleRemoveImage}
+                      onClick={() => handleRemoveImage(resetFile)}
                       className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1 -mt-2 -mr-2"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
