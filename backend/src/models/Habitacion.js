@@ -141,3 +141,34 @@ export const getUnidadAdminById = async (id) => {
       throw error;
     }
   };
+
+
+  export const createServicio = async ( ServiceData) => {
+    const {
+      Id_Servicio,
+      Id_Habitacion
+    } = ServiceData;
+  
+    const [result] = await pool.query(
+      `INSERT INTO servicio_pension 
+       (Id_Servicio, Id_Habitacion) 
+       VALUES (?, ?)`,
+      [Id_Servicio, Id_Habitacion]
+    );
+  
+    return result.insertId;
+  };
+
+    export const eliminarServicioHabitacion = async ( { Id_Servicio, Id_Habitacion }) => {
+  
+  
+    const [result] = await pool.query(
+      `DELETE FROM servicio_pension 
+      WHERE Id_Servicio = ? AND Id_Habitacion = ? `,
+      [Id_Servicio, Id_Habitacion]
+    );
+  
+    return result.affectedRows;
+  };
+
+

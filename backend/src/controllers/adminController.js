@@ -1,4 +1,4 @@
-import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
@@ -178,7 +178,6 @@ export const getHabitacionByIdController = async (req, res) => {
   }
 };
 
-
 export const editarHabitacionController = async (req, res) => {
   try {
     const { id } = req.params;
@@ -236,4 +235,84 @@ export const editarHabitacionController = async (req, res) => {
     });
   }
 };
+
+export const crearServicioController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { Id_Servicio} = req.body;
+
+     // Validación completa
+    if (!Id_Servicio || !id) {
+      return res.status(400).json({ 
+        error: 'Faltan campos requeridos',
+        detalles: {
+          Id_Servicio: !Id_Servicio ? 'Falta el Id_Servicio' : 'OK',
+          Id_Habitacion: !id ? 'Falta el Id_Habitacion' : 'OK'
+        }
+      });
+    }
+
+
+    await createServicio({
+      Id_Habitacion: id,
+      Id_Servicio: Id_Servicio
+    });
+
+    res.status(200).json({ 
+      message: 'Servicio creado correctamente'
+    });
+
+  } catch (error) {
+    console.error('❌ Error al crear el servicio:', error);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      detalle: error.message 
+    });
+  }
+};
+
+
+//El
+export const eliminarServicioHabitacionController = async (req, res) => {
+  try {
+  const { Id_Habitacion, Id_Servicio} = req.params;
+
+const eliminados = await eliminarServicioHabitacion({ Id_Habitacion, Id_Servicio });
+
+if (eliminados === 0) {
+  return res.status(404).json({ 
+    error: 'Servicio no encontrado o ya fue eliminado' 
+  });
+}
+     // Validación completa
+    if (!Id_Servicio || !Id_Habitacion) {
+      return res.status(400).json({ 
+        error: 'Faltan campos requeridos',
+        detalles: {
+          Id_Servicio: !Id_Servicio ? 'Falta el Id_Servicio' : 'OK',
+          Id_Habitacion: !Id_Habitacion ? 'Falta el Id_Habitacion' : 'OK'
+        }
+      });
+    }
+
+
+    await eliminarServicioHabitacion({
+      Id_Habitacion: Id_Habitacion,
+      Id_Servicio: Id_Servicio
+    });
+
+    res.status(200).json({ 
+      message: 'Servicio eliminado correctamente'
+    });
+
+  } catch (error) {
+    console.error('❌ Error al eliminar el servicio:', error);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      detalle: error.message 
+    });
+  }
+};
+
+
 
