@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { COLORS, TEXT } from '../constants/styles';
+import roomImage from "../../public/fondo_roomiesu.webp";
 
 const Login = () => {
   const [correo, setCorreo] = useState("");
@@ -41,7 +42,17 @@ const Login = () => {
   };
 
   return (
-    <div className={`${COLORS["light_primary"]} text-gray-800 backdrop-blur-mdp-6 rounded-lg w-full max-w-md`}>
+    <div className={`flex flex-row items-center justify-center h-auto w-auto ${COLORS["light_primary"]}` }>
+       <div className="p-10 flex flex-col space-y-6">
+        <h1 className="text-6xl font-bold text-teal-600 drop-shadow-lg">RoomiesU</h1>
+        <img
+          src={roomImage}
+          alt="RoomiesU"
+          className="w-80 sm:w-96 md:w-[400px] transition-all duration-500 hover:scale-[1.05]"
+        />
+      </div>
+
+      <div className={`text-gray-800 p-6 rounded-lg shadow-lg bg-white w-md`}>
       <h2 className="text-2xl text-[#01b09e] font-bold text-center">Iniciar Sesión</h2>
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
       <form onSubmit={handleSubmit} className="mt-4">
@@ -110,6 +121,7 @@ const Login = () => {
           </span>
         </p>
       </form>
+    </div>
     </div>
   );
 };

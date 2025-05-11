@@ -13,6 +13,7 @@ import CreationUnidad from "./pages/CreationUnidad";
 import EditarUnidad from "./pages/EditarUnidad";
 import Habitaciones from "./pages/Habitacion";
 import CreacionHabitacion from "./pages/CreationHabitacion";
+import EditarHabitacion from "./pages/EditarHabitacion";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -62,6 +63,7 @@ function App() {
           <Route path="/editar-unidad/:id" element={<EditarUnidad />} />
           <Route path="/habitacion" element={<Habitaciones/>} />
           <Route path="/creacionhabitacion" element={<CreacionHabitacion/>} />
+           <Route path="/editar-habitacion/:id" element={<EditarHabitacion/>} />
         </Route>
       </Route>
 
