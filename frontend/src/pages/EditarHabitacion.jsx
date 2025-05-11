@@ -6,175 +6,23 @@ import { COLORS } from '../constants/styles';
 import { useUnits } from '../hooks/useUnits';
 import { useAdmin } from '../hooks/useAdmin';
 import { useFileUpload } from '../hooks/useFileUpload';
+import { useHabitacionData } from '../hooks/useHabitacionData';
+import { useSectoresData } from '../hooks/useSectoresData';
+import { useEditarHabitacionForm } from '../hooks/useEditarHabitacionForm';
+import { useImageHandler } from '../hooks/useImageHandler';
 
 export default function EditarHabitacion() {
-  const { adminId, isLoading: isLoadingAdmin, error: adminError } = useAdmin();
-  const { units, isLoading: isLoadingUnits, error: unitsError } = useUnits(adminId);
   const { id } = useParams();
   const navigate = useNavigate();
-  const {
-    file,
-    preview: newImagePreview,
-    error: fileError,
-    handleFileChange,
-    resetFile,
-    setError: setFileError
-  } = useFileUpload();
-
-  const [habitacion, setHabitacion] = useState({
-    Id_Habitacion: '',
-    Precio: '',
-    Descripcion: '',
-    Requisitos: '',
-    Id_Admin: '',
-    Id_Unidad: '',
-    Img_url: '',
-    estado: ''
-  });
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState('');
-  const [sectores, setSectores] = useState([]);
-  const [message, setMessage] = useState({ text: '', type: '' });
-  const [showUploadOption, setShowUploadOption] = useState(false);
-
-  // Cargar sectores
-  useEffect(() => {
-    axios.get('http://localhost:4000/api/sectores', { withCredentials: true })
-      .then(response => setSectores(response.data))
-      .catch(err => {
-        console.error('Error al cargar sectores:', err);
-        setError('Error al cargar los sectores');
-      });
-  }, []);
-
-  // Cargar datos de la habitación
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchHabitacion = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/api/habitacion/${id}`, { withCredentials: true });
-        
-        if (response.data && response.data.length > 0) {
-          const habitacionData = response.data[0];
-          
-          // Verificar campos requeridos
-          const requiredFields = ['Id_Habitacion', 'Precio', 'Descripcion', 'Requisitos', 'Id_Admin', 'Id_Unidad', 'estado', 'Img_url'];
-          const missingFields = requiredFields.filter(field => !habitacionData[field]);
-          
-          if (missingFields.length > 0) {
-            throw new Error(`Faltan campos en la respuesta: ${missingFields.join(', ')}`);
-          }
-          
-          setHabitacion(habitacionData);
-        }
-      } catch (err) {
-        console.error('Error al cargar la habitación:', err);
-        setMessage({ 
-          text: `Error al cargar datos: ${err.message}`,
-          type: 'error' 
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchHabitacion();
-  }, [id]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setHabitacion(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleRemoveImage = () => {
-    resetFile();
-    setShowUploadOption(true);
-    // No eliminamos Img_url para mantener currentImageUrl
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-    setMessage({ text: '', type: '' });
-
-    // Validar campos requeridos
-    const requiredFields = {
-      Id_Habitacion: habitacion.Id_Habitacion,
-      Precio: habitacion.Precio,
-      Descripcion: habitacion.Descripcion,
-      Requisitos: habitacion.Requisitos,
-      Id_Admin: habitacion.Id_Admin,
-      Id_Unidad: habitacion.Id_Unidad,
-      estado: habitacion.estado,
-      currentImageUrl: habitacion.Img_url // Nombre exacto que espera el backend
-    };
-
-    const missingFields = Object.entries(requiredFields)
-      .filter(([_, value]) => !value)
-      .map(([field]) => field);
-
-    if (missingFields.length > 0) {
-      setMessage({
-        text: `Faltan campos requeridos: ${missingFields.join(', ')}`,
-        type: 'error'
-      });
-      return;
-    }
-
-    const formData = new FormData();
-    
-    // Agregar todos los campos con los nombres exactos que espera el backend
-    Object.entries(requiredFields).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    // Agregar nueva imagen solo si existe
-    if (file) {
-      formData.append('image', file);
-    }
-
-    try {
-      const response = await axios.put(
-        `http://localhost:4000/api/editarhabitacion/${id}`,
-        formData,
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      );
-
-      if (response.status === 200) {
-        setMessage({ 
-          text: 'Habitación actualizada correctamente', 
-          type: 'success' 
-        });
-        setTimeout(() => navigate('/habitacion'), 2000);
-      }
-    } catch (err) {
-      console.error('Error al actualizar:', err.response?.data);
-      
-      let errorMsg = 'Error al actualizar la habitación';
-      if (err.response?.data?.detalles) {
-        const errores = Object.entries(err.response.data.detalles)
-          .filter(([_, value]) => value !== 'OK')
-          .map(([campo]) => campo);
-        
-        errorMsg = `Problema con los campos: ${errores.join(', ')}`;
-      }
-      
-      setMessage({ 
-        text: errorMsg,
-        type: 'error',
-        details: err.response?.data?.detalles
-      });
-    }
-  };
+  
+  // Hooks personalizados
+  const { adminId } = useAdmin();
+  const { units, isLoading: isLoadingUnits } = useUnits(adminId);
+  const { habitacion, loading, error, handleChange } = useHabitacionData(id);
+  const { sectores } = useSectoresData();
+  const { file, preview: newImagePreview, error: fileError, handleFileChange, resetFile } = useFileUpload();
+  const { showUploadOption, handleRemoveImage } = useImageHandler(habitacion.Img_url);
+  const { message,errors, handleSubmit } = useEditarHabitacionForm(habitacion, id, file, navigate);
 
   if (loading) {
     return (
