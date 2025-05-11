@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { COLORS } from '../constants/styles';
 import { NavLink } from "react-router-dom";
 import { FaBed, FaFileAlt, FaMoneyBillWave, FaArrowRight } from "react-icons/fa";
@@ -7,9 +7,16 @@ import { CiSquareQuestion } from "react-icons/ci";
 
 export default function HabitacionCardStudent({ habitacion }) {
   const { Descripcion, Precio, Id_Habitacion, Img_url, Direccion, Requisitos, Nombre_Sector } = habitacion;
-  
+    const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Esto hace que la animación se dispare al montar
+    const timer = setTimeout(() => setShow(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
   return (
-    <article className={`flex flex-col ${COLORS["light_primary"]} text-black shadow-md hover:shadow-xl rounded-lg p-4 m-4 transition-all duration-300 hover:scale-[1.02] h-full`}>
+    <article className={`transition-all duration-900 ease-in transform
+        ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} flex flex-col ${COLORS["light_primary"]} text-black shadow-md hover:shadow-xl rounded-lg p-4 m-4 transition-all duration-300 hover:scale-[1.02] h-full`}>
       {/* Encabezado */}
       <div className="flex items-center gap-2 mb-2">
         <FaBed className="text-lg" />

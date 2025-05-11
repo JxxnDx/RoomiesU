@@ -15,7 +15,7 @@ export default function Habitaciones() {
   const { adminId, isLoading: isLoadingAdmin, error: adminError } = useAdmin();
   const { Habitaciones, isLoading: isLoadingHabitaciones, error: habitacionesError } = useHabitaciones(adminId);
   
-console.log(Habitaciones);
+// console.log(Habitaciones);
   return (
     <div className='antialiased bg-white min-h-screen'>
       {/* Header con título y descripción */}
