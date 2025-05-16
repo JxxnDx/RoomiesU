@@ -59,6 +59,16 @@ export default function HabitacionCard({ habitacion }) {
           Editar <FaArrowRight className="text-sm" />
         </NavLink>
       </div>
+      <div className={`flex items-center mt-2`}>
+        <NavLink
+        to={`/agregar-servicio/${Id_Habitacion}`}
+        className="w-full">
+        <button className={`flex items-center justify-center text-white font-semibold bg-blue-400 hover:bg-blue-600 rounded-lg w-full p-2`}>
+          Servicios
+        </button>
+        </NavLink>
+
+      </div>
     </article>
   );
 }
