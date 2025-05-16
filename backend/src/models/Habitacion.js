@@ -171,4 +171,16 @@ export const getUnidadAdminById = async (id) => {
     return result.affectedRows;
   };
 
+   export const getServicios = async ( ) => {
+   try{
+    const [rows] = await pool.query(
+       "SELECT * FROM servicio;",
+     
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los servicios", error);
+    throw error;
+   } 
+  }
 

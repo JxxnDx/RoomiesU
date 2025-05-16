@@ -1,4 +1,4 @@
-import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
@@ -311,6 +311,23 @@ if (eliminados === 0) {
       error: 'Error interno del servidor',
       detalle: error.message 
     });
+  }
+};
+
+export const getServiciosController = async (req, res) => {
+  try {
+  
+
+    const servicios = await getServicios();
+
+    if (!servicios) {
+      return res.status(404).json({ message: "Servicios no encontrados" });
+    }
+
+    res.json(servicios);
+  } catch (error) {
+    console.error("❌ Error en getServiciosController:", error);
+    res.status(500).json({ message: "Error interno" });
   }
 };
 
