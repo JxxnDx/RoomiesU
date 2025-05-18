@@ -27,7 +27,7 @@ const VerHabitacion = () => {
             </div>
             <article className={`flex flex-col gap-4`}>
                 <h2 className={`${TEXT["subtitle"]}`}>Información</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-[#01b09e] pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-black pt-2">
                     <div className="flex items-start gap-2">
                     <FaDollarSign className="mt-1" />
                     <div>
