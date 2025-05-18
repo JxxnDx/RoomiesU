@@ -4,7 +4,7 @@ import { useState } from "react";
 import NavbarAdmin from "../components/Navbar";
 
 const AdminLayout = () => {
-  const [sidebarToggle, setSidebarToggle] = useState(false);
+  const [sidebarToggle, setSidebarToggle] = useState(true);
 
   return (
     <div className="public-layout">

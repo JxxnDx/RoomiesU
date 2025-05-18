@@ -4,7 +4,7 @@ import SideBarStudent from "../components/SidebarStudent";
 import Navbar from "../components/Navbar";
 
 const StudentLayout = () => {
-   const [sidebarToggle, setSidebarToggle] = useState(false);
+   const [sidebarToggle, setSidebarToggle] = useState(true);
   return (
     <div className="student-layout">
           <SideBarStudent sidebarToggle={sidebarToggle} setSidebarToggle={setSidebarToggle} />
