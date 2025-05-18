@@ -2,12 +2,14 @@ import React from 'react'
 import { COLORS, TEXT } from '../constants/styles'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ServicesItem from '../components/ServicesItem';
+import { IoArrowBack } from "react-icons/io5";
 
 
 export default function Servicio() {
     const { id }= useParams();
+    const navigate = useNavigate();
 const [formData, setFormData] = useState({
     Id_Servicio: ''
   });
@@ -80,6 +82,12 @@ const [formData, setFormData] = useState({
     <>
     {/* Header con título y descripción */}
           <div className='p-8'>
+            <button 
+                      onClick={() => navigate('/habitacion')}
+                      className="flex items-center mb-6 hover:text-[#01b09e] transition-all"
+                    >
+                      <IoArrowBack className="mr-2" /> Volver a Habitaciones
+                    </button>
             <h1 className={`${TEXT["title"]} mb-4 flex justify-center text-4xl`}>Servicios</h1>
             <div >
               <p className='text-lg'>
