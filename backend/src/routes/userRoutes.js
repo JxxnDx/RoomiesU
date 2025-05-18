@@ -23,8 +23,8 @@ router.get('/habitacion/:id', verifyToken, getHabitacionByIdController);
 router.put('/editarhabitacion/:id', verifyToken,uploadSingleImage, editarHabitacionController);
 router.post('/createservicio/:id', verifyToken, crearServicioController);
 router.delete('/eliminarservicio/:Id_Habitacion/:Id_Servicio', verifyToken, eliminarServicioHabitacionController);
-router.get('/servicios',  getServiciosController );
-router.get('/servicios/:id', getServiciosByIdController)
+router.get('/servicios/:Id_Habitacion',  getServiciosController );
+router.get('/servicios-habitacion/:id', getServiciosByIdController)
 
 
 export default router;

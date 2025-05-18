@@ -171,20 +171,28 @@ export const getUnidadAdminById = async (id) => {
     return result.affectedRows;
   };
 
-   export const getServicios = async ( ) => {
-   try{
+ export const getServicios = async (Id_Habitacion) => {
+  try {
     const [rows] = await pool.query(
-       "SELECT * FROM servicio;",
-     
+      `SELECT s.* 
+       FROM servicio s
+       WHERE NOT EXISTS (
+         SELECT 1 
+         FROM servicio_pension sp 
+         WHERE sp.Id_Servicio = s.Id_Servicio
+         AND sp.Id_Habitacion = ?
+       )`,
+      [Id_Habitacion]
     );
     return rows;
-   } catch(error){
+  } catch(error) {
     console.error("❌ Error al obtener los servicios", error);
     throw error;
-   } 
   }
+};
 
-
+// Esta consulta esta así para verificar que el usuario no vaya a agregar dos veces el mismo servicio
+//Verifica y solo trae los servicios que no registre esa habitación en servicio_pension
    export const getServiciosById = async (Id_Habitacion ) => {
    try{
     const [rows] = await pool.query(

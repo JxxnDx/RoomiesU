@@ -317,8 +317,8 @@ if (eliminados === 0) {
 export const getServiciosController = async (req, res) => {
   try {
   
-
-    const servicios = await getServicios();
+    const { Id_Habitacion} = req.params;
+    const servicios = await getServicios(Id_Habitacion);
 
     if (!servicios) {
       return res.status(404).json({ message: "Servicios no encontrados" });
