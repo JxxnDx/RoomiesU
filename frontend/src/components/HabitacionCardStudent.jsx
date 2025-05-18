@@ -84,7 +84,7 @@ export default function HabitacionCardStudent({ habitacion }) {
         </div>
         
         <NavLink 
-          to={`/habitaciones/${Id_Habitacion}`} 
+          to={`/ver-habitacion/${Id_Habitacion}`} 
           className={`flex items-center gap-1 ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white rounded-lg px-4 py-2 transition-colors`}
         >
           Ver detalles <FaArrowRight className="text-sm" />

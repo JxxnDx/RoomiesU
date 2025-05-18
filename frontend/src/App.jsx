@@ -53,7 +53,7 @@ function App() {
       <Route element={<ProtectedRoutes allowedRoles={["estudiante"]} />}>
           <Route element={<StudentLayout />}>
             <Route path="/studenthome" element={<StudentHome />} />
-            <Route path="/habitaciones" element={<VerHabitacion />} />
+            <Route path="/ver-habitacion/:id" element={<VerHabitacion />} />
           </Route>
       </Route>
 

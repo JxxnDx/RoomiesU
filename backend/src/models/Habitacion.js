@@ -208,3 +208,15 @@ export const getUnidadAdminById = async (id) => {
    } 
   }
 
+
+   export const getHabitacionByIdForVerHabitacion = async (id) => {
+    try{const [rows] = await pool.query(
+       "SELECT h.*, u.Direccion FROM habitacion h JOIN unidad_vivienda u ON h.Id_Unidad= u.Id_Unidad WHERE Id_Habitacion = ?",
+     [id]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener la información habitación", error);
+    throw error;
+   }
+  };
