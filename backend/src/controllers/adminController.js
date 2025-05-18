@@ -1,4 +1,4 @@
-import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios, getServiciosById } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
@@ -317,8 +317,8 @@ if (eliminados === 0) {
 export const getServiciosController = async (req, res) => {
   try {
   
-
-    const servicios = await getServicios();
+    const { Id_Habitacion} = req.params;
+    const servicios = await getServicios(Id_Habitacion);
 
     if (!servicios) {
       return res.status(404).json({ message: "Servicios no encontrados" });
@@ -331,5 +331,20 @@ export const getServiciosController = async (req, res) => {
   }
 };
 
+export const getServiciosByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    const servicios = await getServiciosById(id);
+
+    if (!servicios) {
+      return res.status(404).json({ message: "Servicios no encontrados" });
+    }
+
+    res.json(servicios);
+  } catch (error) {
+    console.error("❌ Error en getServicioByIdController:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
 
