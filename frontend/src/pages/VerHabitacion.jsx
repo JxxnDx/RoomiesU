@@ -1,4 +1,4 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
 import { COLORS, TEXT } from '../constants/styles';
 import { FaDollarSign, FaMapMarkerAlt, FaWifi } from 'react-icons/fa';
 import { MdRadioButtonChecked } from 'react-icons/md';
@@ -9,6 +9,7 @@ const VerHabitacion = () => {
 
 //Necesito llamar el endpoint de la información de la habitación y de los servicios según el id
 const { id }= useParams();
+const navigate = useNavigate();
 
  const [servicios, setServicios] = useState([]);
  const [habitacion, setHabitacion]= useState({
@@ -65,9 +66,9 @@ const { id }= useParams();
                 <img 
                     src={Img_url} 
                     alt="Habitación" 
-                    className="rounded-lg mb-4 w-full h-60 object-cover mx-auto border-2 border-white shadow-sm"
+                    className="rounded-lg mb-4 w-120 h-60 object-cover mx-auto border-2 border-white shadow-sm"
                 />
-                <div className={`h-60 rounded-lg shadow-lg ${COLORS["light_primary"]} p-4 flex flex-col justify-between items-start`}>
+                <div className={`h-60 w-3/10 rounded-lg shadow-lg ${COLORS["light_primary"]} p-4 flex flex-col justify-between items-start`}>
                     <div>
                         <h2 className="text-xl font-bold">Descripción</h2>
                         <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
@@ -121,7 +122,9 @@ const { id }= useParams();
                     <button className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded shadow transition duration-300`}>
                         Aplicar
                     </button>
-                    <button className={`${COLORS["light_primary"]} hover:bg-[#d7f5f2] text-[#01b09e] font-semibold py-2 px-6 rounded shadow transition duration-300`}>
+                    <button 
+                    onClick={() => navigate('/studenthome')}
+                    className={`${COLORS["light_primary"]} hover:bg-[#d7f5f2] text-[#01b09e] font-semibold py-2 px-6 rounded shadow transition duration-300`}>
                         Volver
                     </button>
                     </div>
