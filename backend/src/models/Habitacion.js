@@ -184,3 +184,19 @@ export const getUnidadAdminById = async (id) => {
    } 
   }
 
+
+   export const getServiciosById = async (Id_Habitacion ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT sp.Id_Servicio, sp.Id_Habitacion, s.Nombre FROM servicio_pension sp 
+        JOIN servicio s ON sp.Id_Servicio = s.Id_Servicio 
+        WHERE Id_Habitacion = ?;`,
+      [Id_Habitacion]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los servicios de esta habitación", error);
+    throw error;
+   } 
+  }
+

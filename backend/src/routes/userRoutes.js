@@ -1,7 +1,7 @@
 import express from 'express';
 import { actualizarUnidad, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
-import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getUnidadAdminByIdController } from '../controllers/adminController.js';
+import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
 import { getHabitacionesForStudentsController } from '../controllers/studentController.js';
 
@@ -24,6 +24,7 @@ router.put('/editarhabitacion/:id', verifyToken,uploadSingleImage, editarHabitac
 router.post('/createservicio/:id', verifyToken, crearServicioController);
 router.delete('/eliminarservicio/:Id_Habitacion/:Id_Servicio', verifyToken, eliminarServicioHabitacionController);
 router.get('/servicios',  getServiciosController );
+router.get('/servicios/:id', getServiciosByIdController)
 
 
 export default router;
