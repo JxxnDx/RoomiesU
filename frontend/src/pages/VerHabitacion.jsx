@@ -119,7 +119,9 @@ const navigate = useNavigate();
                 <div className="mt-6">
                     <p className="font-semibold mb-2">¿Te interesa esta habitación?</p>
                     <div className="flex gap-4">
-                    <button className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded shadow transition duration-300`}>
+                    <button 
+                    onClick={() => navigate(`/aplicacion/${Id_Habitacion}`)}
+                    className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded shadow transition duration-300`}>
                         Aplicar
                     </button>
                     <button 
