@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div className="bg-[url('../public/layout_auth_roomiesu.webp')] bg-cover bg-center font-montserrat text-gray-900 m-0 p-0">
-      <header className={`flex flex-row justify-between ${COLORS["light_primary"]} backdrop-blur-md ${TEXT["title"]} top-0 left-0 text-justify items-center p-4 w-full`}>
+      <header className={`flex flex-row justify-between ${COLORS["light_primary"]} backdrop-blur-md text-[#01b09e] top-0 left-0 text-justify items-center p-4 w-full`}>
         <h1 className="text-4xl font-bold">RoomiesU</h1>
         <nav>
           <ul className={`flex gap-2 ${TEXT["subtitle"]} font-bold`}>
@@ -41,7 +41,7 @@ export default function Home() {
       {/* Bienvenida y carrusel */}
       <section className="flex flex-row w-[80%] mx-auto m-20 bg-[#f1faf9]/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl">
         <article className="text-5xl text-center w-full">
-          <h1 className={`text-6xl ${TEXT["title"]} font-bold`}>Bienvenido/a!</h1>
+          <h1 className={`text-6xl text-[#01b09e] font-bold`}>Bienvenido/a!</h1>
           <p className="text-gray-800 text-5xl my-8">
             Encuentra la habitación perfecta para ti en RoomiesU. <br />
             Un segundo hogar para tu vida universitaria.

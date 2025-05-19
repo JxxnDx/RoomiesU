@@ -1,0 +1,50 @@
+import React from 'react'
+import { IoArrowBack } from 'react-icons/io5'
+import { useNavigate, useParams } from 'react-router-dom';
+import { COLORS } from '../constants/styles';
+
+export default function Aplicacion() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    
+    return (
+        <div className={`${COLORS["light_primary"]} border border-gray-200 p-8 rounded-lg shadow-lg w-full max-w-4xl mx-auto my-8`}>
+            <button 
+                onClick={() => navigate(`/ver-habitacion/${id}`)}
+                className="flex items-center mb-6 text-gray-700 hover:text-[#01b09e] transition-all duration-300 font-medium"
+            >
+                <IoArrowBack className="mr-2 text-lg" /> Volver a Habitación
+            </button>
+            
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">Aplicación</h1>
+            
+            <p className="text-gray-600 mb-8 leading-relaxed">
+                Al llenar esta aplicación se le informará al arrendatario de tu interés en el espacio. 
+                Pon dentro del recuadro de descripción información que creas importante que él deba 
+                saber sobre ti como futuro inquilino.
+            </p>
+            
+            <div className='w-full bg-white rounded-lg p-6 shadow-sm'>
+                <form>
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-md font-medium mb-3">Descripción</label>
+                        <textarea
+                            className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#01b09e] focus:border-transparent transition-all duration-200'
+                            name='Descripcion'
+                            rows="5"
+                            placeholder="Describe tu perfil, hábitos, por qué serías un buen inquilino..."
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        className={`w-full ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-bold py-3 px-4 rounded-xl text-lg transition hover:scale-[1.02] transform duration-200 shadow-md`}
+                    >
+                        Aplicar
+                    </button>
+                </form>
+            </div>
+        </div>
+    )
+}
