@@ -26,7 +26,7 @@ const AuthLayout = () => {
       
 
       {/* Contenedor del formulario */}
-      <div className={`relative ${COLORS["light_primary"]} p-10 rounded-xl shadow-xl`}>
+      <div className={`relative ${COLORS["light_primary"]} p-10 m-8 rounded-xl shadow-xl`}>
         <Outlet />
       </div>
     </div>
