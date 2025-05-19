@@ -1,4 +1,3 @@
-import React from 'react';
 import { COLORS } from '../constants/styles';
 import { FaHome, FaPoll } from 'react-icons/fa';
 import {  MdOutlineBedroomChild, MdOutlineEmail, MdRateReview } from "react-icons/md";

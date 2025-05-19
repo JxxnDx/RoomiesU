@@ -14,6 +14,9 @@ import EditarUnidad from "./pages/EditarUnidad";
 import Habitaciones from "./pages/Habitacion";
 import CreacionHabitacion from "./pages/CreationHabitacion";
 import EditarHabitacion from "./pages/EditarHabitacion";
+import Servicio from "./pages/Servicio";
+import VerHabitacion from "./pages/VerHabitacion";
+import Aplicacion from "./pages/Aplicacion";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -51,6 +54,8 @@ function App() {
       <Route element={<ProtectedRoutes allowedRoles={["estudiante"]} />}>
           <Route element={<StudentLayout />}>
             <Route path="/studenthome" element={<StudentHome />} />
+            <Route path="/ver-habitacion/:id" element={<VerHabitacion />} />
+            <Route path="/aplicacion/:id" element={<Aplicacion />} />
           </Route>
       </Route>
 
@@ -63,7 +68,8 @@ function App() {
           <Route path="/editar-unidad/:id" element={<EditarUnidad />} />
           <Route path="/habitacion" element={<Habitaciones/>} />
           <Route path="/creacionhabitacion" element={<CreacionHabitacion/>} />
-           <Route path="/editar-habitacion/:id" element={<EditarHabitacion/>} />
+          <Route path="/editar-habitacion/:id" element={<EditarHabitacion/>} />
+          <Route path="/agregar-servicio/:id" element={<Servicio/>} />
         </Route>
       </Route>
 

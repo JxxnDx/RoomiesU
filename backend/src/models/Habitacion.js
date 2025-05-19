@@ -141,3 +141,82 @@ export const getUnidadAdminById = async (id) => {
       throw error;
     }
   };
+
+
+  export const createServicio = async ( ServiceData) => {
+    const {
+      Id_Servicio,
+      Id_Habitacion
+    } = ServiceData;
+  
+    const [result] = await pool.query(
+      `INSERT INTO servicio_pension 
+       (Id_Servicio, Id_Habitacion) 
+       VALUES (?, ?)`,
+      [Id_Servicio, Id_Habitacion]
+    );
+  
+    return result.insertId;
+  };
+
+    export const eliminarServicioHabitacion = async ( { Id_Servicio, Id_Habitacion }) => {
+  
+  
+    const [result] = await pool.query(
+      `DELETE FROM servicio_pension 
+      WHERE Id_Servicio = ? AND Id_Habitacion = ? `,
+      [Id_Servicio, Id_Habitacion]
+    );
+  
+    return result.affectedRows;
+  };
+
+ export const getServicios = async (Id_Habitacion) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT s.* 
+       FROM servicio s
+       WHERE NOT EXISTS (
+         SELECT 1 
+         FROM servicio_pension sp 
+         WHERE sp.Id_Servicio = s.Id_Servicio
+         AND sp.Id_Habitacion = ?
+       )`,
+      [Id_Habitacion]
+    );
+    return rows;
+  } catch(error) {
+    console.error("❌ Error al obtener los servicios", error);
+    throw error;
+  }
+};
+
+// Esta consulta esta así para verificar que el usuario no vaya a agregar dos veces el mismo servicio
+//Verifica y solo trae los servicios que no registre esa habitación en servicio_pension
+   export const getServiciosById = async (Id_Habitacion ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT sp.Id_Servicio, sp.Id_Habitacion, s.Nombre FROM servicio_pension sp 
+        JOIN servicio s ON sp.Id_Servicio = s.Id_Servicio 
+        WHERE Id_Habitacion = ?;`,
+      [Id_Habitacion]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los servicios de esta habitación", error);
+    throw error;
+   } 
+  }
+
+
+   export const getHabitacionByIdForVerHabitacion = async (id) => {
+    try{const [rows] = await pool.query(
+       "SELECT h.*, u.Direccion FROM habitacion h JOIN unidad_vivienda u ON h.Id_Unidad= u.Id_Unidad WHERE Id_Habitacion = ?",
+     [id]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener la información habitación", error);
+    throw error;
+   }
+  };
