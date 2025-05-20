@@ -59,16 +59,16 @@ const navigate = useNavigate();
 }
 
     return (    
-        <div className={`flex flex-col m-4 p-8`}>
+        <div className={`flex flex-col m-4`}>
             <h1 className={`${TEXT["title"]} mb-8`}>Habitación {Id_Habitacion}</h1>
 
-            <div className="flex flex-row md:flex-row gap-4 justify-between">
+            <div className="grid grid-cols-1 md:grid-cols-2 md:mb-8 gap-4 w-auto">
                 <img 
                     src={Img_url} 
                     alt="Habitación" 
-                    className="rounded-lg mb-4 w-120 h-60 object-cover mx-auto border-2 border-white shadow-sm"
+                    className="rounded-lg mb-4 w-120 h-60 object-cover border-2 border-white shadow-sm"
                 />
-                <div className={`h-60 w-3/10 rounded-lg shadow-lg ${COLORS["light_primary"]} p-4 flex flex-col justify-between items-start`}>
+                <div className={`h-60 w-3/10 rounded-lg shadow-lg ${COLORS["light_primary"]} p-4 flex flex-col justify-between w-[80%] items-start`}>
                     <div>
                         <h2 className="text-xl font-bold">Descripción</h2>
                         <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
@@ -79,11 +79,12 @@ const navigate = useNavigate();
                     </NavLink>
                 </div>
             </div>
+
             <article className={`flex flex-col gap-4`}>
                 <h2 className={`${TEXT["subtitle"]}`}>Información</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-black pt-2">
                     <div className="flex items-start gap-2">
-                    <FaDollarSign className="mt-1" />
+                    <FaDollarSign className="mt-1 text-green-500" />
                     <div>
                         <p className="font-semibold">Precio mensual</p>
                         <p>${Precio}</p>

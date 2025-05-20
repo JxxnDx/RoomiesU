@@ -83,9 +83,9 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className='text-center p-4 text-gray-900'>
+      <footer className='text-center p-4 text-black font-bold'>
       <p>&copy; 2025 RoomiesU</p>
-      <p>Bucaramanga, Santander - Colombia</p>
+      <p>Bucaramanga, Santander - <span className='text-yellow-300'>Colo</span><span className='text-blue-700'>mb</span><span className='text-red-500'>ia</span></p>
       </footer>
       
     </div>

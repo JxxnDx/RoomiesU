@@ -64,8 +64,8 @@ export default function Habitaciones() {
         {Habitaciones.length === 0 && !error && (
           <div className="text-center text-white py-10">
             <p className="text-xl">No hay habitaciones registradas</p>
-            <Link to="/crear-habitacion">
-              <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg">
+            <Link to="/creacionhabitacion">
+              <button className={`mt-4 ${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded-lg transition duration-300`}>
                 Crear primera habitación
               </button>
             </Link>
