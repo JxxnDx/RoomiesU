@@ -56,8 +56,8 @@ export const getUnidadAdminById = async (id) => {
       const values = [];
 
       if (sector) {
-        query += " AND s.Nombre LIKE ?";
-        values.push(`%${sector}%`);
+        query += " AND s.Id_Sector = ?";
+        values.push(`${sector}`);
       }
   
       const ordenValido = ['asc', 'desc'];
