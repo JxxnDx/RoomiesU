@@ -1,11 +1,55 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { IoArrowBack } from 'react-icons/io5'
 import { useNavigate, useParams } from 'react-router-dom';
 import { COLORS } from '../constants/styles';
+import axios from 'axios';
 
 export default function Aplicacion() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        Descripcion: ''
+      });
+    
+      
+      const [error, setError] = useState();
+      const [message, setMessage] = useState();
+      const [aplicacion, setAplicacion] = useState();
+    
+     
+      // Manejar cambios en el select
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+      };
+    
+      // Manejar envío del formulario
+      const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        if (!formData.Descripcion) {
+          setError("Debes escibir algo en la descripción");
+          return;
+        }
+    
+        // Enviar los datos al backend
+       axios.post(`http://localhost:4000/api/createaplicacion/${id}`, formData, { withCredentials: true })
+          .then(response => {
+            console.log('Respuesta del servidor:', response.data);
+            setMessage('Aplicación creada exitosamente ✅');
+            setError('');
+            //  Limpiar el formulario
+            setFormData({
+              Descripcion: ''
+            });
+           
+          })
+          .catch(err => {
+            console.error('Error al registrar la aplicación:', err.response?.data || err.message);
+            setError(err.response?.data?.message || 'Error al registrar la aplicación');
+          });
+        
+      };
     
     return (
         <div className={`${COLORS["light_primary"]} border border-gray-200 p-8 rounded-lg shadow-lg w-full max-w-4xl mx-auto my-8`}>
@@ -25,7 +69,7 @@ export default function Aplicacion() {
             </p>
             
             <div className='w-full bg-white rounded-lg p-6 shadow-sm'>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-6">
                         <label className="block text-gray-700 text-md font-medium mb-3">Descripción</label>
                         <textarea
@@ -34,6 +78,8 @@ export default function Aplicacion() {
                             rows="5"
                             placeholder="Describe tu perfil, hábitos, por qué serías un buen inquilino..."
                             required
+                            value={formData.Descripcion}
+                            onChange={handleChange}
                         />
                     </div>
 
@@ -43,6 +89,8 @@ export default function Aplicacion() {
                     >
                         Aplicar
                     </button>
+                    {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+                    {message && <p className="text-green-400 text-sm text-center">{message}</p>}
                 </form>
             </div>
         </div>
