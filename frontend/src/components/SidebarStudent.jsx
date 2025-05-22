@@ -2,6 +2,7 @@ import { COLORS } from '../constants/styles';
 import { FaHome, FaPoll } from 'react-icons/fa';
 import {  MdOutlineBedroomChild, MdOutlineEmail, MdRateReview } from "react-icons/md";
 import { IoClose } from "react-icons/io5"; // Icono de cerrar
+import { Link } from 'react-router-dom';
 
 export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
   return (
@@ -32,14 +33,14 @@ export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
           </a>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+           <Link to="/studenthome" className="px-3">
             <MdOutlineBedroomChild className="h-6 w-6 inline-block mr-2 -mt-2" /> Habitaciones
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+           <Link to="/aplicaciones" className="px-3">
             <MdOutlineEmail className="h-6 w-6 inline-block mr-2 -mt-2" /> Aplicaciones
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <a href="#" className="px-3">

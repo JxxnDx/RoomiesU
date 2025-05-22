@@ -17,6 +17,7 @@ import EditarHabitacion from "./pages/EditarHabitacion";
 import Servicio from "./pages/Servicio";
 import VerHabitacion from "./pages/VerHabitacion";
 import Aplicacion from "./pages/Aplicacion";
+import Aplicaciones from "./pages/Aplicaciones";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -56,6 +57,7 @@ function App() {
             <Route path="/studenthome" element={<StudentHome />} />
             <Route path="/ver-habitacion/:id" element={<VerHabitacion />} />
             <Route path="/aplicacion/:id" element={<Aplicacion />} />
+            <Route path="/aplicaciones" element={<Aplicaciones />} />
           </Route>
       </Route>
 

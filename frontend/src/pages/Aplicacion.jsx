@@ -14,7 +14,7 @@ export default function Aplicacion() {
       
       const [error, setError] = useState();
       const [message, setMessage] = useState();
-      const [aplicacion, setAplicacion] = useState();
+     
     
      
       // Manejar cambios en el select
