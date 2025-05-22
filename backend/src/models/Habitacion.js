@@ -248,3 +248,18 @@ export const getUnidadAdminById = async (id) => {
 
   };
 
+
+    export const getAplicacionesByStudent = async (Id_Estudiante ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT * FROM aplicacion WHERE Id_Estudiante = ?`,
+      [Id_Estudiante]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las aplicaciones para este estudiante", error);
+    throw error;
+   } 
+  }
+
+
