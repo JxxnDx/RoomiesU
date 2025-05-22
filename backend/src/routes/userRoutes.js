@@ -1,7 +1,7 @@
 import express from 'express';
 import { actualizarUnidad, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
-import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController } from '../controllers/adminController.js';
+import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
 import { getHabitacionesForStudentsController } from '../controllers/studentController.js';
 
@@ -28,5 +28,6 @@ router.get('/servicios-habitacion/:id', getServiciosByIdController);
 router.get('/informacion-habitacion/:id', verifyToken, getHabitacionByIdForVerHabitacionController);
 router.post('/createaplicacion/:Id_Habitacion', verifyToken, crearAplicacionController);
 router.get('/obtener-aplicaciones', verifyToken, getAplicacionesByStudentController);
+router.get('/obtener-aplicaciones/admin', verifyToken, getAplicacionesByAdminController);
 
 export default router;

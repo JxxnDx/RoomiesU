@@ -1,10 +1,10 @@
 import { getUnidadAdminById, createHabitacion, getHabitaciones, 
 getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios, 
-getServiciosById, getHabitacionByIdForVerHabitacion,  crearAplicacion, 
-getAplicacionesByStudent} from "../models/Habitacion.js";
+getServiciosById, getHabitacionByIdForVerHabitacion} from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
+import { crearAplicacion, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
 
 
 export const getUnidadAdminByIdController = async (req, res) => {
@@ -422,7 +422,7 @@ export const crearAplicacionController = async (req, res) => {
       Fecha_Creacion: new Date()
     };
 
-    // ✅ Guardar aplicación
+    // Guardar aplicación
     await crearAplicacion(AplicacionData);
 
     return res.status(200).json({ message: 'Aplicación creada correctamente' });
@@ -471,6 +471,48 @@ export const getAplicacionesByStudentController = async (req, res) => {
     res.json(aplicaciones);
   } catch (error) {
     console.error("❌ Error en getAplicacionesByStudent:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const getAplicacionesByAdminController = async (req, res) => {
+  try {
+    let id_admin = null;
+
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id_admin = decoded?.userId;
+      
+
+      if (!id_admin) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID de administrador" });
+      }
+
+    
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+    const aplicaciones = await getAplicacionesByAdmin(id_admin);
+
+    if (!aplicaciones) {
+      return res.status(404).json({ message: "Aplicaciones no encontrados" });
+    }
+
+    res.json(aplicaciones);
+  } catch (error) {
+    console.error("❌ Error en getAplicacionesByAdmin:", error);
     res.status(500).json({ message: "Error interno" });
   }
 };
