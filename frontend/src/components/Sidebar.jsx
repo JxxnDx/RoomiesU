@@ -27,10 +27,10 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
             <FaHome className="h-6 w-6 inline-block mr-2 -mt-2" /> Inicio
           </Link>
         </li>
-        <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+           <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
+          <Link to="/admindashboard" className="px-3">
             <FaPoll className="h-6 w-6 inline-block mr-2 -mt-2" /> Resumen
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <Link to="/unidadvivienda" className="px-3">
@@ -43,9 +43,9 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+          <Link to="/aplicaciones-admin" className="px-3">
             <MdOutlineEmail className="h-6 w-6 inline-block mr-2 -mt-2" /> Aplicaciones
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <a href="#" className="px-3">
