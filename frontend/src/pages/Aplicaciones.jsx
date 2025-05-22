@@ -20,7 +20,7 @@ export default function Aplicaciones() {
           });
       }, []);
 
-      console.log(aplicaciones)
+      // console.log(aplicaciones)
   return (
     <>
     <div className='grid text-center justify-start'>
