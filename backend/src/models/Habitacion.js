@@ -220,3 +220,31 @@ export const getUnidadAdminById = async (id) => {
     throw error;
    }
   };
+
+
+   export const crearAplicacion = async ( AplicacionData) => {
+    try{
+    const {
+      Id_Estudiante,
+      Id_Habitacion,
+      Correo_Estudiante,
+      Descripcion,
+      Estado, 
+      Fecha_Creacion
+    } = AplicacionData;
+  
+    const [result] = await pool.query(
+      `INSERT INTO aplicacion
+       (Id_Estudiante, Id_Habitacion, Correo_Estudiante, Descripcion, Estado, Fecha_Creacion) 
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [Id_Estudiante, Id_Habitacion, Correo_Estudiante, Descripcion, Estado, Fecha_Creacion]
+    );
+  
+    return result.insertId;
+  }catch(error){
+    console.error("❌ Error al obtener la información de aplicación", error);
+    throw error;
+  }
+
+  };
+

@@ -1,4 +1,6 @@
-import { getUnidadAdminById, createHabitacion, getHabitaciones, getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios, getServiciosById, getHabitacionByIdForVerHabitacion } from "../models/Habitacion.js";
+import { getUnidadAdminById, createHabitacion, getHabitaciones, 
+getHabitacionById, editarHabitacion, createServicio, eliminarServicioHabitacion, getServicios, 
+getServiciosById, getHabitacionByIdForVerHabitacion,  crearAplicacion } from "../models/Habitacion.js";
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
@@ -362,6 +364,71 @@ export const getHabitacionByIdForVerHabitacionController = async (req, res) => {
   } catch (error) {
     console.error("❌ Error en getHabitaciónByIdForVerHabitacionController:", error);
     res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const crearAplicacionController = async (req, res) => {
+  try {
+    const { Id_Habitacion } = req.params;
+    const { Descripcion } = req.body;
+    let id_estudiante = null;
+    let correo_estudiante = null;
+
+    //  Validación de campos adicional a la del front para más seguridad
+    if (!Id_Habitacion || isNaN(Id_Habitacion)) {
+      return res.status(400).json({ message: "Id_Habitacion es obligatorio y debe ser un número válido" });
+    }
+
+    if (!Descripcion || typeof Descripcion !== "string" || Descripcion.trim() === "") {
+      return res.status(400).json({ message: "La descripción no puede estar vacía" });
+    }
+
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id_estudiante = decoded?.userId || decoded?.id || decoded?.user?.id || decoded?.user_id;
+      correo_estudiante = decoded?.correo;
+
+      if (!id_estudiante) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID de estudiante" });
+      }
+
+      if (!correo_estudiante) {
+        return res.status(401).json({ message: "Token inválido: no contiene correo del estudiante" });
+      }
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+
+    //  Creación objeto de aplicación
+    const AplicacionData = {
+      Id_Estudiante: id_estudiante,
+      Correo_Estudiante: correo_estudiante,
+      Id_Habitacion: parseInt(Id_Habitacion),
+      Descripcion: Descripcion.trim(),
+      Estado: 'pendiente',
+      Fecha_Creacion: new Date()
+    };
+
+    // ✅ Guardar aplicación
+    await crearAplicacion(AplicacionData);
+
+    return res.status(200).json({ message: 'Aplicación creada correctamente' });
+
+  } catch (error) {
+    console.error("Error en crearAplicacionController:", error);
+    return res.status(500).json({ message: "Error al crear la aplicación", error: error.message });
   }
 };
 
