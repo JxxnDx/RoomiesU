@@ -50,3 +50,26 @@ export const sendResetEmail = async (email, token) => {
         console.error("❌ Error al enviar email:", error);
     }
 };
+
+
+// Función para enviar el correo
+export const sendApplicationEmail = async (email) => {
+    console.log(`📨 Intentando enviar correo a: ${email}`);
+
+    const Link = `http://localhost:5173/`;
+    const mailOptions = {
+        from: `"Soporte RoomiesU" <${process.env.SMTP_USER}>`,  // 💡 Asegura que el remitente sea el mismo del usuario SMTP
+        to: email,
+        subject: "🔐 Estado de tu aplicación",
+        html: `<p>El administrador de la unidad a la que aplicaste ha cambiado el estado de tu aplicación,
+        entra a la plataforma y enterate de los nuevos cambios:</p>
+               <a href="${Link}" target="_blank">${Link}</a>`,
+    };
+
+    try {
+        let info = await transporter.sendMail(mailOptions);
+        console.log(`✅ Email enviado con éxito a ${email}:`, info.response);
+    } catch (error) {
+        console.error("❌ Error al enviar email:", error);
+    }
+};

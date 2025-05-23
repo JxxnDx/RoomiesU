@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
 import { actualizarAplicacion, crearAplicacion, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
+import { sendApplicationEmail } from "../services/emailService.js";
 
 
 export const getUnidadAdminByIdController = async (req, res) => {
@@ -535,3 +536,24 @@ export const actualizarAplicacionController = async (req, res) => {
   }
 };
 
+
+export const sendEmailApplicationController = async (req, res) => {
+    const { email } = req.body;
+
+    console.log("📩 Email recibido:", email);
+
+    try {
+        if (!email) {
+            return res.status(400).json({ message: "El correo es requerido" });
+        }
+
+        // Enviar el email al usuario
+        await sendApplicationEmail(email);
+        console.log("📨 Correo de aplicación enviado a:", email);
+
+        return res.json({ message: "Revisa tu correo para enterarte de los cambios." });
+    } catch (error) {
+        console.error("❌ sendEmailApplicationController ", error);
+        return res.status(500).json({ message: "Error en el servidor" });
+    }
+};

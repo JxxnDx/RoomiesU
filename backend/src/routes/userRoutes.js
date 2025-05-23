@@ -1,7 +1,7 @@
 import express from 'express';
 import { actualizarUnidad, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
-import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController } from '../controllers/adminController.js';
+import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
 import { getHabitacionesForStudentsController } from '../controllers/studentController.js';
 import { setAccion } from '../middlewares/setAccion.js';
@@ -32,5 +32,6 @@ router.get('/obtener-aplicaciones', verifyToken, getAplicacionesByStudentControl
 router.get('/obtener-aplicaciones/admin', verifyToken, getAplicacionesByAdminController);
 router.post('/actualizar-aplicacion/:id/aceptar', setAccion('aceptar'), verifyToken, actualizarAplicacionController);
 router.post('/actualizar-aplicacion/:id/rechazar', setAccion('rechazar'), verifyToken, actualizarAplicacionController);
+router.post('/enviar-email-aplicacion', sendEmailApplicationController);
 
 export default router;

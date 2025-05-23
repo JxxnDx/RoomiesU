@@ -16,21 +16,31 @@ export default function AplicacionCard({aplicacion, onEstadoActualizado, setMess
     });
 
     const handleAccion = async (accion) => {
-    try {
-       await axios.post(
+  try {
+    // Actualizó el estado de la aplicación
+    await axios.post(
       `http://localhost:4000/api/actualizar-aplicacion/${Id_Aplicacion}/${accion}`,
       {},
       { withCredentials: true }
     );
-      if (onEstadoActualizado) {
-        onEstadoActualizado(); // Función usada para recargar la lista
-      }
-       setMessage(`Aplicación actualizada correctamente.`); 
-    } catch (error) {
-      console.error(`❌ Error al ${accion} aplicación`, error);
-      setError(error)
+
+    // Enviamos el correo al usuario
+    await axios.post('http://localhost:4000/api/enviar-email-aplicacion', {
+      email: aplicacion.Correo_Estudiante,
+    });
+
+    // 3. Recargar lista y mostrar mensaje
+    if (onEstadoActualizado) {
+      onEstadoActualizado();
     }
-  };
+
+    setMessage(`✅ Aplicación ${accion} correctamente y correo enviado.`);
+  } catch (error) {
+    console.error(`❌ Error al ${accion} aplicación:`, error);
+    setError(`Error al ${accion} aplicación.`);
+  }
+};
+
 
     return (
         <div className={`${COLORS["light_primary"]} border border-gray-200 p-6 rounded-lg shadow-lg w-4/5 mx-auto my-4`}>
