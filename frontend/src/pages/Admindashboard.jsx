@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts';
+import axios from 'axios';
 
 
  
@@ -23,6 +24,13 @@ export default function Admindashboard() {
 ];
 
 const [data, setData] = useState(fakeData);
+const [estadisticas, setEstadisticas]= useState({
+        "Total_Habitaciones": 0,
+        "Habitaciones_Disponibles": 0,
+        "Habitaciones_Ocupadas": 0,
+        "Aplicaciones_Pendientes": 0
+});
+const [error, setError]= useState();
 
   // useEffect(() => {
   //   // Reemplaza esta URL con la del backend Node.js
@@ -32,6 +40,22 @@ const [data, setData] = useState(fakeData);
   //     .catch(err => console.error('Error cargando ganancias:', err));
   // }, []);
 
+  // Obtener estadisticas desde el endpoint
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/estadisticas',{withCredentials:true})
+      .then(response => setEstadisticas(response.data[0]))
+      .catch(err => {
+        console.error('Error al cargar las estadisticas:', err);
+        setError('Error al cargar las estadisticas');
+      });
+  }, []);
+
+  const { Total_Habitaciones, Habitaciones_Disponibles, Habitaciones_Ocupadas, Aplicaciones_Pendientes} = estadisticas;
+  if (!estadisticas ) {
+  return <p>Cargando estadísticas...</p>;
+}
+
+console.log(estadisticas);
   return (
     <>
     <div className={`text-black h-full flex flex-col p-8`}>
@@ -43,31 +67,31 @@ const [data, setData] = useState(fakeData);
         <MdBedroomParent className={`${COLORS["light_secundary"]}  text-4xl rounded-2xl p-2 mb-2`} />
         </Link>
          <h1 className='font-bold text-xl'>Habitaciones Totales</h1>
-         <h2 className='font-semibold text-6xl'>190</h2>
-         <p> 4 unidades de vivienda</p>
+         <h2 className='font-semibold text-6xl'>{Total_Habitaciones}</h2>
+         <p> {Total_Habitaciones} unidades de vivienda</p>
          </div>
       <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
         <Link to="/habitacion" className="px-3">
         <CiCircleCheck  className={` ${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-xl'>Habitaciones Disponibles</h1>
-         <h2 className='font-semibold text-6xl'>190</h2>
-         <p> 90 listas para publicar</p>
+         <h2 className='font-semibold text-6xl'>{Habitaciones_Disponibles}</h2>
+         <p> {Habitaciones_Disponibles} listas para arrendar</p>
          </div>
       <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
         <Link to="/habitacion" className="px-3">
         <FaRegUserCircle  className={`${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-lg'>Habitaciones Ocupadas</h1>
-         <h2 className='font-semibold text-6xl'>100</h2>
-         <p> Más de 100 inquilinos</p></div>
+         <h2 className='font-semibold text-6xl'>{Habitaciones_Ocupadas}</h2>
+         <p> Más de {Habitaciones_Ocupadas} inquilinos</p></div>
       <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4  items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
         <Link to="/admindashboard" className="px-3">
         <RiMegaphoneLine  className={`${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-xl'>Solicitudes</h1>
-         <h2 className='font-semibold text-6xl'>30</h2>
-         <p> En menos de 30 días</p>
+         <h2 className='font-semibold text-6xl'>{Aplicaciones_Pendientes}</h2>
+         <p> En menos de {Aplicaciones_Pendientes} días</p>
         </div>
     </div>
 
