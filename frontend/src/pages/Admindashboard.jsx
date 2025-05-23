@@ -55,43 +55,43 @@ const [error, setError]= useState();
   return <p>Cargando estadísticas...</p>;
 }
 
-console.log(estadisticas);
+// console.log(estadisticas);
   return (
     <>
     <div className={`text-black h-full flex flex-col p-8`}>
       <h1 className={`${TEXT["title"]}`}>Overview</h1>
     </div>
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8'>
-      <div className={`${COLORS["light_primary"]} flex flex-col drop-shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
-        <Link to="/habitacion" className="px-3">
-        <MdBedroomParent className={`${COLORS["light_secundary"]}  text-4xl rounded-2xl p-2 mb-2`} />
-        </Link>
-         <h1 className='font-bold text-xl'>Habitaciones Totales</h1>
-         <h2 className='font-semibold text-6xl'>{Total_Habitaciones}</h2>
-         <p> {Total_Habitaciones} unidades de vivienda</p>
-         </div>
-      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
+      <div className={`${COLORS["light_primary"]} flex flex-col drop-shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02] justify-between`}>
+  <Link to="/habitacion" className="px-3">
+    <MdBedroomParent className={`${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`} />
+  </Link>
+  <h1 className='font-bold text-xl'>Habitaciones Totales</h1>
+  <h2 className='font-semibold text-6xl'>{Total_Habitaciones}</h2>
+  <p className='text-left'> {Total_Habitaciones} unidades de vivienda</p>
+</div>
+      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02] justify-between`}>
         <Link to="/habitacion" className="px-3">
         <CiCircleCheck  className={` ${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-xl'>Habitaciones Disponibles</h1>
          <h2 className='font-semibold text-6xl'>{Habitaciones_Disponibles}</h2>
-         <p> {Habitaciones_Disponibles} listas para arrendar</p>
+         <p className='text-left '> {Habitaciones_Disponibles} listas para arrendar</p>
          </div>
-      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
+      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4  items-center md:items-start transition-all duration-300 hover:scale-[1.02] justify-between`}>
         <Link to="/habitacion" className="px-3">
         <FaRegUserCircle  className={`${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-lg'>Habitaciones Ocupadas</h1>
          <h2 className='font-semibold text-6xl'>{Habitaciones_Ocupadas}</h2>
-         <p> Más de {Habitaciones_Ocupadas} inquilinos</p></div>
-      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4  items-center md:items-start transition-all duration-300 hover:scale-[1.02]`}>
+         <p className='text-left'> Más de {Habitaciones_Ocupadas} inquilinos</p></div>
+      <div className={`${COLORS["light_primary"]} flex flex-col shadow-lg h-full rounded-lg p-4  items-center md:items-start transition-all duration-300 hover:scale-[1.02] justify-between`}>
         <Link to="/admindashboard" className="px-3">
         <RiMegaphoneLine  className={`${COLORS["light_secundary"]} text-4xl rounded-2xl p-2 mb-2`}/>
         </Link>
          <h1 className='font-bold text-xl'>Solicitudes</h1>
          <h2 className='font-semibold text-6xl'>{Aplicaciones_Pendientes}</h2>
-         <p> En menos de {Aplicaciones_Pendientes} días</p>
+         <p className=' text-left'> En menos de {Aplicaciones_Pendientes} días</p>
         </div>
     </div>
 
