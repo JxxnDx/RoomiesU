@@ -6,6 +6,8 @@ import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
 import { actualizarAplicacion, crearAplicacion, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
 import { sendApplicationEmail } from "../services/emailService.js";
+import { obtenerEstadisticas } from "../models/Estadisticas.js";
+
 
 
 export const getUnidadAdminByIdController = async (req, res) => {
@@ -549,11 +551,53 @@ export const sendEmailApplicationController = async (req, res) => {
 
         // Enviar el email al usuario
         await sendApplicationEmail(email);
-        console.log("📨 Correo de aplicación enviado a:", email);
+        // console.log("📨 Correo de aplicación enviado a:", email);
 
         return res.json({ message: "Revisa tu correo para enterarte de los cambios." });
     } catch (error) {
         console.error("❌ sendEmailApplicationController ", error);
         return res.status(500).json({ message: "Error en el servidor" });
     }
+};
+
+
+export const getEstadisticasByAdminController = async (req, res) => {
+  try {
+    let id_admin = null;
+
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id_admin = decoded?.userId;
+      
+
+      if (!id_admin) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID de administrador" });
+      }
+
+    
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+    const estadisticas = await obtenerEstadisticas(id_admin);
+
+    if (!estadisticas) {
+      return res.status(404).json({ message: "Estadisticas no encontrados" });
+    }
+
+    res.json(estadisticas);
+  } catch (error) {
+    console.error("❌ Error en getEstadisticasByAdminController", error);
+    res.status(500).json({ message: "Error interno" });
+  }
 };

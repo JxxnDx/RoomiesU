@@ -54,7 +54,7 @@ export const sendResetEmail = async (email, token) => {
 
 // Función para enviar el correo
 export const sendApplicationEmail = async (email) => {
-    console.log(`📨 Intentando enviar correo a: ${email}`);
+    // console.log(`📨 Intentando enviar correo a: ${email}`);
 
     const Link = `http://localhost:5173/`;
     const mailOptions = {
@@ -68,7 +68,7 @@ export const sendApplicationEmail = async (email) => {
 
     try {
         let info = await transporter.sendMail(mailOptions);
-        console.log(`✅ Email enviado con éxito a ${email}:`, info.response);
+        // console.log(`✅ Email enviado con éxito a ${email}:`, info.response);
     } catch (error) {
         console.error("❌ Error al enviar email:", error);
     }
