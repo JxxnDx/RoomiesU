@@ -79,4 +79,18 @@ export const crearAplicacion = async ( AplicacionData) => {
    } 
   }
 
+     export const getAplicacionesAceptadasByAdmin = async (Id_Admin ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT a.Correo_Estudiante, a.Id_Habitacion FROM aplicacion a INNER JOIN habitacion h 
+        ON a.Id_Habitacion = h.Id_Habitacion WHERE a.Estado='aceptada' AND h.Id_Admin = ?`,
+      [Id_Admin]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las aplicaciones aceptadas para este admin", error);
+    throw error;
+   } 
+  }
+
 
