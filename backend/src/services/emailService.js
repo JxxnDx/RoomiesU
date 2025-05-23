@@ -30,7 +30,7 @@ transporter.verify((error, success) => {
     }
 });
 
-// 📩 Función para enviar el correo
+// Función para enviar el correo
 export const sendResetEmail = async (email, token) => {
     console.log(`📨 Intentando enviar correo a: ${email}`);
 

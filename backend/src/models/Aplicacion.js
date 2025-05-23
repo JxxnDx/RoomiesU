@@ -56,3 +56,27 @@ export const crearAplicacion = async ( AplicacionData) => {
    } 
   }
 
+    export const actualizarAplicacion = async (Id_Aplicacion, Estado) => {
+   try{
+    const [rows] = await pool.query(
+        ` UPDATE aplicacion 
+        SET Estado = ?
+        WHERE Id_Aplicacion = ?`,
+      [Estado, Id_Aplicacion]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Aplicación ${Id_Aplicacion} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de la aplicación", error);
+    throw error;
+   } 
+  }
+
+

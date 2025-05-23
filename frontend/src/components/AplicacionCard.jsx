@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCheck, FaTimes, FaUser } from 'react-icons/fa';
 import { COLORS } from '../constants/styles';
+import axios from 'axios';
 
-export default function AplicacionCard({aplicacion}) {
-
-     const { Fecha_Creacion, Estado, Id_Habitacion, Descripcion, Correo_Estudiante } = aplicacion;
+export default function AplicacionCard({aplicacion, onEstadoActualizado, setMessage}) {
+     const [error, setError] = useState();
+     
+     const { Fecha_Creacion, Estado, Id_Habitacion, Descripcion, Correo_Estudiante, Id_Aplicacion } = aplicacion;
     
     // Formateo de fecha
     const fechaFormateada = new Date(Fecha_Creacion).toLocaleDateString('es-ES', {
@@ -12,6 +14,23 @@ export default function AplicacionCard({aplicacion}) {
         month: '2-digit',
         year: 'numeric'
     });
+
+    const handleAccion = async (accion) => {
+    try {
+       await axios.post(
+      `http://localhost:4000/api/actualizar-aplicacion/${Id_Aplicacion}/${accion}`,
+      {},
+      { withCredentials: true }
+    );
+      if (onEstadoActualizado) {
+        onEstadoActualizado(); // Función usada para recargar la lista
+      }
+       setMessage(`Aplicación actualizada correctamente.`); 
+    } catch (error) {
+      console.error(`❌ Error al ${accion} aplicación`, error);
+      setError(error)
+    }
+  };
 
     return (
         <div className={`${COLORS["light_primary"]} border border-gray-200 p-6 rounded-lg shadow-lg w-4/5 mx-auto my-4`}>
@@ -45,11 +64,13 @@ export default function AplicacionCard({aplicacion}) {
 
                 {/* Botones de acción */}
                 <div className="flex justify-end space-x-4 mt-2">
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
+                    <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
+                    onClick={() => handleAccion('rechazar')}>
                         <FaTimes className="mr-2" />
                         Rechazar
                     </button>
-                    <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center transition-colors">
+                    <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center transition-colors"
+                    onClick={() => handleAccion('aceptar')}>
                         <FaCheck className="mr-2" />
                         Aceptar
                     </button>

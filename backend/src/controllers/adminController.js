@@ -4,7 +4,7 @@ getServiciosById, getHabitacionByIdForVerHabitacion} from "../models/Habitacion.
 import jwt from "jsonwebtoken";
 import cloudinary from '../config/cloudinary.js';
 import { pool } from "../config/db.js";
-import { crearAplicacion, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
+import { actualizarAplicacion, crearAplicacion, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
 
 
 export const getUnidadAdminByIdController = async (req, res) => {
@@ -514,6 +514,24 @@ export const getAplicacionesByAdminController = async (req, res) => {
   } catch (error) {
     console.error("❌ Error en getAplicacionesByAdmin:", error);
     res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const actualizarAplicacionController = async (req, res) => {
+  const { id } = req.params;
+  const { accion } = req; // Se esta seteando desde la ruta
+
+  const estado = accion === 'aceptar' ? 'aceptada' : 'rechazada';
+
+  try {
+    const resultado = await actualizarAplicacion(id, estado);
+    if (resultado.changes === 0) {
+    return res.status(404).json({ error: 'Aplicación no encontrada' });
+    }
+    res.json({ mensaje: `Aplicación ${estado}` });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar' });
   }
 };
 
