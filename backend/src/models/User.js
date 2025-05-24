@@ -70,3 +70,36 @@ export const getInfoPerfil = async (rol, id) => {
     throw error;
   }
 };
+
+
+export const actualizarPerfil = async (rol, id,perfil) => {
+  try {
+    const tabla = (rol === 'estudiante') ? 'estudiante' : 'administrador';
+    const id_tabla = (rol === 'estudiante') ? 'Id_Estudiante' : 'Id_Administrador';
+    const{Nombre, Apellido, Identificacion, Telefono, Edad, Descripcion} = perfil;
+
+    const query = `
+      UPDATE ${tabla} 
+        SET Nombre = ?, Apellido = ?, Identificacion = ?, 
+            Telefono = ?, Edad = ?, Descripcion = ?
+        WHERE ${id_tabla} = ?
+    `;
+
+    const values=[Nombre,Apellido,Identificacion,Telefono,Edad, Descripcion,id];
+    const [rows] = await pool.query(query, values);
+
+    
+     if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar la habitación');
+      }
+      
+      return {
+        success: true,
+        message: `Perfil de ${Nombre} actualizado correctamente`,
+        changes: rows.affectedRows
+      };
+  } catch (error) {
+    console.error("❌ Error en actualizarPerfil", error);
+    throw error;
+  }
+};

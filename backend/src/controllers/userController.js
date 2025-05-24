@@ -1,6 +1,6 @@
 import { pool } from '../config/db.js';
 import { getAllSectors, createUnidad, getAllUnidades, getUnidadById, editarUnidad} from '../models/UnidadVivienda.js';
-import { getAllUsers, getInfoPerfil } from '../models/User.js';
+import { actualizarPerfil, getAllUsers, getInfoPerfil } from '../models/User.js';
 import jwt from 'jsonwebtoken';
 
 
@@ -196,6 +196,68 @@ export const getInfoPerfilController = async (req, res) => {
   } catch (error) {
     console.error("Error en getInfoPerfilController:", error);
     return res.status(500).json({ message: "Error al obtener la información del perfil", error: error.message });
+  }
+};
+
+
+
+export const actualizarPerfilController = async (req, res) => {
+  try {
+    
+    let rol = null;
+    let id = null;
+    const perfil = req.body; 
+
+    //Validaciones básicas
+    if (
+      !perfil.Nombre ||
+      !perfil.Apellido ||
+      !perfil.Identificacion ||
+      !perfil.Edad ||
+      !perfil.Descripcion ||
+      !perfil.Telefono
+    ) {
+      return res.status(400).json({ error: "Faltan campos obligatorios" });
+    }
+
+    
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id = decoded?.userId || decoded?.id || decoded?.user?.id || decoded?.user_id;
+      rol = decoded?.role;
+
+      if (!id) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID " });
+      }
+
+      if (!rol) {
+        return res.status(401).json({ message: "Token inválido: no contiene el rol adecuado" });
+      }
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+
+   
+
+    // Llamamos al modelo para actualizar la unidad
+    const resultado = await actualizarPerfil(rol, id,perfil);
+
+    return res.status(200).json(resultado);
+
+  } catch (error) {
+    console.error("Error en actualizarPerfilController:", error);
+    return res.status(500).json({ message: "Error al actualizar la información del perfil", error: error.message });
   }
 };
 
