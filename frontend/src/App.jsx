@@ -21,6 +21,7 @@ import Aplicaciones from "./pages/Aplicaciones";
 import AplicacionAdmin from "./pages/AplicacionAdmin";
 import RentasAdmin from "./pages/RentasAdmin";
 import VerPerfil from "./pages/VerPerfil";
+import VerPerfilAdmin from "./pages/VerPerfilAdmin";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -69,7 +70,7 @@ function App() {
       <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/admindashboard" element={<Admindashboard />} />
-          <Route path="/ver-perfil" element={<VerPerfil />} />
+          <Route path="/perfil-admin" element={<VerPerfilAdmin />} />
           <Route path="/unidadvivienda" element={<UnidadVivienda />} />
           <Route path="/creacionunidad" element={<CreationUnidad />} />
           <Route path="/editar-unidad/:id" element={<EditarUnidad />} />
