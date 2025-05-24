@@ -1,8 +1,9 @@
 import { COLORS } from '../constants/styles';
-import { FaHome, FaPoll, FaRegEnvelope } from 'react-icons/fa';
+import { FaHome, FaPoll, FaRegEnvelope,FaFileContract  } from 'react-icons/fa';
 import { MdApartment, MdOutlineBedroomChild, MdOutlineEmail, MdRateReview } from "react-icons/md";
 import { IoClose } from "react-icons/io5"; // Icono de cerrar
 import { Link } from 'react-router-dom';
+
 
 export default function SideBar({ sidebarToggle, setSidebarToggle }) {
   return (
@@ -45,6 +46,11 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <Link to="/aplicaciones-admin" className="px-3">
             <MdOutlineEmail className="h-6 w-6 inline-block mr-2 -mt-2" /> Aplicaciones
+          </Link>
+        </li>
+        <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
+          <Link to="/rentas" className="px-3">
+            <FaFileContract className="h-6 w-6 inline-block mr-2 -mt-2" /> Rentas
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
