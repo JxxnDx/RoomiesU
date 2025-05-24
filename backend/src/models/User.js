@@ -49,3 +49,24 @@ export const updatePassword = async (email, newHash, newSalt) => {
         throw error;
     }
 };
+
+export const getInfoPerfil = async (rol, id) => {
+  try {
+    const tabla = (rol === 'estudiante') ? 'estudiante' : 'administrador';
+    const id_tabla = (rol === 'estudiante') ? 'Id_Estudiante' : 'Id_Administrador';
+
+    const query = `
+      SELECT Nombre, Apellido, Identificacion, Telefono, Edad, Descripcion
+      FROM ${tabla}
+      WHERE ${id_tabla} = ?
+    `;
+
+    const [rows] = await pool.query(query, [id]);
+
+    console.log("📝 Resultado de la consulta:", rows);
+    return rows;
+  } catch (error) {
+    console.error("❌ Error en getInfoPerfil", error);
+    throw error;
+  }
+};

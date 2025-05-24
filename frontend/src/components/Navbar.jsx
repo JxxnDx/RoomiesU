@@ -10,7 +10,7 @@ export default function Navbar({ sidebarToggle, setSidebarToggle }) {
   const handleLogout = async () => {
     try {
       const response = await axios.post('http://localhost:4000/auth/logout', {}, {
-        withCredentials: true // 👈 Esto incluye la cookie HttpOnly
+        withCredentials: true // Incluye la cookie HttpOnly
       });
 
       if (response.status === 200) {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { actualizarUnidad, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
+import { actualizarUnidad, getInfoPerfilController, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
 import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController, getEstadisticasByAdminController, getAplicacionesAceptadasByAdminController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
@@ -35,5 +35,6 @@ router.post('/actualizar-aplicacion/:id/rechazar', setAccion('rechazar'), verify
 router.post('/enviar-email-aplicacion', sendEmailApplicationController);
 router.get('/estadisticas', verifyToken, getEstadisticasByAdminController);
 router.get('/aplicaciones-aceptadas', verifyToken, getAplicacionesAceptadasByAdminController);
+router.get('/info-perfil', verifyToken, getInfoPerfilController);
 
 export default router;
