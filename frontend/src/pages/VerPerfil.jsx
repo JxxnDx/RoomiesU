@@ -2,30 +2,38 @@ import { COLORS } from "../constants/styles";
 import { IoArrowBack } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { usePerfilData } from "../hooks/usePerfilData";
+import { useEditarPerfilForm } from "../hooks/useEditarPerfilForm";
+
 
 const VerPerfil = () => {
 
     // para hacer editable o no los inputs
     const [editMode, setEditMode] = useState(false);
     const handleEdit = () => {
-        setEditMode(true);
-    };
+  setEditMode(true);
+};
+    const {
+    perfil,
+    setPerfil,
+    loading,
+    error,
+    handleChange
+  } = usePerfilData();
 
-    const handleSubmit = async () => {
-        try {
-        // await axios.put('http://localhost:4000/api/actualizar-perfil', userData, {
-        //     withCredentials: true
-        // });
-        setEditMode(false);
-        } catch (error) {
-        console.error('Error al guardar perfil:', error);
-        }
-    };
+  const {
+    message,
+    errors,
+    handleSubmit
+  } = useEditarPerfilForm(perfil);
+
+    if (loading) return <p>Cargando...</p>;
+   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="m-8">
     <h3 className='flex mb-4 text-black'> 
-      <Link to="/studentHome" className='flex items-center hover:text-[#01b09e] transition-all'> 
+      <Link to="/admindashboard" className='flex items-center hover:text-[#01b09e] transition-all'> 
       <IoArrowBack className="mr-2" /> <span>Inicio</span>
       </Link> - 
       <span>Perfil</span></h3>
@@ -37,84 +45,67 @@ const VerPerfil = () => {
             <label className="font-semibold">Nombres</label>
             <input
                 type="text"
-                name="nombre"
+                name="Nombre"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="nombres"
+                value={perfil.Nombre}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Apellidos</label>
             <input
                 type="text"
-                name="apellido"
+                name="Apellido"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="apellidos"
+                value={perfil.Apellido}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Identificación</label>
             <input
                 type="text"
-                name="identificacion"
+                name="Identificacion"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="ID"
+                value={perfil.Identificacion}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Edad</label>
             <input
                 type="text"
-                name="edad"
+                name="Edad"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="edad"
+                value={perfil.Edad}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
-          <div className="flex flex-col">
-            <label className="font-semibold">Correo</label>
-            <input
-                type="text"
-                name="correo"
-                className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="correo"
-                disabled={!editMode}
-                //onChange={handleChange}
-                //required
-            />
-          </div>
+          
           <div className="flex flex-col">
             <label className="font-semibold">Teléfono</label>
             <input
                 type="text"
-                name="telefono"
+                name="Telefono"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="telefono"
+                value={perfil.Telefono}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Sobre mí</label>
             <textarea
                 type="text"
-                name="descripcion"
+                name="Descripcion"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
-                value="descripcion"
+                value={perfil.Descripcion}
                 disabled={!editMode}
-                //onChange={handleChange}
-                //required
+                onChange={handleChange}
             />
           </div>
         </form>
@@ -137,6 +128,7 @@ const VerPerfil = () => {
         )}
         
         </div>
+        {message.text && <p>{message.text}</p>}
     </div>
   );
 }

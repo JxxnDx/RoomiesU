@@ -80,6 +80,7 @@ function App() {
           <Route path="/agregar-servicio/:id" element={<Servicio/>} />
           <Route path="/aplicaciones-admin" element={<AplicacionAdmin/>} />
           <Route path="/rentas" element={<RentasAdmin/>} />
+          <Route path="/ver-perfil-admin" element={<VerPerfilAdmin />} />
         </Route>
       </Route>
 

@@ -1,5 +1,5 @@
 import { COLORS } from '../constants/styles';
-import { FaHome, FaPoll, FaRegEnvelope,FaFileContract  } from 'react-icons/fa';
+import { FaHome, FaPoll, FaRegEnvelope,FaFileContract,FaRegUserCircle  } from 'react-icons/fa';
 import { MdApartment, MdOutlineBedroomChild, MdOutlineEmail, MdRateReview } from "react-icons/md";
 import { IoClose } from "react-icons/io5"; // Icono de cerrar
 import { Link } from 'react-router-dom';
@@ -57,6 +57,11 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
           <a href="#" className="px-3">
             <MdRateReview className="h-6 w-6 inline-block mr-2 -mt-2" /> Reseñas
           </a>
+        </li>
+        <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
+          <Link to="/ver-perfil-admin" className="px-3">
+            <FaRegUserCircle className="h-6 w-6 inline-block mr-2 -mt-2" /> Perfil
+          </Link>
         </li>
       </ul>
     </div>

@@ -63,7 +63,7 @@ export const getInfoPerfil = async (rol, id) => {
 
     const [rows] = await pool.query(query, [id]);
 
-    console.log("📝 Resultado de la consulta:", rows);
+    // console.log("📝 Resultado de la consulta:", rows);
     return rows;
   } catch (error) {
     console.error("❌ Error en getInfoPerfil", error);

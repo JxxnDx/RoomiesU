@@ -208,6 +208,8 @@ export const actualizarPerfilController = async (req, res) => {
     let id = null;
     const perfil = req.body; 
 
+    console.log(perfil)
+
     //Validaciones básicas
     if (
       !perfil.Nombre ||
