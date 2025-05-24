@@ -19,6 +19,7 @@ import VerHabitacion from "./pages/VerHabitacion";
 import Aplicacion from "./pages/Aplicacion";
 import Aplicaciones from "./pages/Aplicaciones";
 import AplicacionAdmin from "./pages/AplicacionAdmin";
+import VerPerfil from "./pages/VerPerfil";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -58,6 +59,7 @@ function App() {
             <Route path="/studenthome" element={<StudentHome />} />
             <Route path="/ver-habitacion/:id" element={<VerHabitacion />} />
             <Route path="/aplicacion/:id" element={<Aplicacion />} />
+            <Route path="/ver-perfil" element={<VerPerfil />} />
             <Route path="/aplicaciones" element={<Aplicaciones />} />
           </Route>
       </Route>
@@ -66,6 +68,7 @@ function App() {
       <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
           <Route path="/admindashboard" element={<Admindashboard />} />
+          <Route path="/ver-perfil" element={<VerPerfil />} />
           <Route path="/unidadvivienda" element={<UnidadVivienda />} />
           <Route path="/creacionunidad" element={<CreationUnidad />} />
           <Route path="/editar-unidad/:id" element={<EditarUnidad />} />
