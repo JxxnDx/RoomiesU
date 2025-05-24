@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { COLORS } from '../constants/styles'
 import { FaBars, FaBell, FaUserCircle } from 'react-icons/fa'
 import axios from 'axios';
@@ -40,7 +40,7 @@ export default function Navbar({ sidebarToggle, setSidebarToggle }) {
           <div className="z-10 bg-white hidden group-hover:block absolute rounded-lg shadow w-32 top-full right-0">
             <ul className="py-2 text-sm text-gray-950">
               <li className={`${COLORS["hoverdark"]}`}>
-                <a href="#" className="block w-full text-center px-4 ">Perfil</a>
+                <Link to="/ver-perfil" className="block w-full text-center px-4 ">Perfil</Link>
               </li>
               <li className={`${COLORS["hoverdark"]}`}>
                 <button
