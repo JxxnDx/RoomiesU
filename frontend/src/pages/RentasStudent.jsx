@@ -5,18 +5,22 @@ import RentaCardStudent from '../components/RentaCardStudents';
 
 export default function RentasStudent() {
 
-  //Renta de prueba
-  const rentas = [{
-  Id_Renta: 123,
-  Correo: "juan.perez@example.com",
-  Fecha_inicio: "2025-06-01",
-  Fecha_fin: "2025-06-30",
-  Estado: "aceptada",         // Cambia a "pendiente" para probar el color amarillo
-  Monto_Renta: 450000,
-  Estado_Pago: 0              // Cambia a 1 para ver cómo se pinta en verde
-}];
-
+    const[rentas, setRentas]= useState([]); 
+    const[error, setError]=useState();
+    const [message, setMessage] = useState('');  
     const navigate= useNavigate;
+
+     // Obtener rentas desde el endpoint
+      useEffect(() => {
+    
+        axios.get('http://localhost:4000/api/rentas-estudiante', { withCredentials: true })
+          .then(response => setRentas(response.data))
+          .catch(err => {
+            console.error('Error al cargar las rentas:', err);
+            setError('Error al cargar las rentas');
+          });
+      }, []);
+
   return (
     <>
     <div className={`bg-white p-4 w-full my-8`}>
@@ -38,6 +42,8 @@ export default function RentasStudent() {
          <li><strong>Contacta al administrador</strong> para definir los términos y condiciones del acuerdo.</li>
          <li><strong>Tienes 3 días</strong> para aceptar o cancelar una renta una vez ha sido creada.</li>
          </ul>
+         {message && <p className="text-green-600 font-semibold text-center">{message}</p>}
+         {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
          </div>
          
          {/* Aquí mostramos las rentas disponibles*/}

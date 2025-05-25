@@ -6,18 +6,7 @@ import axios from 'axios';
 import RentaCardAdmin from '../components/RentaCardAdmin';
 
 export default function RentasAdmin() {
-
-  //Renta de prueba
-  const rentas = [{
-  Id_Renta: 123,
-  Correo: "juan.perez@example.com",
-  Fecha_inicio: "2025-06-01",
-  Fecha_fin: "2025-06-30",
-  Estado: "aceptada",         
-  Monto_Renta: 450000,
-  Estado_Pago: 0              
-}];
-
+ const[rentas, setRentas]= useState([]);    
   const navigate = useNavigate();
 
   const [candidatos, setCandidatos] = useState([]);
@@ -43,7 +32,16 @@ export default function RentasAdmin() {
             });
         }, []);
   
-  
+  // Obtener rentas desde el endpoint
+      useEffect(() => {
+    
+        axios.get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
+          .then(response => setRentas(response.data))
+          .catch(err => {
+            console.error('Error al cargar las rentas:', err);
+            setError('Error al cargar las rentas');
+          });
+      }, []);
 
   // Manejar cambios en los inputs
  const handleChange = (e) => {
