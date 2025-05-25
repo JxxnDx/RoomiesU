@@ -33,17 +33,27 @@ export default function RentasAdmin() {
   
 
   // Manejar cambios en los inputs
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+ const handleChange = (e) => {
+  const { name, value } = e.target;
+//Debido a que tenemos dos valores a enviar en un solo campo
+  if (name === 'seleccion') {
+    const [estudianteId, habitacionId] = value.split(':').map(Number);
+    setFormData(prev => ({
+      ...prev,
+      Id_Estudiante: estudianteId,
+      Id_Habitacion: habitacionId,
+    }));
+  } else {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     
     // Validación básica
-    if (!formData.Id_Estudiante || !formData.Id_Habitacion || !formData.Monto_Renta || !formData.Fecha_fin | !formData.Fecha_inicio) {
+    if (!formData.Id_Estudiante || !formData.Id_Habitacion || !formData.Monto_Renta || !formData.Fecha_fin || !formData.Fecha_inicio) {
       setError('Por favor completa todos los campos requeridos');
       return;
     }
@@ -99,7 +109,6 @@ export default function RentasAdmin() {
             <label className="block text-gray-700 font-semibold mb-2">Seleccionar estudiante con aplicación aceptada:</label>
             <select
               name="seleccion"
-              value={formData.seleccion}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 rounded px-4 py-2"
@@ -155,11 +164,12 @@ export default function RentasAdmin() {
           <button
             type="submit"
             className="bg-[#01b09e] hover:bg-[#019183] text-white font-semibold px-6 py-2 rounded transition-all duration-300"
-            onClick={handleSubmit}
           >
             Crear Renta
           </button>
         </form>
+        {message && <p className="text-green-600 font-semibold text-center">{message}</p>}
+        {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
       </div>
     </div>
   );
