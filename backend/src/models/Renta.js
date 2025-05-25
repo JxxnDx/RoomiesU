@@ -111,5 +111,29 @@ export const crearRenta = async ( renta) => {
     throw error;
    } 
   }
+
+
+  export const RegistrarPagoRentaByAdmin = async (Id_Renta, Estado_Pago) => {
+   try{
+    const [rows] = await pool.query(
+        ` UPDATE renta 
+        SET Estado_Pago = ?
+        WHERE Id_Renta = ? AND Estado = 'en_curso'`,
+      [Estado_Pago, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado de pago o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de pago de la renta", error);
+    throw error;
+   } 
+  }
   
   
