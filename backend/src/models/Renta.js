@@ -26,6 +26,7 @@ export const crearRenta = async ( renta) => {
     const [rows] = await pool.execute(
       `SELECT * FROM renta 
        WHERE Id_Habitacion = ? 
+       AND estado IN ('en_curso', 'pendiente')
        AND NOT (Fecha_fin < ? OR Fecha_inicio > ?)`,
       [Id_Habitacion, Fecha_inicio, Fecha_fin]
     );
@@ -84,6 +85,29 @@ export const crearRenta = async ( renta) => {
     return rows;
    } catch(error){
     console.error("❌ Error al obtener las rentas en curso ", error);
+    throw error;
+   } 
+  }
+
+  export const actualizarRentaByAdmin = async (Id_Renta, Estado) => {
+   try{
+    const [rows] = await pool.query(
+        ` UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ?`,
+      [Estado, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de la renta", error);
     throw error;
    } 
   }

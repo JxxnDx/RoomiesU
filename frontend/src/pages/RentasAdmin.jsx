@@ -8,7 +8,7 @@ import RentaCardAdmin from '../components/RentaCardAdmin';
 export default function RentasAdmin() {
  const[rentas, setRentas]= useState([]);    
   const navigate = useNavigate();
-
+  const [reloadRentas, setReloadRentas] = useState(false);
   const [candidatos, setCandidatos] = useState([]);
   const[error, setError]=useState();
   const [message, setMessage] = useState('');
@@ -41,7 +41,7 @@ export default function RentasAdmin() {
             console.error('Error al cargar las rentas:', err);
             setError('Error al cargar las rentas');
           });
-      }, []);
+      }, [reloadRentas]);
 
   // Manejar cambios en los inputs
  const handleChange = (e) => {
@@ -79,6 +79,7 @@ export default function RentasAdmin() {
         console.log('Respuesta del servidor:', response.data);
         setMessage('Renta registrada exitosamente ✅');
         setError('');
+        setReloadRentas(prev => !prev);
         // Opcional: Limpiar el formulario
         setFormData({
           Id_Estudiante: '',
