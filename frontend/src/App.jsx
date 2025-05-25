@@ -25,6 +25,8 @@ import VerPerfilAdmin from "./pages/VerPerfilAdmin";
 import RentasStudent from "./pages/RentasStudent";
 import Inicio from "./pages/Inicio";
 import InicioAdmin from "./pages/InicioAdmin";
+import Reseñas from "./pages/Reseña";
+import CrearReseñaStudent from "./pages/CrearReseñaStudent";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -68,6 +70,8 @@ function App() {
             <Route path="/ver-perfil" element={<VerPerfil />} />
             <Route path="/aplicaciones" element={<Aplicaciones />} />
             <Route path="/mis-rentas" element={<RentasStudent />} />
+            <Route path="/reseñas" element={<Reseñas />} />
+            <Route path="/crear-reseña" element={<CrearReseñaStudent />} />
           </Route>
       </Route>
 

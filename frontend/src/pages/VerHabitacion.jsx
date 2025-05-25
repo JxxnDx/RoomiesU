@@ -1,4 +1,4 @@
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { COLORS, TEXT } from '../constants/styles';
 import { FaDollarSign, FaMapMarkerAlt, FaWifi } from 'react-icons/fa';
 import { MdRadioButtonChecked } from 'react-icons/md';
@@ -73,10 +73,10 @@ const navigate = useNavigate();
                         <h2 className="text-xl font-bold">Descripción</h2>
                         <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
                     </div>
-                    <NavLink to="#" 
+                    <Link to="/reseñas" 
                             className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition duration-300`}>
                             Reseñas
-                    </NavLink>
+                    </Link>
                 </div>
             </div>
 
