@@ -21,16 +21,21 @@ export default function RentasAdmin() {
   });
 
 
-  // Obtener candidatos desde el endpoint
-        useEffect(() => {
-      
-          axios.get('http://localhost:4000/api/aplicaciones-aceptadas', { withCredentials: true })
-            .then(response => setCandidatos(response.data))
-            .catch(err => {
-              console.error('Error al cargar los candidatos:', err);
-              setError('Error al cargar los candidatos');
-            });
-        }, []);
+     //  Función para recargar las aplicaciones, para que cambie después de que actualicemos el estado
+  const fetchRentas = () => {
+    axios
+      .get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
+      .then(response => setRentas(response.data))
+      .catch(err => {
+        console.error('Error al cargar las rentas:', err);
+        setError('Error al cargar las rentas');
+      });
+  };
+
+  // Carga al iniciar
+  useEffect(() => {
+    fetchRentas();
+  }, []);
   
   // Obtener rentas desde el endpoint
       useEffect(() => {
@@ -194,7 +199,7 @@ const minStartDate = hoy.toISOString().split('T')[0];
       {/* En esta parte mostramos las rentas en curso o aceptadas */}
       <div className='grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 gap-4 mt-16 border-gray-300 border-t p-4'>
         {rentas.map((renta) => (
-        <RentaCardAdmin key={renta.Id_Renta} renta={renta} />
+        <RentaCardAdmin key={renta.Id_Renta} renta={renta} onEstadoActualizado={fetchRentas} setMessage={setMessage}/>
       ))}
       </div>
     </div>

@@ -64,7 +64,7 @@ export const crearRenta = async ( renta) => {
    try{
     const [rows] = await pool.query(
         `SELECT r.Id_Renta, r.Fecha_inicio, r.Fecha_fin, r.Estado, e.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago FROM renta r 
-        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante WHERE r.Id_Admin = ? AND r.Estado IN ('pendiente', 'aceptada');`,
+        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante WHERE r.Id_Admin = ? AND r.Estado IN ('pendiente', 'en_curso' );`,
       [Id_Admin]
     );
     return rows;
