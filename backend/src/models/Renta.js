@@ -58,4 +58,34 @@ export const crearRenta = async ( renta) => {
   }
   };
 
+
+   export const getRentasByAdmin = async (Id_Admin ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT r.Fecha_inicio, r.Fecha_fin, r.Estado, e.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago FROM renta r 
+        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante WHERE r.Id_Admin = ? AND r.Estado IN ('pendiente', 'aceptada');`,
+      [Id_Admin]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las rentas en curso ", error);
+    throw error;
+   } 
+  }
+
+     export const getRentasByStudent = async (Id_Estudiante ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT r.Fecha_inicio, r.Fecha_fin, r.Estado, a.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago 
+         FROM renta r INNER JOIN administrador a ON r.Id_Admin= a.Id_Administrador 
+         WHERE r.Id_Estudiante = 1 AND r.Estado IN ('pendiente', 'aceptada')`,
+      [Id_Estudiante]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener las rentas en curso ", error);
+    throw error;
+   } 
+  }
+  
   
