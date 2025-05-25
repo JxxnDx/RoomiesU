@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import { IoArrowBack } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import RentaCardStudent from '../components/RentaCardStudents';
+import axios from 'axios';
 
 export default function RentasStudent() {
 

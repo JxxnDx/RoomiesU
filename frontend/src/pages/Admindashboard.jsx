@@ -59,7 +59,7 @@ const [error, setError]= useState();
   return (
     <>
     <div className={`text-black h-full flex flex-col p-8`}>
-      <h1 className={`${TEXT["title"]}`}>Overview</h1>
+      <h1 className={`${TEXT["title"]}`}>Resumen</h1>
     </div>
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8'>
       <div className={`${COLORS["light_primary"]} flex flex-col drop-shadow-lg h-full rounded-lg p-4 items-center md:items-start transition-all duration-300 hover:scale-[1.02] justify-between`}>

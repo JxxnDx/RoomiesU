@@ -21,7 +21,7 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
         />
       </div>
       <hr />
-      
+      <div className="flex flex-col justify-between h-[calc(100%-80px)]">
       <ul className="text-black font-bold mt-3">
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
           <Link to="/admindashboard" className="px-3">
@@ -58,12 +58,16 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
             <MdRateReview className="h-6 w-6 inline-block mr-2 -mt-2" /> Reseñas
           </a>
         </li>
-        <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/ver-perfil-admin" className="px-3">
-            <FaRegUserCircle className="h-6 w-6 inline-block mr-2 -mt-2" /> Perfil
-          </Link>
-        </li>
+        
       </ul>
+      <ul>
+      <li className={`mb-4 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
+        <Link to="/ver-perfil-admin" className="px-3">
+          <FaRegUserCircle className="h-6 w-6 inline-block mr-2 -mt-2" /> Perfil
+        </Link>
+      </li>
+    </ul>
+      </div>
     </div>
   );
 }
