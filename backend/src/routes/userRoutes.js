@@ -1,7 +1,7 @@
 import express from 'express';
 import { actualizarPerfilController, actualizarUnidad, getInfoPerfilController, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
-import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController, getEstadisticasByAdminController, getAplicacionesAceptadasByAdminController } from '../controllers/adminController.js';
+import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController, getEstadisticasByAdminController, getAplicacionesAceptadasByAdminController, crearRentaController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
 import { getHabitacionesForStudentsController } from '../controllers/studentController.js';
 import { setAccion } from '../middlewares/setAccion.js';
@@ -37,5 +37,6 @@ router.get('/estadisticas', verifyToken, getEstadisticasByAdminController);
 router.get('/aplicaciones-aceptadas', verifyToken, getAplicacionesAceptadasByAdminController);
 router.get('/info-perfil', verifyToken, getInfoPerfilController);
 router.put('/editar-perfil', verifyToken, actualizarPerfilController);
+router.post('/crear-renta', verifyToken, crearRentaController);
 
 export default router;

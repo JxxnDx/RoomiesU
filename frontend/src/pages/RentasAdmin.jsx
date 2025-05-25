@@ -61,7 +61,7 @@ export default function RentasAdmin() {
       });
     } catch (error) {
       console.error('Error al crear renta:', error);
-      alert('❌ Error al crear la renta');
+      setError('Error al crear la renta');
     }
   };
 

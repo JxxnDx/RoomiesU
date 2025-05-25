@@ -128,7 +128,8 @@ const VerPerfil = () => {
         )}
         
         </div>
-        {message.text && <p>{message.text}</p>}
+        {message.text && <p className="text-green-500 text-center mt-2">{message.text}</p>}
+        {errors.text && <p className="text-red-500 text-center mt-2">{errors.text}</p>}
     </div>
   );
 }

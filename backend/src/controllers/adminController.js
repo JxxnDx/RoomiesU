@@ -7,6 +7,7 @@ import { pool } from "../config/db.js";
 import { actualizarAplicacion, crearAplicacion, getAplicacionesAceptadasByAdmin, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
 import { sendApplicationEmail } from "../services/emailService.js";
 import { obtenerEstadisticas } from "../models/Estadisticas.js";
+import { crearRenta } from "../models/Renta.js";
 
 
 
@@ -640,6 +641,59 @@ export const getAplicacionesAceptadasByAdminController = async (req, res) => {
     res.json(aplicaciones);
   } catch (error) {
     console.error("❌ Error en getAplicacionesAceptadasByAdmin:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
+
+export const crearRentaController = async (req, res) => {
+  try {
+    let id_admin = null;
+    const {Id_Estudiante, Id_Habitacion,Fecha_inicio, Fecha_fin, Monto_Renta} = req.body;
+
+     if (!Id_Estudiante || !Id_Habitacion || !Fecha_inicio || !Fecha_fin || !Monto_Renta) {
+      return res.status(400).json({ message: "Faltan campos obligatorios" });
+    }
+
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id_admin = decoded?.userId;
+      
+
+      if (!id_admin) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID de administrador" });
+      }
+
+    
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+
+     // Preparar datos
+    const RentaData = {
+      Id_Estudiante: parseInt(Id_Estudiante),
+      Id_Habitacion: parseInt(Id_Habitacion),
+      Fecha_inicio: new Date(Fecha_inicio).toISOString().split('T')[0],
+      Fecha_fin: new Date(Fecha_fin).toISOString().split('T')[0],
+      Monto_Renta: parseFloat(Monto_Renta),
+      Estado: 'pendiente',
+      Estado_Pago: 0,
+      Id_Admin: id_admin
+    };
+    const resultado = await crearRenta(RentaData);
+    return res.status(201).json(resultado);
+  } catch (error) {
+    console.error("❌ Error en crearRenta:", error);
     res.status(500).json({ message: "Error interno" });
   }
 };
