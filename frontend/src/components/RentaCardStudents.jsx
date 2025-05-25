@@ -37,12 +37,7 @@ const Fecha_fin_formateada = new Date(Fecha_fin).toISOString().split('T')[0];
       <p className={`font-semibold text-gray-700`}>Estado de Pago: <span className={`font-semibold ${pagoColor}`}>{Estado_Pago === 1 ? 'Pagado' : 'Pendiente'}</span></p>
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-1">
-        <button
-          onClick={() => handleAction('registrar el pago de')}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition"
-        >
-          Pagó
-        </button>
+        
         <button
           onClick={() => handleAction('cancelar')}
           className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition"
@@ -56,11 +51,12 @@ const Fecha_fin_formateada = new Date(Fecha_fin).toISOString().split('T')[0];
           Terminar
         </button>
         <button
-          onClick={() => handleAction('editar')}
-          className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+          onClick={() => handleAction('aceptar')}
+          className="bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-lg font-medium transition"
         >
-          Editar
+          Aceptar
         </button>
+        
       </div>
     </div>
   );

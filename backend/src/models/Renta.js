@@ -137,3 +137,39 @@ export const crearRenta = async ( renta) => {
   }
   
   
+  export const actualizarRentaByStudent = async (Id_Renta, Estado) => {
+   try{
+
+    // Mapeo de acción con estado, más elegante que mi if else
+  const consultasMap = {
+    cancelar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='pendiente'`,
+    terminar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='en_curso'`,
+    aceptar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='en_curso'`
+  };
+
+  const consulta = consultasMap[accion];
+    const [rows] = await pool.query(
+        `${consulta}`,
+      [Estado, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de la renta", error);
+    throw error;
+   } 
+  }
+
