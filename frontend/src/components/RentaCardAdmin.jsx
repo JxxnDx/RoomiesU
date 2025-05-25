@@ -1,6 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
-export default function RentaCardAdmin({ renta }) {
+export default function RentaCardAdmin({ renta, setMessage, onEstadoActualizado }) {
+  const [error,setError]= useState();
   const {
     Id_Renta,
     Correo,
@@ -13,16 +16,45 @@ export default function RentaCardAdmin({ renta }) {
 
 const Fecha_inicio_formateada = new Date(Fecha_inicio).toISOString().split('T')[0];
 const Fecha_fin_formateada = new Date(Fecha_fin).toISOString().split('T')[0];
+const hoy = new Date().toISOString().split('T')[0];
 
   const estadoColor = Estado === 'aceptada' ? 'text-green-600' : 'text-yellow-500';
   const pagoColor = Estado_Pago === 1 ? 'text-green-600' : 'text-red-600';
 
-  const handleAction = (accion) => {
-    if (window.confirm(`¿Estás seguro de que deseas ${accion} la renta #${Id_Renta}?`)) {
-      console.log(`${accion} confirmado para la renta ${Id_Renta}`);
-      // Aquí puedes llamar una función de props o disparar un dispatch
+   const handleAccion = async (accion) => {
+    let url = ''
+    if(accion==='pago'){
+       url = 'http://localhost:4000/api/pago-renta-admin';
+    }else{
+       url = 'http://localhost:4000/api/actualizar-renta-admin'; 
     }
+     console.log(url);
+  try {
+    // Actualizó el estado de la aplicación
+    await axios.put(
+      `${url}/${Id_Renta}/${accion}`,
+      {},
+      { withCredentials: true }
+    );
+
+
+    // 3. Recargar lista y mostrar mensaje
+    if (onEstadoActualizado) {
+      onEstadoActualizado();
+    }
+
+    setMessage(`Renta ${accion} correctamente .`);
+  } catch (error) {
+    console.error(`❌ Error al ${accion} renta:`, error);
+    setError(`Error al ${accion} renta.`);
+  }
+
   };
+
+ 
+//Condicionales para habilitar o deshabilitar botones de acuerdo a la lógica que estamos manejando
+  const deshabilitarTerminar = Fecha_fin_formateada !== hoy;
+  const deshabilitarCancelar = Estado === 'en_curso';
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-200 transition-all duration-300 hover:scale-[1.02]">
@@ -36,29 +68,33 @@ const Fecha_fin_formateada = new Date(Fecha_fin).toISOString().split('T')[0];
 
       <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-1">
         <button
-          onClick={() => handleAction('registrar el pago de')}
+          onClick={() => handleAccion('pago')}
           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition"
         >
           Pagó
         </button>
         <button
-          onClick={() => handleAction('cancelar')}
-          className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition"
-        >
+          onClick={() => handleAccion('cancelar')}
+          disabled={deshabilitarCancelar}
+          className={`px-4 py-2 rounded-lg font-medium transition text-white ${
+            deshabilitarCancelar
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-yellow-500 hover:bg-yellow-600'
+          }`}>
           Cancelar
         </button>
         <button
-          onClick={() => handleAction('terminar')}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition"
+          onClick={() => handleAccion('terminar')}
+          disabled={deshabilitarTerminar}
+          className={`px-4 py-2 rounded-lg font-medium transition text-white ${
+            deshabilitarTerminar
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-blue-500 hover:bg-blue-600'
+          }`}
         >
           Terminar
         </button>
-        <button
-          onClick={() => handleAction('editar')}
-          className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
-        >
-          Editar
-        </button>
+        {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { pool } from "../config/db.js";
 import { actualizarAplicacion, crearAplicacion, getAplicacionesAceptadasByAdmin, getAplicacionesByAdmin, getAplicacionesByStudent } from "../models/Aplicacion.js";
 import { sendApplicationEmail } from "../services/emailService.js";
 import { obtenerEstadisticas } from "../models/Estadisticas.js";
-import { crearRenta, getRentasByAdmin } from "../models/Renta.js";
+import { actualizarRentaByAdmin, actualizarRentaByStudent, crearRenta, getRentasByAdmin, RegistrarPagoRentaByAdmin } from "../models/Renta.js";
 
 const SECRET_KEY = process.env.JWT_SECRET ;
 
@@ -738,3 +738,78 @@ export const getRentasByAdminController = async (req, res) => {
     res.status(500).json({ message: "Error interno" });
   }
 };
+
+
+export const actualizarRentaByAdminController = async (req, res) => {
+  const { id } = req.params;
+  const { accion } = req; // Se esta seteando desde la ruta
+
+//Validamos las acciones que vienen
+  const validActions = ['cancelar', 'terminar'];
+if (!validActions.includes(accion)) {
+  return res.status(400).json({ error: 'Acción no válida' });
+}
+  const estado = accion === 'cancelar' ? 'cancelada_por_admin' : 'finalizada';
+
+  try {
+    const resultado = await actualizarRentaByAdmin(id, estado);
+    if (resultado.changes === 0) {
+    return res.status(404).json({ error: 'Renta no encontrada' });
+    }
+    res.json({ mensaje: `Renta ${estado}` });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar' });
+  }
+};
+
+
+export const registrarPagoRentaByAdminController = async (req, res) => {
+  const { id } = req.params;
+  const { accion } = req; // Se esta seteando desde la ruta
+
+
+  const estado = accion === 'pago' ? 1 : 0;
+
+  try {
+    const resultado = await RegistrarPagoRentaByAdmin(id, estado);
+    if (resultado.changes === 0) {
+    return res.status(404).json({ error: 'Renta no encontrada' });
+    }
+    res.json({ mensaje: `Renta ${estado}` });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar' });
+  }
+};
+
+
+export const actualizarRentaByStudentController = async (req, res) => {
+  const { id } = req.params;
+  const { accion } = req; // Se esta seteando desde la ruta
+
+//Validamos las acciones que vienen
+  const validActions = ['cancelar', 'terminar','aceptar'];
+if (!validActions.includes(accion)) {
+  return res.status(400).json({ error: 'Acción no válida' });
+}
+  
+// Mapeo de acción con estado, más elegante que mi if else
+  const estadosMap = {
+    cancelar: 'cancelada_por_estudiante',
+    terminar: 'finalizada',
+    aceptar: 'en_curso'
+  };
+
+  const estado = estadosMap[accion];
+
+  try {
+    const resultado = await actualizarRentaByStudent(id, estado);
+    if (resultado.changes === 0) {
+    return res.status(404).json({ error: 'Renta no encontrada' });
+    }
+    res.json({ mensaje: `Renta ${estado} correctamente por estudiante` });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar' });
+  }
+};
+
+

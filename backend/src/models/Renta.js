@@ -26,6 +26,7 @@ export const crearRenta = async ( renta) => {
     const [rows] = await pool.execute(
       `SELECT * FROM renta 
        WHERE Id_Habitacion = ? 
+       AND estado IN ('en_curso', 'pendiente')
        AND NOT (Fecha_fin < ? OR Fecha_inicio > ?)`,
       [Id_Habitacion, Fecha_inicio, Fecha_fin]
     );
@@ -63,7 +64,7 @@ export const crearRenta = async ( renta) => {
    try{
     const [rows] = await pool.query(
         `SELECT r.Id_Renta, r.Fecha_inicio, r.Fecha_fin, r.Estado, e.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago FROM renta r 
-        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante WHERE r.Id_Admin = ? AND r.Estado IN ('pendiente', 'aceptada');`,
+        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante WHERE r.Id_Admin = ? AND r.Estado IN ('pendiente', 'en_curso' );`,
       [Id_Admin]
     );
     return rows;
@@ -87,5 +88,88 @@ export const crearRenta = async ( renta) => {
     throw error;
    } 
   }
+
+  export const actualizarRentaByAdmin = async (Id_Renta, Estado) => {
+   try{
+    const [rows] = await pool.query(
+        ` UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ?`,
+      [Estado, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de la renta", error);
+    throw error;
+   } 
+  }
+
+
+  export const RegistrarPagoRentaByAdmin = async (Id_Renta, Estado_Pago) => {
+   try{
+    const [rows] = await pool.query(
+        ` UPDATE renta 
+        SET Estado_Pago = ?
+        WHERE Id_Renta = ? AND Estado = 'en_curso'`,
+      [Estado_Pago, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado de pago o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de pago de la renta", error);
+    throw error;
+   } 
+  }
   
   
+  export const actualizarRentaByStudent = async (Id_Renta, Estado) => {
+   try{
+
+    // Mapeo de acción con estado, más elegante que mi if else
+  const consultasMap = {
+    cancelar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='pendiente'`,
+    terminar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='en_curso'`,
+    aceptar: `UPDATE renta 
+        SET Estado = ?
+        WHERE Id_Renta = ? AND Estado ='en_curso'`
+  };
+
+  const consulta = consultasMap[accion];
+    const [rows] = await pool.query(
+        `${consulta}`,
+      [Estado, Id_Renta]
+    );
+   if (rows.affectedRows === 0) {
+        throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
+      }
+      
+      return {
+        success: true,
+        message: `Renta ${Id_Renta} actualizada correctamente`,
+        changes: rows.affectedRows
+      };
+   } catch(error){
+    console.error("❌ Error al cambiar el estado de la renta", error);
+    throw error;
+   } 
+  }
+
