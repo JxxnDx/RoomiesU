@@ -9,11 +9,13 @@ export default function RentasAdmin() {
 
   const [candidatos, setCandidatos] = useState([]);
   const[error, setError]=useState();
+  const [message, setMessage] = useState('');
   const [formData, setFormData] = useState({
-    seleccion: '',
-    fechaInicio: '',
-    fechaFin: '',
-    fechaPago: '',
+  Id_Estudiante: 0,
+  Id_Habitacion: 0,
+  Fecha_inicio: '',
+  Fecha_fin: '',
+  Monto_Renta: 0
   });
 
 
@@ -36,34 +38,42 @@ export default function RentasAdmin() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Enviar el formulario
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const [Id_Estudiante, Id_Habitacion] = formData.seleccion.split(':');
-
-      const nuevaRenta = {
-        Id_Estudiante: parseInt(Id_Estudiante),
-        Id_Habitacion: parseInt(Id_Habitacion),
-        Fecha_Inicio: formData.fechaInicio,
-        Fecha_Fin: formData.fechaFin,
-        Fecha_Pago: formData.fechaPago,
-      };
-
-      const res = await axios.post('/api/rentas', nuevaRenta); // <-- Ajusta el endpoint real
-      alert('✅ Renta creada con éxito');
-      setFormData({
-        seleccion: '',
-        fechaInicio: '',
-        fechaFin: '',
-        fechaPago: '',
-      });
-    } catch (error) {
-      console.error('Error al crear renta:', error);
-      setError('Error al crear la renta');
+    
+    // Validación básica
+    if (!formData.Id_Estudiante || !formData.Id_Habitacion || !formData.Monto_Renta || !formData.Fecha_fin | !formData.Fecha_inicio) {
+      setError('Por favor completa todos los campos requeridos');
+      return;
     }
+    
+
+    //  Aquí imprimimos los datos exactos que se van a enviar
+  console.log('Datos que se enviarán al backend:', formData);
+    
+    // Enviar los datos al backend
+    axios.post('http://localhost:4000/api/crear-renta', formData, { withCredentials: true })
+      .then(response => {
+        console.log('Respuesta del servidor:', response.data);
+        setMessage('Renta registrada exitosamente ✅');
+        setError('');
+        // Opcional: Limpiar el formulario
+        setFormData({
+          Id_Estudiante: '',
+          Id_Habitacion: '',
+          Fecha_inicio: '',
+          Fecha_fin: '',
+          Monto_Renta: ''
+        });
+        
+      })
+      .catch(err => {
+        console.error('Error al registrar la renta:', err.response?.data || err.message);
+        setError(err.response?.data?.message || 'Error al registrar la renta');
+      });
   };
+
 
   return (
     <div className={`bg-white p-4 w-full my-8`}>
@@ -107,8 +117,8 @@ export default function RentasAdmin() {
             <label className="block text-gray-700 font-semibold mb-2">Fecha de Inicio:</label>
             <input
               type="date"
-              name="fechaInicio"
-              value={formData.fechaInicio}
+              name="Fecha_inicio"
+              value={formData.Fecha_inicio}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 rounded px-4 py-2"
@@ -119,36 +129,25 @@ export default function RentasAdmin() {
             <label className="block text-gray-700 font-semibold mb-2">Fecha de Fin:</label>
             <input
               type="date"
-              name="fechaFin"
-              value={formData.fechaFin}
+              name="Fecha_fin"
+              value={formData.Fecha_fin}
               onChange={handleChange}
               required
               className="w-full border border-gray-300 rounded px-4 py-2"
             />
           </div>
 
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Fecha de Pago:</label>
-            <input
-              type="date"
-              name="fechaPago"
-              value={formData.fechaPago}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded px-4 py-2"
-            />
-          </div>
-
+      
           <div>
             <label className="block text-gray-700 font-semibold mb-2">Monto ($):</label>
             <input
               type="number"
-              name="monto"
-              value={formData.monto}
+              name="Monto_Renta"
+              value={formData.Monto_Renta}
               onChange={handleChange}
               required
-              min="0"
-              step="0.01"
+              min="1000"
+              step="1000"
               className="w-full border border-gray-300 rounded px-4 py-2"
             />
           </div>
@@ -156,6 +155,7 @@ export default function RentasAdmin() {
           <button
             type="submit"
             className="bg-[#01b09e] hover:bg-[#019183] text-white font-semibold px-6 py-2 rounded transition-all duration-300"
+            onClick={handleSubmit}
           >
             Crear Renta
           </button>
