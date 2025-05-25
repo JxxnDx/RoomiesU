@@ -23,6 +23,8 @@ import RentasAdmin from "./pages/RentasAdmin";
 import VerPerfil from "./pages/VerPerfil";
 import VerPerfilAdmin from "./pages/VerPerfilAdmin";
 import RentasStudent from "./pages/RentasStudent";
+import Inicio from "./pages/Inicio";
+import InicioAdmin from "./pages/InicioAdmin";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -59,6 +61,7 @@ function App() {
       {/* Rutas protegidas para estudiantes */}
       <Route element={<ProtectedRoutes allowedRoles={["estudiante"]} />}>
           <Route element={<StudentLayout />}>
+            <Route path="/Inicio" element={<Inicio />} />
             <Route path="/studenthome" element={<StudentHome />} />
             <Route path="/ver-habitacion/:id" element={<VerHabitacion />} />
             <Route path="/aplicacion/:id" element={<Aplicacion />} />
@@ -71,6 +74,7 @@ function App() {
       {/* Rutas protegidas para administradores */}
       <Route element={<ProtectedRoutes allowedRoles={["administrador"]} />}>
         <Route element={<AdminLayout />}>
+          <Route path="/InicioAdmin" element={<InicioAdmin />} />
           <Route path="/admindashboard" element={<Admindashboard />} />
           <Route path="/perfil-admin" element={<VerPerfilAdmin />} />
           <Route path="/unidadvivienda" element={<UnidadVivienda />} />

@@ -56,12 +56,13 @@ export class AuthService {
     
             console.log("✅ ID del usuario encontrado:", user[userIdField]);
     
-            // Generar JWT con el ID, el rol y el correo
+            // Generar JWT con el ID, el rol, el correo y el nombre
           const token = jwt.sign(
             { 
                 userId: user[userIdField], 
                 role: tableName,
-                correo: user.Correo 
+                correo: user.Correo, 
+                name: user.Nombre 
             }, 
             process.env.JWT_SECRET, 
             { expiresIn: "1h" }
@@ -69,7 +70,7 @@ export class AuthService {
 
             console.log("🔑 Token generado correctamente:", token);
     
-            return { message: "Inicio de sesión exitoso", token, role: tableName };
+            return { message: "Inicio de sesión exitoso", token, role: tableName, name: user.Nombre };
         } catch (error) {
             console.error("Error en el login:", error);
             throw error;

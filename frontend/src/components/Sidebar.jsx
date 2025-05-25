@@ -24,7 +24,7 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
       <div className="flex flex-col justify-between h-[calc(100%-80px)]">
       <ul className="text-black font-bold mt-3">
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/admindashboard" className="px-3">
+          <Link to="/InicioAdmin" className="px-3">
             <FaHome className="h-6 w-6 inline-block mr-2 -mt-2" /> Inicio
           </Link>
         </li>
