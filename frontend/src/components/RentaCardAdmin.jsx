@@ -1,0 +1,62 @@
+import React from 'react';
+
+export default function RentaCardAdmin({ renta }) {
+  const {
+    Id_Renta,
+    Correo,
+    Fecha_inicio,
+    Fecha_fin,
+    Estado,
+    Monto_Renta,
+    Estado_Pago
+  } = renta;
+
+  const estadoColor = Estado === 'aceptada' ? 'text-green-600' : 'text-yellow-500';
+  const pagoColor = Estado_Pago === 1 ? 'text-green-600' : 'text-red-600';
+
+  const handleAction = (accion) => {
+    if (window.confirm(`¿Estás seguro de que deseas ${accion} la renta #${Id_Renta}?`)) {
+      console.log(`${accion} confirmado para la renta ${Id_Renta}`);
+      // Aquí puedes llamar una función de props o disparar un dispatch
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-2xl shadow-md p-6 mb-6 border border-gray-200 transition-all duration-300 hover:scale-[1.02]">
+      <h2 className="text-xl font-semibold text-gray-800 mb-2">Renta #{Id_Renta}</h2>
+      <p className="text-gray-700"><span className="font-semibold">Correo:</span> {Correo}</p>
+      <p className="text-gray-700"><span className="font-semibold">Inicio:</span> {Fecha_inicio}</p>
+      <p className="text-gray-700"><span className="font-semibold">Fin:</span> {Fecha_fin}</p>
+      <p className={`font-semibold text-gray-700`}>Estado: <span className={`font-semibold ${estadoColor}`}>{Estado}</span></p>
+      <p className="text-gray-700"><span className="font-semibold">Monto:</span> ${Monto_Renta}</p>
+      <p className={`font-semibold text-gray-700`}>Estado de Pago: <span className={`font-semibold ${pagoColor}`}>{Estado_Pago === 1 ? 'Pagado' : 'Pendiente'}</span></p>
+
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-1">
+        <button
+          onClick={() => handleAction('registrar el pago de')}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium transition"
+        >
+          Pagó
+        </button>
+        <button
+          onClick={() => handleAction('cancelar')}
+          className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-medium transition"
+        >
+          Cancelar
+        </button>
+        <button
+          onClick={() => handleAction('terminar')}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition"
+        >
+          Terminar
+        </button>
+        <button
+          onClick={() => handleAction('editar')}
+          className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition"
+        >
+          Editar
+        </button>
+      </div>
+    </div>
+  );
+}

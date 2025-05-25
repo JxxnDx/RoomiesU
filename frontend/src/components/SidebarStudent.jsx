@@ -29,9 +29,9 @@ export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
           </a>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+          <Link to="/mis-rentas" className="px-3">
             <FaPoll className="h-6 w-6 inline-block mr-2 -mt-2" /> Rentas
-          </a>
+          </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
            <Link to="/studenthome" className="px-3">

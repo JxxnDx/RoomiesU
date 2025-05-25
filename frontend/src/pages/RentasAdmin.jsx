@@ -3,8 +3,21 @@ import { IoArrowBack } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { COLORS } from '../constants/styles';
 import axios from 'axios';
+import RentaCardAdmin from '../components/RentaCardAdmin';
 
 export default function RentasAdmin() {
+
+  //Renta de prueba
+  const rentas = [{
+  Id_Renta: 123,
+  Correo: "juan.perez@example.com",
+  Fecha_inicio: "2025-06-01",
+  Fecha_fin: "2025-06-30",
+  Estado: "aceptada",         
+  Monto_Renta: 450000,
+  Estado_Pago: 0              
+}];
+
   const navigate = useNavigate();
 
   const [candidatos, setCandidatos] = useState([]);
@@ -84,6 +97,12 @@ export default function RentasAdmin() {
       });
   };
 
+//Lógica para los calendarios de Fecha de Inicio
+//Solo se podrá crear una renta 3 días después del día actual empezará a regir
+
+const hoy = new Date();
+hoy.setDate(hoy.getDate() + 3);
+const minStartDate = hoy.toISOString().split('T')[0]; 
 
   return (
     <div className={`bg-white p-4 w-full my-8`}>
@@ -129,6 +148,7 @@ export default function RentasAdmin() {
               name="Fecha_inicio"
               value={formData.Fecha_inicio}
               onChange={handleChange}
+              min={minStartDate}
               required
               className="w-full border border-gray-300 rounded px-4 py-2"
             />
@@ -141,6 +161,7 @@ export default function RentasAdmin() {
               name="Fecha_fin"
               value={formData.Fecha_fin}
               onChange={handleChange}
+              min={minStartDate}
               required
               className="w-full border border-gray-300 rounded px-4 py-2"
             />
@@ -170,6 +191,12 @@ export default function RentasAdmin() {
         </form>
         {message && <p className="text-green-600 font-semibold text-center">{message}</p>}
         {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
+      </div>
+      {/* En esta parte mostramos las rentas en curso o aceptadas */}
+      <div className='grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 gap-4 mt-16 border-gray-300 border-t p-4'>
+        {rentas.map((renta) => (
+        <RentaCardAdmin key={renta.Id_Renta} renta={renta} />
+      ))}
       </div>
     </div>
   );
