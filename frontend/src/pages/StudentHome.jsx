@@ -46,7 +46,7 @@ export default function StudentHome() {
   }
 
   return (
-    <div className={`text-black h-full flex flex-col p-8`}>
+    <div className={`text-black h-full flex flex-col m-8`}>
       <header className='flex flex-col md:flex-row gap-4 items-end'>
         <div className='flex flex-col flex-1 p-4'>
           <label className='font-bold pb-4'>Ordenar por precio</label>

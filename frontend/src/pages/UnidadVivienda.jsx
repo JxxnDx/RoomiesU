@@ -53,7 +53,7 @@ export default function UnidadVivienda() {
   }
 
   return (
-    <div className='antialiased bg-white min-h-screen p-8'>
+    <div className='antialiased bg-white min-h-screen m-8'>
       <h1 className={`${TEXT["title"]}`}>Unidad de vivienda</h1>
       <div className='text-black text-lg py-4'>
         <p>

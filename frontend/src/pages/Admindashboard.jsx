@@ -58,7 +58,7 @@ const [error, setError]= useState();
 // console.log(estadisticas);
   return (
     <>
-    <div className={`text-black h-full flex flex-col p-8`}>
+    <div className={`text-black h-full flex flex-col m-8`}>
       <h1 className={`${TEXT["title"]}`}>Resumen</h1>
     </div>
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8'>

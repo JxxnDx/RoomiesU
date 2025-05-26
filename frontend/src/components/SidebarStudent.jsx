@@ -26,27 +26,27 @@ export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
   <div className="flex flex-col justify-between h-[calc(100%-80px)]"> {/* 80px para el header */}
     <ul className="font-bold mt-3">
       <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/Inicio" className="px-3">
+        <Link to="/Inicio" className="px-3 w-full flex items-center">
           <FaHome className="h-6 w-6 inline-block mr-2 -mt-2" /> Inicio
         </Link>
       </li>
       <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/mis-rentas" className="px-3">
+        <Link to="/mis-rentas" className="px-3 w-full flex items-center">
           <FaPoll className="h-6 w-6 inline-block mr-2 -mt-2" /> Rentas
         </Link>
       </li>
       <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/studenthome" className="px-3">
+        <Link to="/studenthome" className="px-3 w-full flex items-center">
           <MdOutlineBedroomChild className="h-6 w-6 inline-block mr-2 -mt-2" /> Habitaciones
         </Link>
       </li>
       <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/aplicaciones" className="px-3">
+        <Link to="/aplicaciones" className="px-3 w-full flex items-center">
           <MdOutlineEmail className="h-6 w-6 inline-block mr-2 -mt-2" /> Aplicaciones
         </Link>
       </li>
       <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/crear-reseña" className="px-3">
+        <Link to="/crear-reseña" className="px-3 w-full flex items-center">
           <MdRateReview className="h-6 w-6 inline-block mr-2 -mt-2" /> Reseñas
         </Link>
       </li>
@@ -55,7 +55,7 @@ export default function SideBarStudent({ sidebarToggle, setSidebarToggle }) {
     {/* Perfil abajito para que se vea mejor */}
     <ul>
       <li className={`mb-4 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/ver-perfil" className="px-3">
+        <Link to="/ver-perfil" className="px-3 w-full flex items-center">
           <FaRegUserCircle className="h-6 w-6 inline-block mr-2 -mt-2" /> Perfil
         </Link>
       </li>
