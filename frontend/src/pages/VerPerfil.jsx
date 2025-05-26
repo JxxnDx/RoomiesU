@@ -26,7 +26,7 @@ const VerPerfil = () => {
     errors,
     handleSubmit
   } = useEditarPerfilForm(perfil);
-  console.log("Datos a enviar:", perfil);
+  // console.log("Datos a enviar:", perfil);
 
 
     if (loading) return <p>Cargando...</p>;
