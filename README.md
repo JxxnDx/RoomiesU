@@ -119,8 +119,7 @@ El backend correrá en [http://localhost:4000](http://localhost:4000) y el front
 - **Cloudinary:** Crea una cuenta gratuita en [https://cloudinary.com](https://cloudinary.com) y copia tus credenciales en el `.env`.
 
 ## Documentacion
-```
+
 
 La documentacion esta en este drive en [https://docs.google.com/document/d/1QN5l47gQXsvDv3YyB3l2S_jfcSFlaJbz7y3Mh-kKnro/edit?usp=sharing).
 
----
