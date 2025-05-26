@@ -18,12 +18,13 @@ const InicioAdmin = () => {
           incluyendo cómo navegar por las diferentes secciones, 
           los servicios que ofrecemos y cómo aplicar para una renta.
         </p>
-        <iframe width="560" height="315" className="mx-auto"
-                src="https://www.youtube.com/embed/BtLSaxRnIhc?si=8e9JJpYrfuh8Vutu" 
-                title="YouTube video player" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen></iframe>
+        <iframe width="560" height="315" 
+          src="https://www.youtube.com/embed/mm6tv6nKtEo?si=ADhOkmqYKR4fQ6b2" 
+          title="YouTube video player" frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          className="my-0 mx-auto" 
+          allowfullscreen></iframe>
       </div>
       <div className={`${COLORS["light_primary"]} rounded-lg p-6 m-8 shadow-lg`}>
         <h2 className='text-xl font-bold mb-4'>Ubicación - Bucaramanga</h2>
