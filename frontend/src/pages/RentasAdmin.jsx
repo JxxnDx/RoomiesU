@@ -38,15 +38,15 @@ export default function RentasAdmin() {
   }, []);
   
   // // Obtener rentas desde el endpoint
-  //     useEffect(() => {
+       useEffect(() => {
     
-  //       axios.get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
-  //         .then(response => setRentas(response.data))
-  //         .catch(err => {
-  //           console.error('Error al cargar las rentas:', err);
-  //           setError('Error al cargar las rentas');
-  //         });
-  //     }, [reloadRentas]);
+         axios.get('http://localhost:4000/api/aplicaciones-aceptadas', { withCredentials: true })
+           .then(response => setCandidatos(response.data))
+           .catch(err => {
+             console.error('Error al cargar los candidatos:', err);
+             setError('Error al cargar los candidatos');
+           });
+       }, []);
 
   // Manejar cambios en los inputs
  const handleChange = (e) => {
