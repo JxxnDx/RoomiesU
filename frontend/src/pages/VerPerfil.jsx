@@ -11,21 +11,21 @@ const VerPerfil = () => {
     // para hacer editable o no los inputs
     const [editMode, setEditMode] = useState(false);
     const handleEdit = () => {
-  setEditMode(true);
-};
+      setEditMode(true);
+    };
     const {
-    perfil,
-    setPerfil,
-    loading,
-    error,
-    handleChange
-  } = usePerfilData();
+      perfil,
+      setPerfil,
+      loading,
+      error,
+      handleChange
+    } = usePerfilData();
 
-  const {
-    message,
-    errors,
-    handleSubmit
-  } = useEditarPerfilForm(perfil);
+    const {
+      message,
+      errors,
+      handleSubmit
+    } = useEditarPerfilForm(perfil);
 
     if (loading) return <p>Cargando...</p>;
    if (error) return <p>Error: {error}</p>;
@@ -100,7 +100,6 @@ const VerPerfil = () => {
           <div className="flex flex-col">
             <label className="font-semibold">Sobre mí</label>
             <textarea
-                type="text"
                 name="Descripcion"
                 className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                 value={perfil.Descripcion}

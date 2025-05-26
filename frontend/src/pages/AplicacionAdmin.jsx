@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from 'react'
 import { IoArrowBack } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import AplicacionCard from '../components/AplicacionCard';
 import axios from 'axios';
+import { TEXT } from '../constants/styles';
 
 export default function AplicacionAdmin() {
     const navigate= useNavigate();
@@ -28,14 +29,13 @@ export default function AplicacionAdmin() {
  
   return (
     <>
-     <div className='grid text-center justify-start'>
-            <button 
-                      onClick={() => navigate('/studenthome')}
-                      className="flex items-center mb-6 hover:text-[#01b09e] transition-all mt-8 ml-16"
-                    >
-                      <IoArrowBack className="mr-2" /> Volver a Habitaciones
-                    </button>
-            <h1 className='text-black font-bold text-4xl ml-32 mt-4'>Aplicaciones</h1>
+     <div className='m-8'>
+            <h3 className='flex mb-4 text-black'> 
+            <Link to="/admindashboard" className='flex items-center hover:text-[#01b09e] transition-all'> 
+            <IoArrowBack className="mr-2" /> <span>Dashboard</span>
+            </Link> - 
+            <span>Aplicaciones</span></h3>
+            <h1 className={`${TEXT["title"]}`}>Aplicaciones</h1>
           
         </div>
         <div className="container mx-auto p-4">

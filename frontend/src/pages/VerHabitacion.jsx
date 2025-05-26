@@ -59,7 +59,7 @@ const navigate = useNavigate();
 }
 
     return (    
-        <div className={`flex flex-col m-4`}>
+        <div className={`flex flex-col m-8`}>
             <h1 className={`${TEXT["title"]} mb-8`}>Habitación {Id_Habitacion}</h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 md:mb-8 gap-4 w-auto">

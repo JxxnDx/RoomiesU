@@ -24,37 +24,37 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
       <div className="flex flex-col justify-between h-[calc(100%-80px)]">
       <ul className="text-black font-bold mt-3">
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/InicioAdmin" className="px-3">
+          <Link to="/InicioAdmin" className="px-3 w-full flex items-center">
             <FaHome className="h-6 w-6 inline-block mr-2 -mt-2" /> Inicio
           </Link>
         </li>
            <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/admindashboard" className="px-3">
+          <Link to="/admindashboard" className="px-3 w-full flex items-center">
             <FaPoll className="h-6 w-6 inline-block mr-2 -mt-2" /> Resumen
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/unidadvivienda" className="px-3">
+          <Link to="/unidadvivienda" className="px-3 w-full flex items-center">
             <MdApartment className="h-6 w-6 inline-block mr-2 -mt-2" /> Unidad Vivienda
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/habitacion" className="px-3">
+          <Link to="/habitacion" className="px-3 w-full flex items-center">
             <MdOutlineBedroomChild className="h-6 w-6 inline-block mr-2 -mt-2" /> Habitaciones
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/aplicaciones-admin" className="px-3">
+          <Link to="/aplicaciones-admin" className="px-3 w-full flex items-center">
             <MdOutlineEmail className="h-6 w-6 inline-block mr-2 -mt-2" /> Aplicaciones
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/rentas" className="px-3">
+          <Link to="/rentas" className="px-3 w-full flex items-center">
             <FaFileContract className="h-6 w-6 inline-block mr-2 -mt-2" /> Rentas
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <Link to="/crear-reseña-admin" className="px-3">
+          <Link to="/crear-reseña-admin" className="px-3 w-full flex items-center">
             <MdRateReview className="h-6 w-6 inline-block mr-2 -mt-2" /> Reseñas
           </Link>
         </li>
@@ -62,7 +62,7 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
       </ul>
       <ul>
       <li className={`mb-4 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-        <Link to="/ver-perfil-admin" className="px-3">
+        <Link to="/ver-perfil-admin" className="px-3 w-full flex items-center">
           <FaRegUserCircle className="h-6 w-6 inline-block mr-2 -mt-2" /> Perfil
         </Link>
       </li>

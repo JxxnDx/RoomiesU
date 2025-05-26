@@ -89,9 +89,9 @@ const [formData, setFormData] = useState({
                 <div className="flex flex-col">
                     <label className='font-bold pb-4'>Habitacion</label>
                     <select 
-                        name="Id_Habitacion"
-                        value={formData.Id_Habitacion}
-                        onChange={handleChange}
+                        name="habitacion"
+                        value=""
+                        onChange=""
                         className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                     >
                         <option value="">Selecciona una habitacion</option>
@@ -128,9 +128,9 @@ const [formData, setFormData] = useState({
                 <div className="flex flex-col">
                     <label className='font-bold pb-4'>Puntuación</label>
                     <select 
-                        name="Puntuacion"
-                        value={formData.Puntuacion}
-                        onChange={handleChange}
+                        name="puntuacion"
+                        value=""
+                        onChange=""
                         className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                     >
                         <option value="">Selecciona uno</option>

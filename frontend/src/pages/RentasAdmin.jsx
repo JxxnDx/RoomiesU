@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { IoArrowBack } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { COLORS } from '../constants/styles';
+import { COLORS, TEXT } from '../constants/styles';
 import axios from 'axios';
 import RentaCardAdmin from '../components/RentaCardAdmin';
 
@@ -28,7 +28,7 @@ export default function RentasAdmin() {
       .then(response => setRentas(response.data))
       .catch(err => {
         console.error('Error al cargar las rentas:', err);
-        setError('Error al cargar las rentas');
+        setError('No tienes rentas registradas aún');
       });
   };
 
@@ -109,17 +109,16 @@ hoy.setDate(hoy.getDate() + 3);
 const minStartDate = hoy.toISOString().split('T')[0]; 
 
   return (
-    <div className={`bg-white p-4 w-full my-8`}>
-      <button
-        onClick={() => navigate(`/habitacion`)}
-        className="flex items-center mb-6 text-gray-700 hover:text-[#01b09e] transition-all duration-300 font-medium"
-      >
-        <IoArrowBack className="mr-2 text-lg" /> Volver a Habitaciones
-      </button>
-
+    <div className={`bg-white w-full m-8`}>
+      <h3 className='flex mb-4 text-black'> 
+        <button onClick={() => navigate('/admindashboard')} className='flex items-center hover:text-[#01b09e] transition-all'> 
+          <IoArrowBack className="mr-2" /> <span>Dashboard</span>
+        </button> - 
+        <span>Rentas</span>
+      </h3>
+      <h1 className={`${TEXT["title"]}`}>Rentas</h1>
       <div>
-        <h1 className="text-4xl text-black text-center font-bold mb-8">Rentas</h1>
-        <p className="ml-16 text-xl mr-8">
+        <p className="text-lg py-4">
           En esta sección podrás crear las rentas de tu unidad de vivienda. Recuerda que solo puedes generar una renta
           si hay una aplicación aceptada a un usuario. Antes de generar la renta comunícate con él para acordar los
           términos y condiciones de la renta.
@@ -193,8 +192,8 @@ const minStartDate = hoy.toISOString().split('T')[0];
             Crear Renta
           </button>
         </form>
-        {message && <p className="text-green-600 font-semibold text-center">{message}</p>}
-        {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
+        {message && <p className="text-green-600 font-semibold text-center mt-4">{message}</p>}
+        {error && <p className="text-red-600 font-semibold text-center mt-4">{error}</p>}
       </div>
       {/* En esta parte mostramos las rentas en curso o aceptadas */}
       <div className='grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 gap-4 mt-16 border-gray-300 border-t p-4'>
