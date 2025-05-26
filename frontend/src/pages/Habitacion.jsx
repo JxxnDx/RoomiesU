@@ -5,6 +5,7 @@ import { IoBed, IoPeople, IoSquare, IoPricetag, IoCheckmarkCircle } from "react-
 import { useAdmin } from '../hooks/useAdmin';
 import { useHabitaciones } from '../hooks/useHabitaciones';
 import HabitacionCard from '../components/HabitacionCard';
+import { IoArrowBack } from 'react-icons/io5';
 
 export default function Habitaciones() {
   const [message, setMessage] = useState('');
@@ -17,12 +18,17 @@ export default function Habitaciones() {
   
 // console.log(Habitaciones);
   return (
-    <div className='antialiased bg-white min-h-screen'>
+    <div className='antialiased bg-white min-h-screen m-8'>
+      <h3 className='flex mb-4 text-black'> 
+                  <Link to="/admindashboard" className='flex items-center hover:text-[#01b09e] transition-all'> 
+                  <IoArrowBack className="mr-2" /> <span>Dashboard</span>
+                  </Link> - 
+                  <span>Habitaciones</span></h3>
       {/* Header con título y descripción */}
-      <div className='p-8'>
-        <h1 className={`${TEXT["title"]} mb-4`}>Gestión de Habitaciones</h1>
+      <h1 className={`${TEXT["title"]}`}>Gestión de Habitaciones</h1>
+      <div className=''>
         <div className=''>
-          <p className='text-lg'>
+          <p className='text-lg py-4'>
             Administra las habitaciones disponibles en tus unidades de vivienda. 
             Cada habitación puede ser configurada con diferentes características, 
             precios y disponibilidad para los estudiantes.

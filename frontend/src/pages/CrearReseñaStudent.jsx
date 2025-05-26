@@ -18,7 +18,6 @@ const CrearReseñaStudent = () => {
                     <select 
                         name="habitacion"
                         value=""
-                        onChange=""
                         className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                     >
                         <option value="">Habitación 1</option>
@@ -50,7 +49,6 @@ const CrearReseñaStudent = () => {
                     <select 
                         name="puntuacion"
                         value=""
-                        onChange=""
                         className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                     >
                         <option value="">5</option>

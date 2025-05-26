@@ -1,7 +1,8 @@
 import React,{useState, useEffect} from 'react'
 import { IoArrowBack } from 'react-icons/io5'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import RentaCardStudent from '../components/RentaCardStudents';
+import { COLORS } from '../constants/styles';
 import axios from 'axios';
 
 export default function RentasStudent() {
@@ -18,22 +19,20 @@ export default function RentasStudent() {
           .then(response => setRentas(response.data))
           .catch(err => {
             console.error('Error al cargar las rentas:', err);
-            setError('Error al cargar las rentas');
+            setError('No tienes rentas asociadas a tu cuenta');
           });
       }, []);
 
   return (
     <>
-    <div className={`bg-white p-4 w-full my-8`}>
-          <button
-            onClick={() => navigate(`/studenthome`)}
-            className="flex items-center mb-6 text-gray-700 hover:text-[#01b09e] transition-all duration-300 font-medium"
-          >
-            <IoArrowBack className="mr-2 text-lg" /> Volver a Habitaciones
-          </button>
-    
-          <div className="bg-[#f9f9f9] rounded-2xl shadow-md p-6 mx-8 mb-10 border border-gray-200">
-           <h1 className="text-4xl text-center text-[#333] font-bold mb-6">Rentas</h1>
+    <div className={`w-full m-8`}>
+          <h3 className='flex mb-4 text-black'> 
+            <Link to="/studentHome" className='flex items-center hover:text-[#01b09e] transition-all'> 
+            <IoArrowBack className="mr-2" /> <span>Volver a habitaciones</span>
+            </Link> - 
+            <span>Mis rentas</span></h3>
+          <h1 className="text-2xl font-bold mb-4">Mis rentas</h1>
+          <div className={`${COLORS["light_primary"]} rounded-2xl shadow-md p-6 mx-8 mb-10 border border-gray-200`}>
             <p className="text-lg text-gray-700 mb-4">
             En esta sección podrás ver las rentas asociadas a tu cuenta. Recuerda que los administradores son quienes generan las rentas, 
             pero estas deben estar consensuadas contigo antes de iniciar. Si alguna renta fue creada sin tu consentimiento, puedes cancelarla. 
@@ -43,8 +42,8 @@ export default function RentasStudent() {
          <li><strong>Contacta al administrador</strong> para definir los términos y condiciones del acuerdo.</li>
          <li><strong>Tienes 3 días</strong> para aceptar o cancelar una renta una vez ha sido creada.</li>
          </ul>
-         {message && <p className="text-green-600 font-semibold text-center">{message}</p>}
-         {error && <p className="text-red-600 font-semibold text-center">{error}</p>}
+         {message && <p className="text-green-600 font-semibold text-center mt-8">{message}</p>}
+         {error && <p className="text-red-600 font-semibold text-center mt-8">{error}</p>}
          </div>
          
          {/* Aquí mostramos las rentas disponibles*/}
