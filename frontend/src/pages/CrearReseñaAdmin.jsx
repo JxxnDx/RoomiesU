@@ -44,6 +44,10 @@ const [formData, setFormData] = useState({
       setError('Por favor completa todos los campos requeridos');
       return;
     }
+    if (formData.Titulo.length > 100) {
+   setError('El título no puede superar los 100 caracteres');
+   return;
+   }
     
    
     //  Aquí imprimimos los datos exactos que se van a enviar
@@ -105,6 +109,7 @@ const [formData, setFormData] = useState({
                         name="Titulo" 
                         value={formData.Titulo}
                         onChange={handleChange}
+                        maxLength={100}
                         className="w-full p-2 mt-1 rounded bg-white border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#01b09e]"
                         required
                     />
