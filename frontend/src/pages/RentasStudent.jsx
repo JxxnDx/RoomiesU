@@ -7,21 +7,33 @@ import axios from 'axios';
 export default function RentasStudent() {
 
     const[rentas, setRentas]= useState([]); 
-    const[error, setError]=useState();
+    const[error, setError]=useState('');
     const [message, setMessage] = useState('');  
-    const navigate= useNavigate;
+    const navigate= useNavigate();
 
-     // Obtener rentas desde el endpoint
-      useEffect(() => {
-    
-        axios.get('http://localhost:4000/api/rentas-estudiante', { withCredentials: true })
-          .then(response => setRentas(response.data))
-          .catch(err => {
-            console.error('Error al cargar las rentas:', err);
-            setError('Error al cargar las rentas');
-          });
-      }, []);
+        //  Función para recargar las rentas, para que cambie después de que actualicemos el estado
+  const fetchRentas = () => {
+    axios
+      .get('http://localhost:4000/api/rentas-estudiante', { withCredentials: true })
+      .then(response => setRentas(response.data))
+      .catch(err => {
+        console.error('Error al cargar las rentas:', err);
+        setError('Error al cargar las rentas');
+      });
+  };
 
+  // Carga al iniciar
+  useEffect(() => {
+    fetchRentas();
+  }, []);
+
+  useEffect(() => {
+  if (message) {
+    const timer = setTimeout(() => setMessage(''), 4000);
+    return () => clearTimeout(timer);
+  }
+}, [message]);
+  
   return (
     <>
     <div className={`bg-white p-4 w-full my-8`}>
@@ -50,7 +62,7 @@ export default function RentasStudent() {
          {/* Aquí mostramos las rentas disponibles*/}
          <div className='grid xl:grid-cols-3  md:grid-cols-2 grid-cols-1 gap-4 mt-16 border-gray-300 border-t p-4'>
                  {rentas.map((renta) => (
-                 <RentaCardStudent key={renta.Id_Renta} renta={renta} />
+                 <RentaCardStudent key={renta.Id_Renta} renta={renta} onEstadoActualizado={fetchRentas} setMessage={setMessage}/>
                ))}
                </div>
           </div>

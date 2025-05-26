@@ -77,9 +77,9 @@ export const crearRenta = async ( renta) => {
      export const getRentasByStudent = async (Id_Estudiante ) => {
    try{
     const [rows] = await pool.query(
-        `SELECT r.Fecha_inicio, r.Fecha_fin, r.Estado, a.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago 
+        `SELECT r.Id_Renta,r.Fecha_inicio, r.Fecha_fin, r.Estado, a.Correo, r.Id_Habitacion,r.Monto_Renta, r.Estado_Pago 
          FROM renta r INNER JOIN administrador a ON r.Id_Admin= a.Id_Administrador 
-         WHERE r.Id_Estudiante = 1 AND r.Estado IN ('pendiente', 'aceptada')`,
+         WHERE r.Id_Estudiante = 1 AND r.Estado IN ('pendiente','en_curso')`,
       [Id_Estudiante]
     );
     return rows;
@@ -162,7 +162,7 @@ export const crearRenta = async ( renta) => {
         `${consulta}`,
       [Estado, Id_Renta]
     );
-    console.log(rows)
+    // console.log(rows)
    if (rows.affectedRows === 0) {
         throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
       }

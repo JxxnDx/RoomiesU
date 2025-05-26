@@ -21,7 +21,7 @@ export default function RentasAdmin() {
   });
 
 
-     //  Función para recargar las aplicaciones, para que cambie después de que actualicemos el estado
+     //  Función para recargar las rentas, para que cambie después de que actualicemos el estado
   const fetchRentas = () => {
     axios
       .get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
@@ -37,16 +37,16 @@ export default function RentasAdmin() {
     fetchRentas();
   }, []);
   
-  // Obtener rentas desde el endpoint
-      useEffect(() => {
+  // // Obtener rentas desde el endpoint
+  //     useEffect(() => {
     
-        axios.get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
-          .then(response => setRentas(response.data))
-          .catch(err => {
-            console.error('Error al cargar las rentas:', err);
-            setError('Error al cargar las rentas');
-          });
-      }, [reloadRentas]);
+  //       axios.get('http://localhost:4000/api/rentas-admin', { withCredentials: true })
+  //         .then(response => setRentas(response.data))
+  //         .catch(err => {
+  //           console.error('Error al cargar las rentas:', err);
+  //           setError('Error al cargar las rentas');
+  //         });
+  //     }, [reloadRentas]);
 
   // Manejar cambios en los inputs
  const handleChange = (e) => {
