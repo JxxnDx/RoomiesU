@@ -54,9 +54,9 @@ export default function SideBar({ sidebarToggle, setSidebarToggle }) {
           </Link>
         </li>
         <li className={`mb-2 rounded hover:shadow py-2 ${COLORS["hover"]}`}>
-          <a href="#" className="px-3">
+          <Link to="/crear-reseña-admin" className="px-3">
             <MdRateReview className="h-6 w-6 inline-block mr-2 -mt-2" /> Reseñas
-          </a>
+          </Link>
         </li>
         
       </ul>

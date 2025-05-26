@@ -27,6 +27,7 @@ import Inicio from "./pages/Inicio";
 import InicioAdmin from "./pages/InicioAdmin";
 import Reseñas from "./pages/Reseña";
 import CrearReseñaStudent from "./pages/CrearReseñaStudent";
+import CrearReseñaAdmin from "./pages/CrearReseñaAdmin";
 
 // Lazy loading para las páginas principales
 const Home = lazy(() => import("./pages/Home"));
@@ -91,6 +92,7 @@ function App() {
           <Route path="/aplicaciones-admin" element={<AplicacionAdmin/>} />
           <Route path="/rentas" element={<RentasAdmin/>} />
           <Route path="/ver-perfil-admin" element={<VerPerfilAdmin />} />
+          <Route path="/crear-reseña-admin" element={<CrearReseñaAdmin />} />
         </Route>
       </Route>
 
