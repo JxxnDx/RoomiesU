@@ -1,86 +1,120 @@
-# RoomiesU
-📚 Repositorio de Proyecto de I. de Software I 
+# RoomiesU  
+📚 Repositorio del Proyecto de Ingeniería de Software I
 
-Software de Administrador de Pensiones Universitarias
+**Software de Administración de Pensiones Universitarias**
 
-En este repositorio se encuentra toda la lógica del desarrollo de una página web para facilitar el acercamiento entre un estudiante y un administrador de una pensión. Se divide por back-end y front-end, en el back se utiliza Node con Express, para el front se utiliza React y Tailwind.
+RoomiesU es una plataforma web que facilita la comunicación y gestión entre estudiantes y administradores de pensiones universitarias. El sistema está dividido en dos partes:
 
-- **Backend**: Node.js + Express
-- **Frontend**: React + Tailwind CSS
-- **Base de datos**: MySQL/MariaDB
+- **Backend:** Node.js + Express  
+- **Frontend:** React + Tailwind CSS  
+- **Base de datos:** MySQL / MariaDB
 
-
+---
 
 ## 🚀 Instalación
 
-### Requisitos
-- Node.js v16+
-- npm o yarn
-- MySQL/MariaDB
+### ✅ Requisitos previos
 
-### 1. Clonar repositorio
+- Node.js v16 o superior  
+- npm o yarn  
+- MySQL / MariaDB  
+- Cuenta de Cloudinary ([crear cuenta](https://cloudinary.com))  
+- Cuenta de Gmail con contraseña de aplicación habilitada
+
+---
+
+### 1️⃣ Clonar el repositorio
+
 ```bash
 git clone https://github.com/tu-usuario/tu-repositorio.git
 cd tu-repositorio
 ```
 
-## Dentro de la carpeta backend crea un archivo .env que contenga lo siguiente:
+---
 
-Ten en cuenta que debes crear una cuenta en cloudinary y crear un correo de gmail para la plataforma.
+### 2️⃣ Configurar variables de entorno
 
-# SMTP (Email)
+Dentro de la carpeta `backend`, crea un archivo llamado `.env` y copia el siguiente contenido:
+
+```env
+#################################
+#         CONFIGURACIÓN         #
+#       VARIABLES DE ENTORNO    #
+#################################
+
+# SMTP (Gmail)
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=tu-correo@gmail.com
-SMTP_PASS=contraseña-de-aplicación
+SMTP_PASS=tu-contraseña-de-aplicación
 SMTP_SECURE=true
 
-# Autenticación
+# JWT y Entorno
 JWT_SECRET=tu-clave-secreta-jwt
 NODE_ENV=development
 
-# Cloudinary (Debes crear cuenta en https://cloudinary.com)
-CLOUDINARY_NAME=tu-nombre-cuenta
-CLOUDINARY_API_KEY=tua-pi-key
+# Cloudinary
+CLOUDINARY_NAME=tu-nombre-de-cuenta
+CLOUDINARY_API_KEY=tu-api-key
 CLOUDINARY_API_SECRET=tu-api-secret
 
-# Database
+# Base de Datos MySQL
 DB_HOST=localhost
 DB_USER=tu-usuario
 DB_PASSWORD=tu-contraseña
 DB_NAME=plataforma_educativa
+```
 
+> ⚠️ Asegúrate de no subir este archivo al repositorio. Agrégalo a tu `.gitignore`.
 
-### Instalación de dependencias
+---
 
-# Backend
+### 3️⃣ Instalar dependencias
+
+```bash
+# Instalar dependencias del backend
 cd backend
 npm install
 
-# Frontend
-cd frontend
+# Instalar dependencias del frontend
+cd ../frontend
 npm install
+```
 
-### Arranque del proyecto
+---
 
-# Iniciar backend (desde /backend)
+### 4️⃣ Ejecutar la aplicación
+
+```bash
+# Ejecutar backend (desde /backend)
 npm run dev
 
-# Iniciar frontend (desde /frontend)
+# Ejecutar frontend (desde /frontend)
 npm run dev
+```
 
+El backend correrá en [http://localhost:4000](http://localhost:4000) y el frontend en [http://localhost:5173](http://localhost:5173).
 
-## Estructura del proyecto
+---
 
+## 🗃️ Estructura del proyecto
+
+```
 /
 ├── backend/
-│   ├── .env          # Archivo de configuración
-│   └── src/
-├── frontend/
+│   ├── .env                # Variables de entorno (no se sube al repositorio)
+│   └── src/                # Código del backend
+├── frontend/               # Aplicación React
 ├── database/
-│   └── esquema.sql   # Script de la base de datos
+│   └── esquema.sql         # Script de creación de base de datos
 └── README.md
+```
 
-# Recomendaciones:
+---
 
-Recuerda que debes importar la base de datos usando el script que esta en la carpeta database, el backend correrá en el puerto 4000 y el frontend en el puerto 5173
+## 📌 Recomendaciones
+
+- **Base de datos:** Usa el script `esquema.sql` dentro de la carpeta `database/` para crear las tablas necesarias.
+- **.env:** Asegúrate de llenar correctamente todas las variables antes de ejecutar el backend.
+- **Cloudinary:** Crea una cuenta gratuita en [https://cloudinary.com](https://cloudinary.com) y copia tus credenciales en el `.env`.
+
