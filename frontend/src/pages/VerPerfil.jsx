@@ -11,21 +11,23 @@ const VerPerfil = () => {
     // para hacer editable o no los inputs
     const [editMode, setEditMode] = useState(false);
     const handleEdit = () => {
-      setEditMode(true);
-    };
+  setEditMode(true);
+};
     const {
-      perfil,
-      setPerfil,
-      loading,
-      error,
-      handleChange
-    } = usePerfilData();
+    perfil,
+    setPerfil,
+    loading,
+    error,
+    handleChange
+  } = usePerfilData();
 
-    const {
-      message,
-      errors,
-      handleSubmit
-    } = useEditarPerfilForm(perfil);
+  const {
+    message,
+    errors,
+    handleSubmit
+  } = useEditarPerfilForm(perfil);
+  console.log("Datos a enviar:", perfil);
+
 
     if (loading) return <p>Cargando...</p>;
    if (error) return <p>Error: {error}</p>;
@@ -33,7 +35,7 @@ const VerPerfil = () => {
   return (
     <div className="m-8">
     <h3 className='flex mb-4 text-black'> 
-      <Link to="/admindashboard" className='flex items-center hover:text-[#01b09e] transition-all'> 
+      <Link to="/studenthome" className='flex items-center hover:text-[#01b09e] transition-all'> 
       <IoArrowBack className="mr-2" /> <span>Inicio</span>
       </Link> - 
       <span>Perfil</span></h3>
@@ -51,6 +53,7 @@ const VerPerfil = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Nombre && <p className="text-red-500 text-sm mt-1">{errors.Nombre}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Apellidos</label>
@@ -62,6 +65,7 @@ const VerPerfil = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Apellido && <p className="text-red-500 text-sm mt-1">{errors.Apellido}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Identificación</label>
@@ -72,7 +76,9 @@ const VerPerfil = () => {
                 value={perfil.Identificacion}
                 disabled={!editMode}
                 onChange={handleChange}
+                
             />
+            {errors.Identificacion && <p className="text-red-500 text-sm mt-1">{errors.Identificacion}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Edad</label>
@@ -84,6 +90,7 @@ const VerPerfil = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Edad && <p className="text-red-500 text-sm mt-1">{errors.Edad}</p>}
           </div>
           
           <div className="flex flex-col">
@@ -96,6 +103,9 @@ const VerPerfil = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Telefono && (
+    <p className="text-red-500 text-sm mt-1">{errors.Telefono}</p>
+  )}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Sobre mí</label>
@@ -106,6 +116,7 @@ const VerPerfil = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Descripcion && <p className="text-red-500 text-sm mt-1">{errors.Descripcion}</p>}
           </div>
         </form>
 

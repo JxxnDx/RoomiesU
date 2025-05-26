@@ -51,6 +51,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Nombre && <p className="text-red-500 text-sm mt-1">{errors.Nombre}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Apellidos</label>
@@ -62,6 +63,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Apellido && <p className="text-red-500 text-sm mt-1">{errors.Apellido}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Identificación</label>
@@ -73,6 +75,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Identificacion && <p className="text-red-500 text-sm mt-1">{errors.Identificacion}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Edad</label>
@@ -84,6 +87,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Edad && <p className="text-red-500 text-sm mt-1">{errors.Edad}</p>}
           </div>
           
           <div className="flex flex-col">
@@ -96,6 +100,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Telefono && <p className="text-red-500 text-sm mt-1">{errors.Telefono}</p>}
           </div>
           <div className="flex flex-col">
             <label className="font-semibold">Sobre mí</label>
@@ -106,6 +111,7 @@ const VerPerfilAdmin = () => {
                 disabled={!editMode}
                 onChange={handleChange}
             />
+            {errors.Descripcion && <p className="text-red-500 text-sm mt-1">{errors.Descripcion}</p>}
           </div>
         </form>
 
