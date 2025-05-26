@@ -16,3 +16,19 @@ import { pool } from "../config/db.js";
     throw error;
    } 
   }
+
+
+  export const getEstudiantesParaReseñarByAdmin = async (Id_Admin ) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT DISTINCT r.Id_Estudiante, e.Correo FROM renta r 
+        INNER JOIN estudiante e ON r.Id_Estudiante= e.Id_Estudiante 
+        WHERE r.Id_Admin = ? AND r.Estado IN ('en_curso', 'finalizada')`,
+      [Id_Admin]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los estudiantes para reseñar de este admin ", error);
+    throw error;
+   } 
+  }
