@@ -3,10 +3,9 @@
 
 **Software de Administración de Pensiones Universitarias**
 
-## **Video de guía**
+## 🎥 Video de guía
 
-[![Ver en YouTube (https://img.youtube.com/vi/mm6tv6nKtEo/hqdefault.jpg)]https://www.youtube.com/watch?v=mm6tv6nKtEo)
-
+[![Ver en YouTube](https://img.youtube.com/vi/mm6tv6nKtEo/hqdefault.jpg)](https://www.youtube.com/watch?v=mm6tv6nKtEo)
 
 RoomiesU es una plataforma web que facilita la comunicación y gestión entre estudiantes y administradores de pensiones universitarias. El sistema está dividido en dos partes:
 
