@@ -32,3 +32,34 @@ import { pool } from "../config/db.js";
     throw error;
    } 
   }
+
+  export const crearReseñaByStudent = async ( Reseña) => {
+    try{
+    const {
+      Id_Estudiante,
+      Id_Habitacion,
+      Titulo,
+      Descripcion,
+      Estado, 
+      Created_at,
+      Puntuacion
+    } = Reseña;
+  
+    const [result] = await pool.query(
+      `INSERT INTO reseña_habitacion
+       (Id_Estudiante, Id_Habitacion, Titulo, Descripcion, Estado, Created_at, Puntuacion) 
+       VALUES (?, ?, ?, ?, ?, ?,?)`,
+      [Id_Estudiante, Id_Habitacion, Titulo, Descripcion, Estado, Created_at,Puntuacion]
+    );
+  
+   return {
+        success: true,
+        message: `Reseña de habitación creada correctamente`,
+        changes: result.affectedRows
+      };
+  }catch(error){
+    console.error("❌ Error al crear la reseña por parte del estudiante", error);
+    throw error;
+  }
+
+  };

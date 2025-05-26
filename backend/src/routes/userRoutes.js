@@ -1,7 +1,7 @@
 import express from 'express';
 import { actualizarPerfilController, actualizarUnidad, getInfoPerfilController, getSectorController, getUnidadByIdController, getUnidadController, getUsersController, registrarUnidadController } from '../controllers/userController.js';
 import { verifyToken } from '../middlewares/authMiddleware.js'; 
-import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController, getEstadisticasByAdminController, getAplicacionesAceptadasByAdminController, crearRentaController, getRentasByAdminController, actualizarRentaByAdminController, registrarPagoRentaByAdminController, actualizarRentaByStudentController, getHabitacionesParaReseñarByStudentController, getEstudiantesParaReseñarByAdminController } from '../controllers/adminController.js';
+import { crearServicioController, createHabitacionController, editarHabitacionController, eliminarServicioHabitacionController, getHabitacionByIdController, getHabitacionesAdminByIdController, getServiciosController, getServiciosByIdController, getUnidadAdminByIdController, getHabitacionByIdForVerHabitacionController, crearAplicacionController, getAplicacionesByStudentController, getAplicacionesByAdminController, actualizarAplicacionController, sendEmailApplicationController, getEstadisticasByAdminController, getAplicacionesAceptadasByAdminController, crearRentaController, getRentasByAdminController, actualizarRentaByAdminController, registrarPagoRentaByAdminController, actualizarRentaByStudentController, getHabitacionesParaReseñarByStudentController, getEstudiantesParaReseñarByAdminController, crearReseñaByStudentController } from '../controllers/adminController.js';
 import { uploadSingleImage } from '../middlewares/uploadImage.js';
 import { getHabitacionesForStudentsController, getRentasByStudentController } from '../controllers/studentController.js';
 import { setAccion } from '../middlewares/setAccion.js';
@@ -48,5 +48,7 @@ router.put('/actualizar-renta-estudiante/:id/terminar', setAccion('terminar'), v
 router.put('/actualizar-renta-estudiante/:id/aceptar', setAccion('aceptar'), verifyToken, actualizarRentaByStudentController);
 router.get('/habitaciones-resenar-estudiante', verifyToken, getHabitacionesParaReseñarByStudentController);
 router.get('/estudiantes-resenar-admin', verifyToken, getEstudiantesParaReseñarByAdminController);
+router.post('/crear-resena-dehabitacion/:id', verifyToken, crearReseñaByStudentController);
+
 
 export default router;

@@ -8,7 +8,7 @@ import { actualizarAplicacion, crearAplicacion, getAplicacionesAceptadasByAdmin,
 import { sendApplicationEmail } from "../services/emailService.js";
 import { obtenerEstadisticas } from "../models/Estadisticas.js";
 import { actualizarRentaByAdmin, actualizarRentaByStudent, crearRenta, getRentasByAdmin, RegistrarPagoRentaByAdmin } from "../models/Renta.js";
-import { getEstudiantesParaReseñarByAdmin, getHabitacionesParaReseñarByStudent } from "../models/Reseñas.js";
+import { crearReseñaByStudent, getEstudiantesParaReseñarByAdmin, getHabitacionesParaReseñarByStudent } from "../models/Reseñas.js";
 
 const SECRET_KEY = process.env.JWT_SECRET ;
 
@@ -889,6 +889,66 @@ export const getEstudiantesParaReseñarByAdminController = async (req, res) => {
 
   } catch (error) {
     console.error("❌ Error en getEstudiantesParaReseñarByStudent:", error);
+    res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const crearReseñaByStudentController = async (req, res) => {
+  try {
+    let id_estudiante = null;
+    const { id } = req.params;
+    const {Puntuacion, Descripcion, Titulo} = req.body;
+
+     if (!Puntuacion || !Descripcion|| !Titulo ) {
+      return res.status(400).json({ message: "Faltan campos obligatorios" });
+    }
+
+    // Validar puntuación
+    if (Puntuacion < 0 || Puntuacion > 5) {
+      return res.status(400).json({ message: "Puntuación debe estar entre 0 y 5" });
+    }
+
+
+    //  Obtenemos el token desde las cookies
+    const token = req.cookies?.token ||
+                  req.headers?.authorization?.split(' ')[1] ||
+                  req.headers?.Authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token no proporcionado" });
+    }
+
+    try {
+      const decoded = jwt.decode(token);
+
+      id_estudiante = decoded?.userId;
+      
+
+      if (!id_estudiante) {
+        return res.status(401).json({ message: "Token inválido: no contiene un ID de estudiante" });
+      }
+
+    
+    } catch (error) {
+      console.error("❌ Error al decodificar token:", error);
+      return res.status(400).json({ message: "Token mal formado o inválido" });
+    }
+
+     // Preparar datos
+    const Reseña = {
+      Id_Estudiante: parseInt(id_estudiante),
+      Id_Habitacion: parseInt(id),
+      Created_at: new Date().toISOString().split('T')[0],
+      Titulo: Titulo,
+      Descripcion: Descripcion,
+      Estado: 'habilitado',
+      Puntuacion:parseInt(Puntuacion)
+    };
+    const resultado = await crearReseñaByStudent(Reseña);
+    return res.status(201).json(resultado);
+  } catch (error) {
+    console.error("❌ Error en crearReseña:", error);
     res.status(500).json({ message: "Error interno" });
   }
 };
