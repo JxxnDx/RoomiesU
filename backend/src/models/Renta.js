@@ -142,22 +142,27 @@ export const crearRenta = async ( renta) => {
 
     // Mapeo de acción con estado, más elegante que mi if else
   const consultasMap = {
-    cancelar: `UPDATE renta 
+    cancelada_por_estudiante: `UPDATE renta 
         SET Estado = ?
         WHERE Id_Renta = ? AND Estado ='pendiente'`,
-    terminar: `UPDATE renta 
+    finalizada: `UPDATE renta 
         SET Estado = ?
         WHERE Id_Renta = ? AND Estado ='en_curso'`,
-    aceptar: `UPDATE renta 
+    en_curso: `UPDATE renta 
         SET Estado = ?
-        WHERE Id_Renta = ? AND Estado ='en_curso'`
+        WHERE Id_Renta = ? AND Estado ='pendiente'`
   };
 
-  const consulta = consultasMap[accion];
+  const consulta = consultasMap[Estado];
+  //Validación
+  if (!consulta) {
+  throw new Error('Estado no permitido para esta operación');
+}
     const [rows] = await pool.query(
         `${consulta}`,
       [Estado, Id_Renta]
     );
+    console.log(rows)
    if (rows.affectedRows === 0) {
         throw new Error('Error inesperado: No se pudo actualizar el estado o no se encontró');
       }
