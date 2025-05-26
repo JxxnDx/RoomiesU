@@ -100,8 +100,10 @@ import { pool } from "../config/db.js";
     export const getReseñasDeEstudiante = async (Id_Estudiante) => {
    try{
     const [rows] = await pool.query(
-        `SELECT Titulo, Descripcion, Puntuacion, Created_at 
-        FROM reseña_estudiante WHERE Id_Estudiante = ? AND Estado='habilitado'`,
+        `SELECT r.Titulo, r.Descripcion, r.Puntuacion, r.Created_at, r.Id_Reseña_Estudiante , e.Nombre, e.Apellido
+        FROM reseña_estudiante r
+        INNER JOIN administrador e ON r.Id_Admin = e.Id_Administrador
+         WHERE Id_Estudiante = ? AND Estado='habilitado'`,
       [Id_Estudiante]
     );
     return rows;
@@ -114,8 +116,10 @@ import { pool } from "../config/db.js";
    export const getReseñasDeHabitacion = async (Id_Habitacion) => {
    try{
     const [rows] = await pool.query(
-        `SELECT Titulo, Descripcion, Puntuacion, Created_at 
-        FROM reseña_habitacion WHERE Id_Habitacion = ? AND Estado='habilitado'`,
+        `SELECT r.Titulo, r.Descripcion, r.Puntuacion, r.Created_at, r.Id_Reseña_Habitacion, e.Nombre, e.Apellido 
+        FROM reseña_habitacion r 
+        INNER JOIN estudiante e ON r.Id_Estudiante=e.Id_Estudiante 
+        WHERE Id_Habitacion = ? AND Estado='habilitado'`,
       [Id_Habitacion]
     );
     return rows;

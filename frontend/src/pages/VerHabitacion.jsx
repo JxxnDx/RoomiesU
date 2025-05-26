@@ -73,7 +73,7 @@ const navigate = useNavigate();
                         <h2 className="text-xl font-bold">Descripción</h2>
                         <p className="text-gray-700 line-clamp-3">{Descripcion}</p>
                     </div>
-                    <Link to="/reseñas" 
+                    <Link to={`/ver-reseñas-habitacion/${Id_Habitacion}`} 
                             className={`${COLORS["light_secundary"]} ${COLORS["hoverdark"]} text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition duration-300`}>
                             Reseñas
                     </Link>

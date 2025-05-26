@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaCheck, FaTimes, FaUser } from 'react-icons/fa';
 import { COLORS } from '../constants/styles';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function AplicacionCard({aplicacion, onEstadoActualizado, setMessage}) {
      const [error, setError] = useState();
@@ -63,7 +64,9 @@ export default function AplicacionCard({aplicacion, onEstadoActualizado, setMess
                     <p className="text-sm text-gray-600">Creada el {fechaFormateada}</p>
                     <div className="flex items-center text-sm text-gray-600">
                         <FaUser className="mr-1" />
+                        <Link to={`/ver-reseñas-estudiante/${Id_Estudiante}`}>
                         <span>Enviada por: {Correo_Estudiante}</span>
+                        </Link>
                     </div>
                 </div>
 
