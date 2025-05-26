@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function AplicacionCard({aplicacion, onEstadoActualizado, setMessage}) {
      const [error, setError] = useState();
      
-     const { Fecha_Creacion, Estado, Id_Habitacion, Descripcion, Correo_Estudiante, Id_Aplicacion } = aplicacion;
+     const { Fecha_Creacion, Estado, Id_Habitacion, Descripcion, Correo_Estudiante, Id_Aplicacion, Id_Estudiante } = aplicacion;
     
     // Formateo de fecha
     const fechaFormateada = new Date(Fecha_Creacion).toLocaleDateString('es-ES', {

@@ -8,7 +8,7 @@ import { actualizarAplicacion, crearAplicacion, getAplicacionesAceptadasByAdmin,
 import { sendApplicationEmail } from "../services/emailService.js";
 import { obtenerEstadisticas } from "../models/Estadisticas.js";
 import { actualizarRentaByAdmin, actualizarRentaByStudent, crearRenta, getRentasByAdmin, RegistrarPagoRentaByAdmin } from "../models/Renta.js";
-import { crearReseñaByAdmin, crearReseñaByStudent, getEstudiantesParaReseñarByAdmin, getHabitacionesParaReseñarByStudent } from "../models/Reseñas.js";
+import { crearReseñaByAdmin, crearReseñaByStudent, getEstudiantesParaReseñarByAdmin, getHabitacionesParaReseñarByStudent, getReseñasDeEstudiante, getReseñasDeHabitacion } from "../models/Reseñas.js";
 
 const SECRET_KEY = process.env.JWT_SECRET ;
 
@@ -1008,5 +1008,37 @@ export const crearReseñaByAdminController = async (req, res) => {
   } catch (error) {
     console.error("❌ Error en crearReseña:", error);
     res.status(500).json({ message: "Error interno" });
+  }
+};
+
+
+export const getReseñasDeEstudianteController = async (req, res) => {
+  const { id } = req.params;
+  
+
+  try {
+    const resultado = await getReseñasDeEstudiante(id);
+    if (resultado.length === 0) {
+      return res.status(200).json([]);
+    }
+    res.json(resultado);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las reseñas' });
+  }
+};
+
+
+export const getReseñasDeHabitacionController = async (req, res) => {
+  const { id } = req.params;
+  
+
+  try {
+    const resultado = await getReseñasDeHabitacion(id);
+    if (resultado.length === 0) {
+      return res.status(200).json([]);
+    }
+    res.json(resultado);
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener las reseñas' });
   }
 };

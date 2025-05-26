@@ -96,3 +96,33 @@ import { pool } from "../config/db.js";
 
   };
 
+
+    export const getReseñasDeEstudiante = async (Id_Estudiante) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT Titulo, Descripcion, Puntuacion, Created_at 
+        FROM reseña_estudiante WHERE Id_Estudiante = ? AND Estado='habilitado'`,
+      [Id_Estudiante]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los estudiantes para reseñar de este admin ", error);
+    throw error;
+   } 
+  }
+
+   export const getReseñasDeHabitacion = async (Id_Habitacion) => {
+   try{
+    const [rows] = await pool.query(
+        `SELECT Titulo, Descripcion, Puntuacion, Created_at 
+        FROM reseña_habitacion WHERE Id_Habitacion = ? AND Estado='habilitado'`,
+      [Id_Habitacion]
+    );
+    return rows;
+   } catch(error){
+    console.error("❌ Error al obtener los estudiantes para reseñar de este admin ", error);
+    throw error;
+   } 
+  }
+
+
