@@ -9,10 +9,12 @@ import { useEditarPerfilForm } from "../hooks/useEditarPerfilForm";
 const VerPerfilAdmin = () => {
 
     // para hacer editable o no los inputs
-    const [editMode, setEditMode] = useState(false);
-    const handleEdit = () => {
-  setEditMode(true);
-};
+//     const [editMode, setEditMode] = useState(false);
+//     const handleEdit = () => {
+//   setEditMode(true);
+// };
+  const [editMode, setEditMode] = useState(false);
+
     const {
     perfil,
     setPerfil,
@@ -24,8 +26,9 @@ const VerPerfilAdmin = () => {
   const {
     message,
     errors,
-    handleSubmit
-  } = useEditarPerfilForm(perfil);
+    handleSubmit,
+    handleEdit
+  } = useEditarPerfilForm(perfil, setEditMode);
 
     if (loading) return <p>Cargando...</p>;
    if (error) return <p>Error: {error}</p>;

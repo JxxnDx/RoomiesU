@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-export const useEditarPerfilForm = (perfil) => {
+export const useEditarPerfilForm = (perfil, setEditMode) => {
   const [message, setMessage] = useState({ text: '', type: '' });
   const [errors, setErrors] = useState({
     Nombre: '',
@@ -42,6 +42,15 @@ export const useEditarPerfilForm = (perfil) => {
   return isValid;
 };
 
+    // para hacer editable o no los inputs
+    // const [editMode, setEditMode] = useState(false);
+    // const handleEdit = () => {
+    //   setEditMode(true);
+    // };
+    const handleEdit = () => {
+      setEditMode(true);
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage({ text: '', type: '' });
@@ -52,18 +61,15 @@ export const useEditarPerfilForm = (perfil) => {
       return;
     }
     console.log("Validación pasó?:", validateForm());
-
     
     const data = {
-  Nombre: perfil.Nombre,
-  Apellido: perfil.Apellido,
-  Descripcion: perfil.Descripcion,
-  Telefono: perfil.Telefono,
-  Identificacion: perfil.Identificacion,
-  Edad: perfil.Edad
-};
-
-
+      Nombre: perfil.Nombre,
+      Apellido: perfil.Apellido,
+      Descripcion: perfil.Descripcion,
+      Telefono: perfil.Telefono,
+      Identificacion: perfil.Identificacion,
+      Edad: perfil.Edad
+    };
 
     try {
       const response = await axios.put(`http://localhost:4000/api/editar-perfil`, data, {
@@ -78,7 +84,7 @@ export const useEditarPerfilForm = (perfil) => {
           text: 'Perfil actualizado correctamente', 
           type: 'success' 
         });
-         
+         setEditMode(false); 
         
       }
     } catch (err) {
@@ -105,6 +111,7 @@ export const useEditarPerfilForm = (perfil) => {
   return {
     message,
     errors,
-    handleSubmit
+    handleSubmit,
+    handleEdit
   };
 };

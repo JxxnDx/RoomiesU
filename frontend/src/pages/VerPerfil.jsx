@@ -10,9 +10,7 @@ const VerPerfil = () => {
 
     // para hacer editable o no los inputs
     const [editMode, setEditMode] = useState(false);
-    const handleEdit = () => {
-  setEditMode(true);
-};
+
     const {
     perfil,
     setPerfil,
@@ -24,8 +22,9 @@ const VerPerfil = () => {
   const {
     message,
     errors,
-    handleSubmit
-  } = useEditarPerfilForm(perfil);
+    handleSubmit,
+    handleEdit
+  } = useEditarPerfilForm(perfil, setEditMode);
   // console.log("Datos a enviar:", perfil);
 
 
