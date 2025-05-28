@@ -126,5 +126,5 @@ El backend correrá en [http://localhost:4000](http://localhost:4000) y el front
 
 
 La documentacion esta en este documento en 
-([Documentación](https://docs.google.com/document/d/1QN5l47gQXsvDv3YyB3l2S_jfcSFlaJbz7y3Mh-kKnro/edit?usp=sharing)) .
+([Documentación Oficial](https://docs.google.com/document/d/1QN5l47gQXsvDv3YyB3l2S_jfcSFlaJbz7y3Mh-kKnro/edit?usp=sharing)) .
 
