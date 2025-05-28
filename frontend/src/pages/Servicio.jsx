@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import ServicesItem from '../components/ServicesItem';
 import { IoArrowBack } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 
 export default function Servicio() {
@@ -81,14 +82,13 @@ const [formData, setFormData] = useState({
   return (
     <>
     {/* Header con título y descripción */}
-          <div className='p-8'>
-            <button 
-                      onClick={() => navigate('/habitacion')}
-                      className="flex items-center mb-6 hover:text-[#01b09e] transition-all"
-                    >
-                      <IoArrowBack className="mr-2" /> Volver a Habitaciones
-                    </button>
-            <h1 className={`${TEXT["title"]} mb-4 flex justify-center text-4xl`}>Servicios</h1>
+          <div className='m-8'>
+            <h3 className='flex mb-4 text-black'> 
+            <Link to="/habitaciones" className='flex items-center hover:text-[#01b09e] transition-all'> 
+            <IoArrowBack className="mr-2" /> <span>Volver a habitaciones</span>
+            </Link> - 
+            <span>Servicios</span></h3>
+            <h1 className="text-2xl font-bold mb-4">Añade servicios</h1>
             <div >
               <p className='text-lg'>
                 Agrega los servicios que vas a ofrecer en tus habitaciones para que tus futuros huéspedes se sientan cómodos en su instancia
