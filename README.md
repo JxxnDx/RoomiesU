@@ -1,5 +1,5 @@
 # RoomiesU  
-📚 Repositorio del Proyecto de Ingeniería de Software I
+📚 Repositorio del Proyecto de Ingeniería de Software I - RoomiesU
 
 **Software de Administración de Pensiones Universitarias**
 
