@@ -1,0 +1,82 @@
+# Docker Compose usando imágenes de DockerHub
+# Reemplaza "TU_USUARIO_DOCKERHUB" con tu usuario real de DockerHub
+
+version: '3.8'
+
+services:
+  # Base de datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: roomiesu_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-roomies_test}
+      MYSQL_USER: ${DB_USER:-roomies_user}
+      MYSQL_PASSWORD: ${DB_PASS:-roomies_password}
+    ports:
+      - "3306:3306"
+    volumes:
+      # Volumen para persistencia de datos
+      - mysql_data:/var/lib/mysql
+      # Script de inicialización
+      - ./database/esquema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    networks:
+      - roomiesu_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend (desde DockerHub)
+  backend:
+    # IMPORTANTE: Reemplaza "TU_USUARIO_DOCKERHUB" con tu usuario de DockerHub
+    image: TU_USUARIO_DOCKERHUB/roomiesu-backend:latest
+    container_name: roomiesu_backend
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: ${DB_USER:-roomies_user}
+      DB_PASS: ${DB_PASS:-roomies_password}
+      DB_NAME: ${DB_NAME:-roomies_test}
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this}
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - roomiesu_network
+
+  # Frontend (desde DockerHub)
+  frontend:
+    # IMPORTANTE: Reemplaza "TU_USUARIO_DOCKERHUB" con tu usuario de DockerHub
+    image: TU_USUARIO_DOCKERHUB/roomiesu-frontend:latest
+    container_name: roomiesu_frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:4000}
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - roomiesu_network
+
+volumes:
+  # Volumen nombrado para persistencia de MySQL
+  mysql_data:
+    driver: local
+
+networks:
+  roomiesu_network:
+    driver: bridge

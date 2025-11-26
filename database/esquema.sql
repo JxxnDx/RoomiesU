@@ -437,6 +437,65 @@ ALTER TABLE `servicio_pension`
 ALTER TABLE `unidad_vivienda`
   ADD CONSTRAINT `unidad_vivienda_ibfk_1` FOREIGN KEY (`Id_Sector`) REFERENCES `sector` (`Id_Sector`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `unidad_vivienda_ibfk_2` FOREIGN KEY (`Id_Admin`) REFERENCES `administrador` (`Id_Administrador`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Volcado de datos para la tabla `sector`
+-- Sectores/Barrios principales de Bucaramanga
+--
+
+INSERT INTO `sector` (`Id_Sector`, `Nombre`) VALUES
+(1, 'Cabecera del Llano'),
+(2, 'Centro'),
+(3, 'San Francisco'),
+(4, 'Provenza'),
+(5, 'Álamos'),
+(6, 'Sotomayor'),
+(7, 'García Rovira'),
+(8, 'Real de Minas'),
+(9, 'Ciudad Jardín'),
+(10, 'Conucos'),
+(11, 'La Aurora'),
+(12, 'La Floresta'),
+(13, 'Campo Hermoso'),
+(14, 'Morrorico'),
+(15, 'Toledo Plata'),
+(16, 'Lagos del Cacique'),
+(17, 'Altos de Cabecera'),
+(18, 'La Juventud'),
+(19, 'Ciudadela Real de Minas'),
+(20, 'Estoraques'),
+(21, 'San Alonso'),
+(22, 'Café Madrid'),
+(23, 'Fontana'),
+(24, 'Mutis'),
+(25, 'Antonia Santos'),
+(26, 'La Libertad'),
+(27, 'Santa Bárbara'),
+(28, 'Bucaramanga'),
+(29, 'La Universidad'),
+(30, 'Diamante');
+
+--
+-- Volcado de datos para la tabla `servicio`
+-- Servicios comunes en pensiones/habitaciones
+--
+
+INSERT INTO `servicio` (`Id_Servicio`, `Nombre`) VALUES
+(1, 'WiFi'),
+(2, 'Agua Caliente'),
+(3, 'Lavandería'),
+(4, 'Cocina'),
+(5, 'Parqueadero'),
+(6, 'Seguridad 24/7'),
+(7, 'Aseo'),
+(8, 'TV Cable'),
+(9, 'Amoblado'),
+(10, 'Aire Acondicionado'),
+(11, 'Calefacción'),
+(12, 'Zona de Estudio'),
+(13, 'Zona Social'),
+(14, 'Baño Privado');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
